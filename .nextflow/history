@@ -1,0 +1,2 @@
+2019-11-18 17:49:20	4.6s	cheesy_dijkstra	OK	02e817a56aee1a62c1f9947f0b9cc847	c53cd349-6cf7-49cb-8f24-616807a6572a	nextflow run tutorial.nf
+2020-01-24 12:49:25	2h 48m 4s	wise_hypatia	ERR	2c4e0d2bf2821248955a657d00d2eda4	c7e3c860-e222-413c-bc51-aec6a364d6e3	nextflow run singlecell/cellranger/cellranger.nf -c singlecell/cellranger/params.config
