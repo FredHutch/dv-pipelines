@@ -8,6 +8,7 @@ process QCFilter {
   echo false
   module 'R/3.6.1-foss-2016b-fh2'
   scratch "/fh/scratch/delete30/warren_h/sravisha/"
+  publishDir "$params.output.folder/Preprocess/CDS"
   input:
     val count_dir from count_dir
     each sample from sample_list
@@ -22,6 +23,7 @@ process QCFilter {
   library(scater)
   library(tidyverse)
   library(DropletUtils)
+  set.seed(12357)
   ## Load in sample data
   cds <- read10xCounts(paste("${count_dir}", "${sample}", "outs", "filtered_feature_bc_matrix", sep="/"))
   cds\$Sample <- "${sample}"
@@ -42,7 +44,7 @@ process QCFilter {
 
 process PlotQC {
   echo false
-  publishDir "$params.output.folder/Metadata"
+  publishDir "$params.output.folder/Preprocess/QCReports"
   module 'R/3.6.1-foss-2016b-fh2'
 
   input:
@@ -56,7 +58,7 @@ process PlotQC {
   library(tidyverse)
   cds_list <- c("${cds_list.join('\",\"')}")
   getDiscardSummary <- function(cds_file) {
-    cds <- readRDS(cds_file)
+    cds <- read10xCounts(cds_file)
     discard_summary <- metadata(cds)\$qc_fail_summary
     return(discard_summary)
   }
