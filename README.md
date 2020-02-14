@@ -1,50 +1,21 @@
-## Nextflow: Getting started 
+# Nextflow pipelines for scRNA-Seq and ImmunoSeq analysis
 
-1. Load nextflow on gizmo
+The repository contains nextflow scripts to run different workflows for scRNA-Seq analysis as well as MiXCR workflow for AIRR-Seq data analysis. The scRNA-Seq workflows are divide into five logical steps
 
-```
-ml nextflow
-```
-
-2. Hello world
-
-Lets now try the hello world script from the next getting started documentation. The workflow defines two processes, splitLetters and convertToUpper. The parameters supplied to the workflow are params.str
-
-```
-#!/usr/bin/env nextflow
-
-params.str = "Hello world!"
-
-process splitLetters {
-	
-	output:
-	file 'chunk_*' into letters
-
-	"""
-	printf '${params.str}' | split -b 6 - chunk_
-	"""
-
-}
-
-process convertToUpper {
-	
-	input:
-	file x from letters.flatten()
-
-	output:
-	stdout result
-
-	"""
-	cat $x | tr '[a-z]' '[A-Z]'
-	"""
-}
-
-results.view { it.trim() }
-```
+1. Count matrix generation
+2. Preprocessing
+3. Clustering
+4. Cell-type classification
+5. Differential expression analysis
+6. Trajectory analysis
 
 
-Run this script using the command
+## scRNA-Seq and AIRR-Seq tools incorporated
 
-```
-nextflow run tutorial.nf
-```
+1. MiXCR
+2. Monocle3
+3. Seurat
+4. Scanpy
+5. Scater
+6. Scran
+7. DropletUtils
