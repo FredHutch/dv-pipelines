@@ -8,7 +8,8 @@ acenters = Channel.from(params.osca.abinitio.centers)
 pdownsample = Channel.from(params.osca.priori.nsample)
 pcenters = Channel.from(params.osca.priori.centers)
 
-process GAT_ABINTIO_CLUSTER {
+process OSCA_ABINTIO_CLUSTER {
+
   echo false
   scratch "/fh/scratch/delete30/warren_h/sravisha/"
   publishDir "$params.output.folder/Gattardo/Cluster/Abinitio", mode : 'copy'
@@ -63,7 +64,7 @@ process GAT_ABINTIO_CLUSTER {
 
 }
 
-process GAT_PRIORI_CLUSTER {
+process OSCA_PRIORI_CLUSTER {
   echo false
   publishDir "$params.output.folder/Gattardo/Cluster/Priori"
   module 'R/3.6.1-foss-2016b-fh2'
