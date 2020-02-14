@@ -1,0 +1,4 @@
+# Folders to ignore
+data
+# Files to ignore
+*.code-workspace
