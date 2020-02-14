@@ -36,7 +36,7 @@ process TENX_PROCESS {
     library(tidyverse)
     data <- read_csv('metadata.csv')
     data <- data %>% filter(platform == '10XGenomics')
-    data <- data %>% mutate(library= str_extract(library, "(GEX|VDJ)"))
+    data <- data %>% mutate(library= str_extract(locus, "(GEX|VDJ)"))
     data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="_"))
     data <- data %>% mutate(fastqFolder = "${fastq_path}")
     data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/${study}/"))
@@ -187,7 +187,7 @@ process TENX_VDJ {
     path "${sample.sampleName}"
 
   when:
-    run_vd == 0
+    run_vd == 1
 
   """
   cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqFolder --sample=$sample.fastqSample
