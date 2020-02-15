@@ -1,0 +1,674 @@
+Jan-24 12:49:23.194 [main] DEBUG nextflow.cli.Launcher - $> nextflow run singlecell/cellranger/cellranger.nf -c singlecell/cellranger/params.config
+Jan-24 12:49:23.644 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 19.12.0-edge
+Jan-24 12:49:23.664 [main] INFO  nextflow.cli.CmdRun - Launching `singlecell/cellranger/cellranger.nf` [wise_hypatia] - revision: 2c4e0d2bf2
+Jan-24 12:49:23.727 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /home/sravisha/projects/NextFlow/nextflow.config
+Jan-24 12:49:23.732 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /home/sravisha/projects/NextFlow/singlecell/cellranger/params.config
+Jan-24 12:49:23.732 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/sravisha/projects/NextFlow/nextflow.config
+Jan-24 12:49:23.733 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /home/sravisha/projects/NextFlow/singlecell/cellranger/params.config
+Jan-24 12:49:23.792 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jan-24 12:49:24.971 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jan-24 12:49:25.244 [main] DEBUG nextflow.Session - Session uuid: c7e3c860-e222-413c-bc51-aec6a364d6e3
+Jan-24 12:49:25.244 [main] DEBUG nextflow.Session - Run name: wise_hypatia
+Jan-24 12:49:25.244 [main] DEBUG nextflow.Session - Executor pool size: 4
+Jan-24 12:49:25.269 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 19.12.0-edge build 5244
+  Created: 20-12-2019 11:06 UTC (03:06 PDT)
+  System: Linux 3.13.0-143-generic
+  Runtime: Groovy 2.5.8 on Java HotSpot(TM) 64-Bit Server VM 1.8.0_181-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 22342@gizmof241.fhcrc.org [140.107.220.0]
+  CPUs: 4 - Mem: 31.3 GB (23.4 GB) - Swap: 16 GB (15.9 GB)
+Jan-24 12:49:25.302 [main] DEBUG nextflow.Session - Work-dir: /home/sravisha/projects/NextFlow/work [nfs]
+Jan-24 12:49:25.303 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/sravisha/projects/NextFlow/singlecell/cellranger/bin
+Jan-24 12:49:25.326 [main] DEBUG nextflow.Session - Observer factory: TowerFactory
+Jan-24 12:49:25.329 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jan-24 12:49:25.647 [main] DEBUG nextflow.Session - Session start invoked
+Jan-24 12:49:26.157 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jan-24 12:49:26.430 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Jan-24 12:49:26.431 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Jan-24 12:49:26.435 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Jan-24 12:49:26.440 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=4; memory=31.3 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Jan-24 12:49:26.500 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > TENX_PROCESS -- maxForks: 4; blocking: false
+Jan-24 12:49:26.723 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:gizmo_largenode` matches label `gizmo_largenode` for process with name TENX_COUNT
+Jan-24 12:49:26.725 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jan-24 12:49:26.726 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jan-24 12:49:26.747 [main] DEBUG nextflow.executor.Executor - [warm up] executor > slurm
+Jan-24 12:49:26.752 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'slurm' > capacity: 100; pollInterval: 5s; dumpInterval: 5m 
+Jan-24 12:49:26.787 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' > queue-stat-interval: 1m
+Jan-24 12:49:26.789 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > TENX_COUNT -- maxForks: 4; blocking: false
+Jan-24 12:49:26.811 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:gizmo_largenode` matches label `gizmo_largenode` for process with name TENX_AGGR
+Jan-24 12:49:26.812 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jan-24 12:49:26.812 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jan-24 12:49:26.871 [main] DEBUG nextflow.processor.TaskProcessor - Creating *combiner* operator for each param(s) at index(es): [1]
+Jan-24 12:49:26.904 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > TENX_AGGR -- maxForks: 4; blocking: false
+Jan-24 12:49:26.926 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:gizmo` matches label `gizmo` for process with name TENX_MATRIX
+Jan-24 12:49:26.927 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jan-24 12:49:26.927 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jan-24 12:49:26.928 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > TENX_MATRIX -- maxForks: 4; blocking: false
+Jan-24 12:49:26.951 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:gizmo_largenode` matches label `gizmo_largenode` for process with name TENX_VDJ
+Jan-24 12:49:26.956 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jan-24 12:49:26.956 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jan-24 12:49:26.957 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator > TENX_VDJ -- maxForks: 4; blocking: false
+Jan-24 12:49:26.981 [main] DEBUG nextflow.script.BaseScript - No entry workflow defined
+Jan-24 12:49:26.981 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Jan-24 12:49:26.981 [main] DEBUG nextflow.Session - Session await
+Jan-24 12:49:27.008 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Jan-24 12:49:27.026 [Task submitter] INFO  nextflow.Session - [16/b7af3d] Submitted process > TENX_PROCESS (1)
+Jan-24 12:49:34.894 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: TENX_PROCESS (1); status: COMPLETED; exit: 0; error: -; workDir: /home/sravisha/projects/NextFlow/work/16/b7af3df3ccc7b4ab024a24b2ae6d11]
+Jan-24 12:49:35.135 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process TENX_VDJ (1) > jobId: 44662446; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862
+Jan-24 12:49:35.136 [Task submitter] INFO  nextflow.Session - [92/94d0c1] Submitted process > TENX_VDJ (1)
+Jan-24 12:49:35.273 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process TENX_COUNT (2) > jobId: 44662447; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158
+Jan-24 12:49:35.273 [Task submitter] INFO  nextflow.Session - [97/10a71c] Submitted process > TENX_COUNT (2)
+Jan-24 12:49:35.383 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process TENX_VDJ (2) > jobId: 44662448; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca
+Jan-24 12:49:35.383 [Task submitter] INFO  nextflow.Session - [d9/281125] Submitted process > TENX_VDJ (2)
+Jan-24 12:49:35.440 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process TENX_COUNT (1) > jobId: 44662449; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b
+Jan-24 12:49:35.441 [Task submitter] INFO  nextflow.Session - [3a/0d5791] Submitted process > TENX_COUNT (1)
+Jan-24 12:54:26.633 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 12:54:31.777 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 12:59:26.687 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 12:59:31.784 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:04:26.702 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:04:31.793 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:09:26.729 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:09:31.804 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:14:26.748 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:14:31.816 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:19:26.759 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:19:31.822 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:24:26.771 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:24:31.831 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:29:26.779 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:29:31.841 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:34:26.785 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:34:31.851 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:39:26.883 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:39:31.858 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:44:26.886 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:44:31.865 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:49:26.896 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:49:31.873 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:54:26.983 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:54:31.879 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 13:59:26.996 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 13:59:31.883 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:04:27.001 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:04:31.888 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:09:27.101 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:09:31.893 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:14:27.105 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:14:31.905 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:19:27.114 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:19:31.914 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:24:27.123 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:24:31.920 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:29:27.216 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:29:31.932 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:34:27.300 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:34:31.940 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:39:27.386 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:39:31.949 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:44:27.474 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:44:31.954 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:49:27.567 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:49:31.961 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:54:27.657 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:54:31.969 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 14:59:27.748 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 14:59:31.976 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:04:27.836 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:04:31.987 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 4 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: -; ]
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:06:46.990 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 44662446; id: 4; name: TENX_VDJ (1); status: COMPLETED; exit: 0; error: -; workDir: /home/sravisha/projects/NextFlow/work/92/94d0c1d83598f18653422a01122862 started: 1579898976775; exited: 2020-01-24T23:06:03Z; ]
+Jan-24 15:09:27.931 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:09:31.990 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:14:28.019 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:14:31.996 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:19:28.108 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:19:32.004 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:24:28.202 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:24:32.012 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:29:28.292 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:29:32.017 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:34:28.381 [Task monitor] DEBUG n.processor.TaskPollingMonitor - No more task to compute -- The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:34:32.026 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor slurm > tasks to be completed: 3 -- submitted tasks are shown below
+~> TaskHandler[jobId: 44662447; id: 3; name: TENX_COUNT (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/97/10a71c2384350fd3b36e2e21f26158 started: 1579898976830; exited: -; ]
+~> TaskHandler[jobId: 44662448; id: 5; name: TENX_VDJ (2); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/d9/28112577a07e35a151927a7b4a91ca started: 1579898976832; exited: -; ]
+~> TaskHandler[jobId: 44662449; id: 2; name: TENX_COUNT (1); status: RUNNING; exit: -; error: -; workDir: /home/sravisha/projects/NextFlow/work/3a/0d5791b8f63326c33daf5b94df263b started: 1579899096774; exited: -; ]
+Jan-24 15:37:28.932 [SIGINT handler] DEBUG nextflow.Session - Session aborted -- Cause: SIGINT
+Jan-24 15:37:28.934 [SIGINT handler] DEBUG nextflow.Session - The following nodes are still active:
+[process] TENX_AGGR
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: samplesheet
+  port 1: (value) bound ; channel: __$eachinparam<1>
+  port 2: (queue) OPEN  ; channel: status
+  port 3: (cntrl) -     ; channel: $
+
+[process] TENX_MATRIX
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: aggr_out
+  port 1: (cntrl) -     ; channel: $
+
+Jan-24 15:37:28.936 [main] DEBUG nextflow.Session - Session await > all process finished
+Jan-24 15:37:28.936 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jan-24 15:37:28.946 [main] WARN  n.processor.TaskPollingMonitor - Killing pending tasks (3)
+Jan-24 15:37:29.003 [main] DEBUG nextflow.trace.StatsObserver - Workflow completed > WorkflowStats[succeedCount=2; failedCount=3; ignoredCount=0; cachedCount=0; succeedDuration=22h 51m 50s; failedDuration=0ms; cachedDuration=0ms]
+Jan-24 15:37:29.242 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Jan-24 15:37:29.288 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
