@@ -1,0 +1,75 @@
+{
+    "title": "Monocle Preprocessing",
+    "type": "object",
+    "required": [
+        "num_dim",
+        "norm_method",
+        "reduction_method"
+    ],
+    "properties": {
+        "reduction_method": {
+            "type": "string",
+            "title": "Reduction Method"
+        },
+        "num_dim": {
+            "type": "integer",
+            "title": "Enter the Number of Dimensions"
+        },
+        "norm_method": {
+            "type": "array",
+            "title": "Select a Normalization Method",
+            "minItems": 1,
+            "items": {
+                "type": "string",
+                "enum": ["log", "size_only"]
+            },
+            "uniqueItems": true
+        },
+        "reducedims": {
+            "title": "Monocle Reduce Dimensions",
+            "type": "object",
+            
+            "required": [
+                "reducedims"
+            ],
+            "properties": {
+                "reducedims": {
+                    "type": "array",
+                    "title": "Select a Reduction Method",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "enum": ["UMAP", "tSNE", "PCA"],
+                    },
+                    "uniqueItems": true
+                }
+            }
+        },
+        "clustercells": {
+            "title": "Monocle Cluster Cells",
+            "type": "object",
+            "required": [
+                "clustercells"
+            ],
+            "properties": {
+                "clustercells": {
+                    "type": "array",
+                    "title": "Select a Clustering Method",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "enum": ["leiden", "louvain"],
+                    },
+                    "uniqueItems": true
+                }
+            }
+        }
+    }
+}
+
+// form data
+{
+    "reduction_method": {
+        "reduction_method": "PCA",
+      }
+    }
