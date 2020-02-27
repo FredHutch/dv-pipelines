@@ -1,0 +1,50 @@
+{
+    "title": "OSCA",
+    "type": "object",
+    "properties": {
+        "nsample": {
+            "title": "Number of Samples",
+            "type": "boolean"
+        },
+        "nfeatures": {
+            "type": "integer",
+            "title": "Choose the number of features"
+        },
+        "centers": {
+            "type": "integer",
+            "title": "Choose the number of centers"
+        },
+        "priori": {
+            "title": "OSCA Priori",
+            "type": "object",
+            "properties": {
+                "nsample": {
+                    "title": "Number of samples",
+                    "type": "boolean"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Choose the number of centers"
+                }
+            }
+        },
+        "UMAP": {
+            "title": "OSCA Priori",
+            "type": "object",
+            "properties": {
+                "nsample": {
+                    "title": "Number of samples",
+                    "type": "boolean"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Choose the number of centers"
+                },
+                "neighbors": {
+                    "type": "integer",
+                    "title": "Choose the number of neighbors"
+                }
+            }
+        }
+    }
+}
