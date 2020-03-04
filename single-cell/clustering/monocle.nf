@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-cds_path = Channel.fromPath(params.input.cds_path + '/*.rds')
+cds_path = Channel.fromPath(params.input.cds_path + '/*_filtered_monocle3_cds.rds')
 sample_list = Channel.from(params.input.sample_list)
 num_cores = Channel.from(params.input.num_cores)
 num_dim = Channel.from(params.monocle.preprocess.num_dim)
@@ -13,7 +13,7 @@ cluster_number = Channel.from(params.monocle.clustercells.cluster_number)
 process MON_CLUSTER {
   echo false
   scratch "/fh/scratch/delete30/warren_h/sravisha/"
-  publishDir "$params.output.folder/Monocle/Cluster/CDS" , mode : 'copy'
+  publishDir "$params.output.folder/Monocle/Cluster" , mode : 'copy'
   module 'R/3.6.1-foss-2016b-fh2'
   label 'gizmo'
   input:
@@ -39,15 +39,12 @@ process MON_CLUSTER {
     set.seed(12357)
 
     cds <- readRDS("${cds}")
-    gene_metadata <- rowData(cds)
-    cell_metadata <- colData(cds)
-    row.names(cell_metadata) <- cell_metadata\$Barcode
-    cds <- new_cell_data_set(expression_data = counts(cds), gene_metadata = gene_metadata, cell_metadata = cell_metadata)
+    sample <- metadata(cds)\$Sample
     cds <- preprocess_cds(cds, num_dim = ${pdim}, norm_method = "${pnorm}", method = "${preduce}")
     cds <- reduce_dimension(cds, reduction_method = "${rreduce}", preprocess_method = "${preduce}")
     cds <- cluster_cells(cds, reduction_method = "${rreduce}", k = ${cnumber}, cluster_method = "${cmethod}")
     run_condition <- tibble(uuid = "${uuid}", cds_file = paste(paste("Monocle", "${uuid}", sep="_"), "rds", sep="."), preprocess_num_dim = ${pdim}, preprocess_norm_method = "${pnorm}",
-                            preprocess_method = "${preduce}", reduction_method = "${rreduce}", k = ${cnumber}, cluster_method = "${cmethod}", sample = "${sample}")
+                            preprocess_method = "${preduce}", reduction_method = "${rreduce}", k = ${cnumber}, cluster_method = "${cmethod}", sample = sample)
     metadata(cds) <- list(run_condition = run_condition)
     saveRDS(cds, paste(paste("Monocle", "${uuid}", sep="_"), "rds", sep="."))
     fig <- plot_cells(cds, reduction_method="${rreduce}")
@@ -59,7 +56,7 @@ process MON_CLUSTER {
 process MON_GATHER_METADATA {
 
   echo false
-  publishDir "$params.output.folder/Monocle/Cluster" , mode : 'copy'
+  publishDir "$params.output.folder/Monocle/Cluster/Metadata" , mode : 'copy'
   module 'R/3.6.1-foss-2016b-fh2'
 
   input:

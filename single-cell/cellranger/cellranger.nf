@@ -15,7 +15,7 @@ run_gex.into{ count_gex ; aggr_gex ; mat_gex}
 
 process TENX_PROCESS {
   echo false
-  publishDir "$params.output.folder/Metadata"
+  publishDir "$params.output.folder/Metadata", mode : 'copy'
   module 'R/3.6.1-foss-2016b-fh2'
   input:
     file 'metadata.csv' from metadata
@@ -37,18 +37,19 @@ process TENX_PROCESS {
     data <- read_csv('metadata.csv')
     data <- data %>% filter(platform == '10XGenomics')
     data <- data %>% mutate(library= str_extract(locus, "(GEX|VDJ)"))
-    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="_"))
+    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="/"))
     data <- data %>% mutate(fastqFolder = "${fastq_path}")
     data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/${study}/"))
     data <- data %>% mutate(indices = paste("SI-GA-", indices, sep=""))
-    data <- data %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", sampleName, "outs/molecule_info.h5", sep="/"))
-    data_gex <- data %>% filter(library == 'GEX')
-    data_vdj <- data %>% filter(library == 'VDJ')
-    data_gex_h5 <- data_gex %>% rename(library_id = sampleName)
+    data_gex <- data %>% filter(library == "GEX")
+    data_vdj <- data %>% filter(library == "VDJ")
+    data_gex <- data_gex %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", repoName, "outs/molecule_info.h5", sep="/"))
+    data_vdj <- data_vdj %>% mutate(vdj_sequences = paste("$params.output.folder", "VDJ", repoName, "outs/all_contig_annotations.csv", sep="/"))
+    data_gex_h5 <- data_gex %>% rename(library_id = repoName)
     data_gex_h5 <- data_gex_h5 %>% select(library_id, molecule_h5, everything())
-    data_gex_ss <- data_gex %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
+    data_gex_ss <- data_gex %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
     data_gex_ss <- data_gex_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    data_vdj_ss <- data_vdj %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
+    data_vdj_ss <- data_vdj %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
     data_vdj_ss <- data_vdj_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
     write_csv(data_gex_h5, paste("${study}", "GEX_h5_samplesheet.csv", sep="_"))
     write_csv(data_gex_ss, paste("${study}", "GEX_samplesheet.csv", sep="_"))
@@ -61,20 +62,21 @@ process TENX_PROCESS {
     library(tidyverse)
     data <- read_csv('metadata.csv')
     data <- data %>% filter(platform == '10XGenomics')
-    data <- data %>% mutate(library= str_extract(library, "(GEX|VDJ)"))
-    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="_"))
+    data <- data %>% mutate(library= str_extract(locus, "(GEX|VDJ)"))
+    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="/"))
     data <- data %>% mutate(fastqSample = paste(fastqSample, "demux_id", sep="/"))
     data <- data %>% mutate(fastqFolder = "${fastq_path}")
     data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/${study}/"))
     data <- data %>% mutate(indices = paste("SI-GA-", indices, sep=""))
-    data <- data %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", sampleName, "outs/molecule_info.h5", sep="/"))
     data_gex <- data %>% filter(library == 'GEX')
     data_vdj <- data %>% filter(library == 'VDJ')
-    data_gex_h5 <- data_gex %>% rename(library_id = sampleName)
+    data_gex <- data_gex %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", repoName, "outs/molecule_info.h5", sep="/"))
+    data_vdj <- data_vdj %>% mutate(vdj_sequences = paste("$params.output.folder", "VDJ", repoName, "outs/all_contig_annotations.csv", sep="/"))
+    data_gex_h5 <- data_gex %>% rename(library_id = repoName)
     data_gex_h5 <- data_gex_h5 %>% select(library_id, molecule_h5, everything())
-    data_gex_ss <- data_gex %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
+    data_gex_ss <- data_gex %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
     data_gex_ss <- data_gex_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    data_vdj_ss <- data_vdj %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
+    data_vdj_ss <- data_vdj %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
     data_vdj_ss <- data_vdj_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
     write_csv(data_gex_h5, paste("${study}", "GEX_h5_samplesheet.csv", sep="_"))
     write_csv(data_gex_ss, paste("${study}", "GEX_samplesheet.csv", sep="_"))
@@ -89,8 +91,7 @@ gex_h5sheet.into { count_gex_h5sheet; aggr_gex_h5sheet; vdj_h5sheet}
 process TENX_COUNT {
   echo false 
 
-  publishDir "$params.output.folder/Counts"
-
+  publishDir "$params.output.folder/Counts" , mode : 'copy'
   label 'gizmo_largenode'
   
   module 'cellranger'
@@ -110,7 +111,7 @@ process TENX_COUNT {
 
   """
   cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
-      --fastqs=$sample.fastqPath --expect-cells=$params.count.cellcount --chemistry=$params.count.chemistry
+      --fastqs=$sample.fastqPath --expect-cells=$sample.expected_cells --chemistry=$params.count.chemistry 
   """
     
 }
@@ -118,7 +119,7 @@ process TENX_COUNT {
 process TENX_AGGR {
   echo false
 
-  publishDir "$params.output.folder/Counts"
+  publishDir "$params.output.folder/Counts" , mode : 'copy'
 
   label 'gizmo_largenode'
 
@@ -139,14 +140,14 @@ process TENX_AGGR {
     run_aggr == 1
 
   """
-  cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode}
+  cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode} 
   """
 }
 
 process TENX_MATRIX {
   echo false
 
-  publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix"
+  publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix" , mode : 'copy'
 
   module 'cellranger'
 
@@ -172,8 +173,7 @@ process TENX_MATRIX {
 process TENX_VDJ {
   echo false
 
-  publishDir "$params.output.folder/VDJ"
-
+  publishDir "$params.output.folder/VDJ" , mode : 'copy'
   module 'cellranger'
   
   label 'gizmo_largenode'
@@ -181,7 +181,7 @@ process TENX_VDJ {
   scratch "/fh/scratch/delete30/warren_h/sravisha/"
 
   input:
-    val sample from vdj_analysissheet.splitCsv(header: true) 
+    each sample from vdj_analysissheet.splitCsv(header: true) 
     val run_vd from run_vdj
   output:
     path "${sample.sampleName}"
@@ -190,6 +190,6 @@ process TENX_VDJ {
     run_vd == 1
 
   """
-  cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqFolder --sample=$sample.fastqSample
+  cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqFolder --sample=$sample.fastqSample 
   """
 }
