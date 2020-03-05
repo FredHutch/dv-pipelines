@@ -74,7 +74,7 @@ Analysis (Test Dataset)
   "analysis": [],
   "name": "Test Analysis",
   "desc": "Basic Loom Test Analysis",
-  "info": "{}",
+  "info": {},
   "runtime": "NEXTFLOW",
   "executable": "https://github.com/FredHutch/dv-pipelines/test.nf",
   "schema": {
@@ -176,4 +176,3 @@ Dataset (Source Dataset)
   "status": "success"
 }
 ```
-
