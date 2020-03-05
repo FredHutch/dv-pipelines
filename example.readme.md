@@ -1,6 +1,6 @@
 # WORKFLOW FILES
 
-## TEST.FORM.*
+## EXAMPLE.FORM.*
 
 Specifics on all files that start with TEST.FORM can be be found here:
 
@@ -8,7 +8,7 @@ Documentation Site: <https://react-jsonschema-form.readthedocs.io/en/latest/adva
 
 Online Test Harness: <https://cybertec-postgresql.github.io/rjsf-material-ui/>
 
-## TEST.FORM.JSON
+## EXAMPLE.FORM.JSON
 
 This file contains a json object that is used to describe the inputs to the nextflow script.  
 It's primary purpose is to render a webform to collect parameters from an end user.  
@@ -36,7 +36,7 @@ A secondary benifit is it can be used to validate input.
 }
 ```
 
-## TEST.FORM.UI.JSON
+## EXAMPLE.FORM.UI.JSON
 
 This file can used to further customize the form.  It can include help text, enumeration values, choice of UI Components
 If you are comfortable with a basic form then this file can simply include an empty JSON object (EG {})
@@ -49,7 +49,7 @@ If you are comfortable with a basic form then this file can simply include an em
 }
 ```
 
-## TEST.FORM.VALUES.JSON
+## EXAMPLE.FORM.VALUES.JSON
 
 This file contains a json object with the default values to render in the form.
 When the user specifies parameters to run they will be serialized in the same format + placed in the nextflow working directory as
