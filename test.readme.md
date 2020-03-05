@@ -64,7 +64,7 @@ When the user specifies parameters to run they will be serialized in the same fo
 
 
 
-## PARENT DYNAMO DB RECORDS MAKING ANALYSIS POSSIBLE
+## Dynamo Records To Run Analysis
 
 Analysis (Test Dataset)
 
