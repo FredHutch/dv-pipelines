@@ -1,8 +1,19 @@
 #!/usr/bin/env nextflow
 nextflow.preview.dsl=2
 
-process construct {
-  // S3 Path
+// Create Method To Pull Parameters From Dynamo And Populate Params Object For Run
+// Set Dynamo DB Dataset Record Status To "INPROGRESS"
+def loadParams(datasetId) { 
+
+  script:
+  """
+  
+  """
+}
+
+// Set Dynamo DB Dataset Record Status To "INPROGRESS"
+def complete(datasetId) { 
+
 }
 
 process run {
@@ -29,12 +40,10 @@ process run {
   """
 }
 
-process destruct {
-  
-}
 
+// Datset ID is Passed As a Batch Arg
 workflow {
-  construct()
+  loadParams(datasetId)
   run()
-  destruct()
+  complete(datasetId)
 }
