@@ -1,0 +1,19 @@
+{
+  "title": "Test Script",
+  "description": "Tests Basic ScanPY Function",
+  "type": "object",
+  "required": [
+    "n_comps",
+    "zero_center"
+  ],
+  "properties": {
+    "n_comps": {
+      "type": "integer",
+      "title": "Number of Components"
+    },
+    "zero_center": {
+      "type": "boolean",
+      "title": "Zero Center"
+    }
+  }
+}
