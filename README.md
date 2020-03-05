@@ -145,7 +145,7 @@ When the user specifies parameters to run they will be serialized in the same fo
       "zero_center": false,
       "n_comps": 50
   },
-  "type": "ONE-TIME"
+  "type": "one-time"
 }
 ```
 
@@ -238,7 +238,7 @@ When the user specifies parameters to run they will be serialized in the same fo
     "source": "data.humancellatlas.org"
   },
   "name": "Human Cell Atlas Inport",
-  "type": "IMPORTED"
+  "type": "imported"
 }
 ```
 
@@ -256,4 +256,8 @@ When the user specifies parameters to run they will be serialized in the same fo
 }
 ```
 
-## Nextflow Scripts + Modules
+## Nextflow Script Execute + Modules
+
+In production Nextflow pipelines will be triggered as a result of insert in the 'Configuration' dynamo db table when the type attribute equals 'one-time'.
+
+By leveraging Nextflow DSL 2.0 we will create a generic method to read dataset, config, analysis objects as parameters in addition to numerically indexed input "parent" datasets
