@@ -11,7 +11,7 @@ The platform is composed of multiple projects including:
 
 This repository contains a collection of single cell pipelines compatible with the Fred Hutch Visualization Center Platform
 
-# Repo Contents
+## Repo Contents
 
 This repository contains a Platform compatible pipelines. Our inital focus will be to create scRNA-Seq and ImmunoSeq analysis.
 
@@ -25,7 +25,7 @@ The repository contains nextflow scripts to run different workflows for scRNA-Se
 6. Trajectory analysis
 
 
-## scRNA-Seq and AIRR-Seq tools incorporated
+### scRNA-Seq and AIRR-Seq tools incorporated
 
 1. MiXCR
 2. Monocle3
@@ -35,19 +35,27 @@ The repository contains nextflow scripts to run different workflows for scRNA-Se
 6. Scran
 7. DropletUtils
 
+## Batch Call To Trigger Example
 
-# Example Files
+aws batch submit-job \
+     --job-name example-job \
+     --job-queue general-purpose-queue \
+     --job-definition nextflow \
+     --container-overrides command=FredHutch/dv-pipelines/example.nf, \
+        "--dataset", "f49a1d9f-a165-4b0d-a53a-7adab578d799"
 
+## Example Files Required To Register Analysis
 
-## EXAMPLE.FORM.*
+Below is a list of files that must exist in the root of this repo for to register the analysis with the system.
+Files should be prefixed with the technology.phase.library.version.  For example "singlecell.clustering.monocle.3"
 
-Specifics on all files that start with TEST.FORM can be be found here:
+For detailed information on how to format json object refer to:
 
 Documentation Site: <https://react-jsonschema-form.readthedocs.io/en/latest/advanced-customization/>
 
 Online Test Harness: <https://cybertec-postgresql.github.io/rjsf-material-ui/>
 
-## EXAMPLE.FORM.JSON
+### File: example.form.json
 
 This file contains a json object that is used to describe the inputs to the nextflow script.  
 It's primary purpose is to render a webform to collect parameters from an end user.  
@@ -75,7 +83,7 @@ A secondary benifit is it can be used to validate input.
 }
 ```
 
-## EXAMPLE.FORM.UI.JSON
+### File: example.form.ui.json
 
 This file can used to further customize the form.  It can include help text, enumeration values, choice of UI Components
 If you are comfortable with a basic form then this file can simply include an empty JSON object (EG {})
@@ -88,7 +96,7 @@ If you are comfortable with a basic form then this file can simply include an em
 }
 ```
 
-## EXAMPLE.FORM.VALUES.JSON
+### File: example.form.values.json
 
 This file contains a json object with the default values to render in the form.
 When the user specifies parameters to run they will be serialized in the same format + placed in the nextflow working directory as
@@ -101,11 +109,47 @@ When the user specifies parameters to run they will be serialized in the same fo
 }
 ```
 
+### Test Dynamo DB Records
 
+#### Dataset (Test)
 
-## Dynamo Records To Run Analysis
+```JSON
+{
+  "id": "f49a1d9f-a165-4b0d-a53a-7adab578d799",
+  "configuration": "bebd6d26-59d8-481e-b6b7-99a5823acbfa",
+  "datasets": ["8ca1f73e-b7e5-4b66-84b4-ca11ad14c528"],
+  "name": "Loom Test Analysis",
+  "desc": "Loom Test Analysis of Census of Immune Cells",
+  "groupsEdit": ["Admin"],
+  "groupsView": ["Admin"],
+  "s3path": "S3://dvc-portal-data/hca/f49a1d9f-a165-4b0d-a53a-7adab578d799",
+  "status": "success"
+}
+```
 
-Analysis (Test Dataset)
+#### Configuration (Test)
+
+```JSON
+{
+  "id": "bebd6d26-59d8-481e-b6b7-99a5823acbfa",
+  "analysis": "9ccc42ac-e566-4f07-9ca2-135ac4ec2bb0",
+  "desc": "Human Cell Atlas Inport",
+  "groupsEdit": ["Admin"],
+  "groupsView": ["Admin"],
+  "info": {
+    "date": 20200303,
+    "source": "data.humancellatlas.org"
+  },
+  "name": "Human Cell Atlas Inport",
+  "parameters": {
+      "zero_center": false,
+      "n_comps": 50
+  },
+  "type": "ONE-TIME"
+}
+```
+
+#### Analysis (Test)
 
 ```JSON
 {
@@ -115,7 +159,7 @@ Analysis (Test Dataset)
   "desc": "Basic Loom Test Analysis",
   "info": {},
   "runtime": "NEXTFLOW",
-  "executable": "https://github.com/FredHutch/dv-pipelines/test.nf",
+  "executable": "https://github.com/FredHutch/dv-pipelines/example.nf",
   "schema": {
     "form": {
       "title": "Test Script",
@@ -152,45 +196,9 @@ Analysis (Test Dataset)
 }
 ```
 
-Analysis (Source Dataset)
+### Seed DynamoDB Records
 
-```JSON
-{
-  "id": "d8c36499-4987-4ea4-9dc0-23c21ffde209",
-  "analysis": ["9ccc42ac-e566-4f07-9ca2-135ac4ec2bb0"],
-  "name": "HCA Loom File",
-  "desc": "Analysis was preformed by the CZI HCA Data Portal To Create A Loom File",
-  "info": "{}",
-  "runtime": "NA",
-  "executable": "NA",
-  "schema": "{}",
-  "files": ["data.loom"],
-  "groupsView": ["Admin"],
-  "groupsEdit": ["Admin"]
-
-}
-```
-
-Configuration  (Source Dataset)
-
-```JSON
-{
-  "id": "fa16a5e9-9c96-4ffb-b5ac-26eecc4b6eb7",
-  "analysis": "d8c36499-4987-4ea4-9dc0-23c21ffde209",
-  "desc": "Human Cell Atlas Inport",
-  "groupsEdit": ["Admin"],
-  "groupsView": ["Admin"],
-  "info": {
-    "date": 20200303,
-    "source": "data.humancellatlas.org"
-  },
-  "name": "Human Cell Atlas Inport",
-  "parameters": "{}",
-  "type": "IMPORTED"
-}
-```
-
-Dataset (Source Dataset)
+#### Dataset (Seed)
 
 ```JSON
 {
@@ -216,3 +224,36 @@ Dataset (Source Dataset)
 }
 ```
 
+#### Configuration (Seed)
+
+```JSON
+{
+  "id": "fa16a5e9-9c96-4ffb-b5ac-26eecc4b6eb7",
+  "analysis": "d8c36499-4987-4ea4-9dc0-23c21ffde209",
+  "desc": "Human Cell Atlas Inport",
+  "groupsEdit": ["Admin"],
+  "groupsView": ["Admin"],
+  "info": {
+    "date": 20200303,
+    "source": "data.humancellatlas.org"
+  },
+  "name": "Human Cell Atlas Inport",
+  "type": "IMPORTED"
+}
+```
+
+#### Analysis (Seed)
+
+```JSON
+{
+  "id": "d8c36499-4987-4ea4-9dc0-23c21ffde209",
+  "analysis": ["9ccc42ac-e566-4f07-9ca2-135ac4ec2bb0"],
+  "name": "HCA Loom File",
+  "desc": "Analysis was preformed by the CZI HCA Data Portal To Create A Loom File",
+  "files": ["data.loom"],
+  "groupsView": ["Admin"],
+  "groupsEdit": ["Admin"]
+}
+```
+
+## Nextflow Scripts + Modules

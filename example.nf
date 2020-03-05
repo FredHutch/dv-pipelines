@@ -1,14 +1,40 @@
 #!/usr/bin/env nextflow
+nextflow.preview.dsl=2
 
-process main {
+process construct {
+  // S3 Path
+}
 
-"""
-import scanpy as sc
-adata = sc.read_loom("/Users/zager/Desktop/HPSI_human_cerebral_organoids_homo_sapiens.loom")
-adata.var_names_make_unique()
-sc.pp.recipe_seurat(adata)
-sc.pp.pca(adata, copy=True)
-sc.write("/Users/zager/Desktop/data.h5", adata)
-"""
+process run {
+    container "quay.io/biocontainers/scanpy"
+    cpus 1
+    memory '512 MB'
 
+  input:
+    path inputLoomFile
+
+  output:
+    file 'data.loom'
+
+  script:
+
+  """
+  #!/usr/bin/python
+  import scanpy as sc
+  adata = sc.read_loom($loomfile)
+  adata.var_names_make_unique()
+  sc.pp.recipe_seurat(adata)
+  sc.pp.pca(adata, copy=True)
+  sc.write("data.h5", adata)
+  """
+}
+
+process destruct {
+  
+}
+
+workflow {
+  construct()
+  run()
+  destruct()
 }
