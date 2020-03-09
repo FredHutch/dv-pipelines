@@ -302,54 +302,54 @@
 }
 // Form Data
 {
-    "reduction_method": "PCA",
-    "num_dim": 5,
-    "norm_method": "log",
-    "use_genes": "NULL",
-    "residual_model_formula_str": "NULL",
-    "pseudo_count": 1.0,
+    "reductionMethod": "PCA",
+    "numDim": 5,
+    "normMethod": "log",
+    "useGenes": "NULL",
+    "residualModelFormulaStr": "NULL",
+    "pseudoCount": 1.0,
     "reducedims": {
         "reduceMethod": "tSNE",
-        "max_components": 2
+        "maxComponents": 2
     },
     "clustercells": {
         "clusterMethod": "louvain",
         "resolution": "NULL",
         "k": 20,
-        "louvain_iter": 1,
-        "partition_qval": 0.05,
-        "cluster_number": 10
+        "louvainIter": 1,
+        "partitionQval": 0.05,
+        "clusterNumber": 10
     },
     "partition": {
-        "reduction_method": "UMAP",
+        "reductionMethod": "UMAP",
         "weight": "NULL",
         "knn": 20,
-        "louvain_iter": 1,
+        "louvainIter": 1,
         "resolution": "NULL",
-        "partition_qval": 0.05
+        "partitionQval": 0.05
     },
     "learn_graph": {
-        "no_partition": "NULL",
-        "no_close_loop": "NULL",
-        "euclidean_distance_ratio": 1,
-        "geodesic_distance_ratio": 0.333,
-        "no_prune_graph": "NULL",
-        "orthogonal_proj_tip": "NULL"
+        "noPartition": "NULL",
+        "noCloseLoop": "NULL",
+        "euclideanDistanceRatio": 1,
+        "geodesicDistanceRatio": 0.333,
+        "noPruneGraph": "NULL",
+        "orthogonalProjTip": "NULL"
     },
     "order_cells": {
-        "reduction_method": "UMAP",
-        "root_pr_nodes": "NULL",
-        "root_cells": "NULL",
-        "root_type": "Germline",
-        "cell_phenotype": "cao_cell_type"
+        "reductionMethod": "UMAP",
+        "rootPrNodes": "NULL",
+        "rootCells": "NULL",
+        "rootType": "Germline",
+        "cellPhenotype": "cao_cell_type"
     },
     "diff_exp": {
-        "neighbor_graph": "Principal Graph",
-        "reduction_method": "UMAP",
+        "neighborGraph": "Principal Graph",
+        "reductionMethod": "UMAP",
         "knn": 25,
         "method ": "Moran_I",
         "alternative": "greater",
-        "expression_family": "quasipoisson"
+        "expressionFamily": "quasipoisson"
     }
 }
 // UISchema, select dropdown not working?

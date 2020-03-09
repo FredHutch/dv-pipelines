@@ -342,14 +342,27 @@
                 "doFast"
             ],
             "properties": {
-                "dims": {
+                "reductionUse": {
                     "type": "integer",
-                    "title": "Choose the number of dimensions"
+                    "title": "Reduction Use"
                 },
-                "centers": {
+                "cellsUse": {
                     "type": "integer",
-                    "title": "Choose the number of centers"
+                    "title": "Cells Use"
+                },
+                "dimsUse": {
+                    "type": "integer",
+                    "title": "Dims Use"
+                },
+                "genesUse": {
+                    "type": "integer",
+                    "title": "Genes Use"
+                },
+                "doFast": {
+                    "type": "integer",
+                    "title": "Do Fast"
                 }
+
             }
         }
     }
