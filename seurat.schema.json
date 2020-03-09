@@ -150,13 +150,85 @@
                 "pruneSnn"
             ],
             "properties": {
-                "algorithm": {
+                "modularityFxn": {
                     "type": "integer",
-                    "title": "Choose an algorithm"
+                    "title": "Choose an modularityFxn"
+                },
+                "initialMembership": {
+                    "type": "string",
+                    "title": "Initial Membership"
+                },
+                "weights": {
+                    "type": "string",
+                    "title": "weights"
+                },
+                "nodeSizes": {
+                    "type": "string",
+                    "title": "Node Sizes"
                 },
                 "resolution": {
                     "type": "integer",
-                    "title": "Choose a resoution"
+                    "title": "resolution"
+                },
+                "method": {
+                    "type": "string",
+                    "title": "Method"
+                },
+                "algorithm": {
+                    "type": "integer",
+                    "title": "Algorithm"
+                },
+                "binningMethod": {
+                    "type": "string",
+                    "title": "BinningMethod"
+                },
+                "nStart": {
+                    "type": "boolean",
+                    "title": ""
+                },
+                "nIter": {
+                    "type": "integer",
+                    "title": "n Start"
+                },
+                "randomSeed": {
+                    "type": "string",
+                    "title": "Random Seed"
+                },
+                "groupSingletons": {
+                    "type": "integer",
+                    "title": "Group Singletons"
+                },
+                "tempFileLocation": {
+                    "type": "integer",
+                    "title": "Temp File Location"
+                },
+                "edgeFileName": {
+                    "type": "integer",
+                    "title": "Edge File Name"
+                },
+                "verbose": {
+                    "type": "string",
+                    "title": "Verbose"
+                },
+                "genesUse": {
+                    "type": "string",
+                    "title": "Genes Use"
+                },
+                "reductionType": {
+                    "type": "string",
+                    "title": "Reduction Type"
+                },
+                "dimsUse": {
+                    "type": "string",
+                    "title": ""
+                },
+                "k_param": {
+                    "type": "string",
+                    "title": "K Param"
+                },
+                "pruneSnn": {
+                    "type": "string",
+                    "title": "Prune SNN"
                 }
             }
         },

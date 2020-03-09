@@ -2,23 +2,23 @@
     "title": "Monocle Preprocessing",
     "type": "object",
     "required": [
-        "reduction_method",
-        "num_dim",
-        "norm_method",
-        "use_genes",
-        "residual_model_formula_str",
-        "pseudo_count"
+        "reductionMethod",
+        "numDim",
+        "normMethod",
+        "useGenes",
+        "residualModelFormulaStr",
+        "pseudoCount"
     ],
     "properties": {
-        "reduction_method": {
+        "reductionMethod": {
             "type": "string",
             "title": "Reduction Method"
         },
-        "num_dim": {
+        "numDim": {
             "type": "integer",
             "title": "Enter the Number of Dimensions"
         },
-        "norm_method": {
+        "normMethod": {
             "title": "Select a Normalization Method",
             "type": "string",
             "enum": [
@@ -30,15 +30,15 @@
                 "size_only"
             ]
         },
-        "use_genes": {
+        "useGenes": {
             "type": "string",
             "title": "Use Genes"
         },
-        "residual_model_formula_str": {
+        "residualModelFormulaStr": {
             "type": "string",
             "title": "residual model formula str"
         },
-        "pseudo_count": {
+        "pseudoCount": {
             "type": "integer",
             "title": "Pseudo Count"
         },
@@ -46,8 +46,8 @@
             "title": "Monocle Reduce Dimensions",
             "type": "object",
             "required": [
-                "reducedims",
-                "max_components"
+                "reduceMethod",
+                "maxComponents"
             ],
             "properties": {
                 "reduceMethod": {
@@ -64,7 +64,7 @@
                         "PCA"
                     ]
                 },
-                "max_components": {
+                "maxComponents": {
                     "type": "integer",
                     "title": "Enter the Number of Max Components"
                 }
@@ -77,10 +77,10 @@
                 "clusterMethod",
                 "resolution",
                 "k",
-                "louvain_iter",
-                "partition_qval",
+                "louvainIter",
+                "partitionQval",
                 "weight",
-                "cluster_number"
+                "clusterNumber"
             ],
             "properties": {
                 "clusterMethod": {
@@ -103,11 +103,11 @@
                     "type": "integer",
                     "title": "Enter K"
                 },
-                "louvain_iter": {
+                "louvainIter": {
                     "type": "integer",
                     "title": "louvain iter"
                 },
-                "partition_qval": {
+                "partitionQval": {
                     "type": "integer",
                     "title": "partition qval"
                 },
@@ -116,7 +116,7 @@
                     "title": "weight",
                     "default": false
                 },
-                "cluster_number": {
+                "clusterNumber": {
                     "type": "integer",
                     "title": "cluster number"
                 },
@@ -126,12 +126,12 @@
             "title": "Monocle Partition",
             "type": "object",
             "required": [
-                "reduction_method",
+                "reductionMethod",
                 "weight",
                 "knn",
-                "louvain_iter",
+                "louvainIter",
                 "resolution",
-                "partition_qval"
+                "partitionQval"
             ],
             "properties": {
                 // Are there more than UMAP?
@@ -139,10 +139,10 @@
                     "title": "Select a Reduction Method",
                     "type": "string",
                     "enum": [
-                        "UMAP",
+                        "UMAP"
                     ],
                     "enumNames": [
-                        "UMAP",
+                        "UMAP"
                     ]
                 },
                 "weight": {
@@ -153,7 +153,7 @@
                     "type": "integer",
                     "title": "Enter KNN"
                 },
-                "louvain_iter": {
+                "louvainIter": {
                     "type": "integer",
                     "title": "louvain iter"
                 },
@@ -161,63 +161,63 @@
                     "type": "string",
                     "title": "resolution"
                 },
-                "partition_qval": {
+                "partitionQval": {
                     "type": "integer",
                     "title": "partition Qval"
-                },
+                }
             }
         },
         "learn_graph": {
             "title": "Monocle Learn Graph",
             "type": "object",
             "required": [
-                "no_partition",
-                "no_close_loop",
-                "euclidean_distance_ratio",
-                "geodesic_distance_ratio",
-                "no_prune_graph",
-                "orthogonal_proj_tip"
+                "noPartition",
+                "noCloseLoop",
+                "euclideanDistanceRatio",
+                "geodesicDistanceRatio",
+                "noPruneGraph",
+                "orthogonalProjTip"
             ],
             "properties": {
-                "no_partition": {
+                "noPartition": {
                     "type": "string",
                     "title": "no_partition"
                 },
-                "no_close_loop": {
+                "noCloseLoop": {
                     "type": "string",
                     "title": "no_close_loop"
                 },
-                "euclidean_distance_ratio": {
+                "euclideanDistanceRatio": {
                     "type": "integer",
                     "title": "euclidean_distance_ratio"
                 },
-                "geodesic_distance_ratio": {
+                "geodesicDistanceRatio": {
                     "type": "integer",
                     "title": "geodesic_distance_ratio"
                 },
-                "no_prune_graph": {
+                "noPruneGraph": {
                     "type": "string",
                     "title": "no_prune_graph"
                 },
-                "orthogonal_proj_tip": {
+                "orthogonalProjTip": {
                     "type": "integer",
                     "title": "orthogonal_proj_tip"
-                },
+                }
             }
         },
         "order_cells": {
             "title": "Monocle Order Cells",
             "type": "object",
             "required": [
-                "reduction_method",
-                "root_pr_nodes",
-                "root_cells",
-                "root_type",
-                "cell_phenotype"
+                "reductionMethod",
+                "rootPrNodes",
+                "rootCells",
+                "rootType",
+                "cellPhenotype"
             ],
             "properties": {
                 // Is there more than UMAP?
-                "reduction_method": {
+                "reductionMethod": {
                     "title": "Select a Reduction Method",
                     "type": "string",
                     "enum": [
@@ -227,41 +227,37 @@
                         "UMAP"
                     ]
                 },
-                "root_pr_nodes": {
+                "rootPrNodes": {
                     "type": "string",
                     "title": "root_pr_nodes"
                 },
-                "euclidean_distance_ratio": {
-                    "type": "integer",
-                    "title": "Euclidean Distance Ratio"
-                },
-                "root_cells": {
+                "rootCells": {
                     "type": "string",
                     "title": "Root Cells"
                 },
-                "root_type": {
+                "rootType": {
                     "type": "string",
                     "title": "Root Type"
                 },
-                "cell_phenotype": {
+                "cellPhenotype": {
                     "type": "string",
                     "title": "Cell Phenotype"
-                },
+                }
             }
         },
         "diff_exp": {
             "title": "Monocle Diff Expression",
             "type": "object",
             "required": [
-                "neighbor_graph",
-                "reduction_method",
+                "neighborGraph",
+                "reductionMethod",
                 "knn",
                 "method ",
                 "alternative",
-                "expression_family"
+                "expressionFamily"
             ],
             "properties": {
-                "neighbor_graph": {
+                "neighborGraph": {
                     "title": "Select a Neighbor Graph",
                     "type": "string",
                     "enum": [
@@ -274,7 +270,7 @@
                     ]
                 },
                 // Is there more than UMAP?
-                "reduction_method": {
+                "reductionMethod": {
                     "title": "Select a Reduction Method",
                     "type": "string",
                     "enum": [
@@ -296,7 +292,7 @@
                     "type": "string",
                     "title": "Alternative"
                 },
-                "expression_family": {
+                "expressionFamily": {
                     "type": "string",
                     "title": "Expression Family"
                 }
