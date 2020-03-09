@@ -2,56 +2,182 @@
     "title": "Seurat Normalization",
     "type": "object",
     "required": [
-        "method"
+        "normalizationMethod",
+        "assay",
+        "scaleFactor",
+        "margin",
+        "verbose",
+        "assayType"
     ],
     "properties": {
-        "method": {
-            "type": "array",
+        "normalizationMethod": {
             "title": "Select a Normalization Method",
-            "minItems": 1,
-            "items": {
-                "type": "string",
-                "enum": [
-                    "LogNormalize",
-                    "CLR",
-                    "RC"
-                ],
-            },
-            "uniqueItems": true
+            "type": "string",
+            "enum": [
+                "LogNormalize",
+                "CLR",
+                "RC"
+            ],
+            "enumNames": [
+                "LogNormalize",
+                "CLR",
+                "RC"
+            ]
         },
-        "variable": {
+        "assay": {
+            "title": "Assay",
+            "type": "string"
+        },
+        "scaleFactor": {},
+        "margin": {},
+        "verbose": {},
+        "assayType": {},
+        "findVariableFeatures": {
             "title": "Seurat Variables",
             "type": "object",
             "required": [
-                "method",
-                "nfeatures"
+                "selectionMethod",
+                "loessSpan",
+                "clipMax",
+                "meanFunction",
+                "dispersionFunction",
+                "numBin",
+                "binningMethod",
+                "verbose",
+                "nfeatures",
+                "flavor",
+                "minMean",
+                "maxMean",
+                "minDisp",
+                "maxDisp",
+                "nTopGenes"
             ],
             "properties": {
-                "reducmethodedims": {
-                    "type": "array",
+                "selectionMethod": {
                     "title": "Select a Method",
-                    "minItems": 1,
-                    "items": {
-                        "type": "string",
-                        "enum": [
-                            "vst",
-                            "mvp",
-                            "disp"
-                        ],
-                    },
-                    "uniqueItems": true
+                    "type": "string",
+                    "enum": [
+                        "vst",
+                        "mvp",
+                        "disp"
+                    ],
+                    "enumNames": [
+                        "vst",
+                        "mvp",
+                        "disp"
+                    ]
+                },
+                "loessSpan": {
+                    "type": "integer",
+                    "title": ""
+                },
+                "clipMax": {
+                    "type": "string",
+                    "title": ""
+                },
+                "meanFunction": {
+                    "type": "string",
+                    "title": ""
+                },
+                "dispersionFunction": {
+                    "type": "string",
+                    "title": ""
+                },
+                "numBin": {
+                    "type": "integer",
+                    "title": ""
+                },
+                "binningMethod": {
+                    "type": "string",
+                    "title": ""
+                },
+                "verbose": {
+                    "type": "boolean",
+                    "title": ""
                 },
                 "nfeatures": {
                     "type": "integer",
-                    "title": "Choose the number of features"
+                    "title": ""
+                },
+                "flavor": {
+                    "type": "string",
+                    "title": ""
+                },
+                "minMean": {
+                    "type": "integer",
+                    "title": ""
+                },
+                "maxMean": {
+                    "type": "integer",
+                    "title": ""
+                },
+                "minDisp": {
+                    "type": "integer",
+                    "title": ""
+                },
+                "maxDisp": {
+                    "type": "string",
+                    "title": ""
+                },
+                "nTopGenes": {
+                    "type": "string",
+                    "title": ""
                 }
             }
         },
-        "neighbors": {
+        "findClusters": {
             "title": "Seurat Neighbors",
             "type": "object",
             "required": [
+                "modularityFxn",
+                "initialMembership",
+                "weights",
+                "nodeSizes",
+                "resolution",
+                "method",
+                "algorithm",
+                "nStart",
+                "nIter",
+                "randomSeed",
+                "groupSingletons",
+                "tempFileLocation",
+                "edgeFileName",
+                "verbose",
+                "genesUse",
+                "reductionType",
+                "dimsUse",
+                "k_param",
+                "pruneSnn"
+            ],
+            "properties": {
+                "algorithm": {
+                    "type": "integer",
+                    "title": "Choose an algorithm"
+                },
+                "resolution": {
+                    "type": "integer",
+                    "title": "Choose a resoution"
+                }
+            }
+        },
+        "findNeighbors": {
+            "title": "Seurat Neighbors",
+            "type": "object",
+            "required": [
+                "distanceMatrix",
+                "kParam",
+                "computeSNN",
+                "pruneSNN",
+                "nnMethod",
+                "annoyMetric",
+                "nnEps",
+                "verbose",
+                "forceRecalc",
                 "dims",
+                "subsetNames",
+                "low_threshold",
+                "high_threshold",
+                "cells_use",
                 "centers"
             ],
             "properties": {
@@ -65,32 +191,101 @@
                 }
             }
         },
-        // should these be dropdowns? I added placeholders in case in form data
-        "cluster": {
-            "title": "Seurat Neighbors",
+        "variableGenes": {
+            "title": "Seurat Variable Genes",
             "type": "object",
             "required": [
-                "algorithm",
-                "resolution"
+                "meanFunction",
+                "dispersionFunction",
+                "fvg_x_low_cutoff",
+                "fvg_y_low_cutoff",
+                "fvg_x_high_cutoff",
+                "fvg_y_high_cutoff"
             ],
             "properties": {
-                "algorithm": {
+                "dims": {
                     "type": "integer",
-                    "title": "Choose an algorithm"
+                    "title": "Choose the number of dimensions"
                 },
-                "resolution": {
+                "centers": {
                     "type": "integer",
-                    "title": "Choose a resoution"
+                    "title": "Choose the number of centers"
+                }
+            }
+        },
+        "scale": {
+            "title": "Seurat Scale",
+            "type": "object",
+            "required": [
+                "genesUse",
+                "varsToRegress",
+                "useUmi ",
+                "modelUse",
+                "doScale",
+                "doCenter",
+                "scaleMax",
+                "blockSize",
+                "minCellsToBlock",
+                "assayType",
+                "checkForNorm"
+            ],
+            "properties": {
+                "dims": {
+                    "type": "integer",
+                    "title": "Choose the number of dimensions"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Choose the number of centers"
+                }
+            }
+        },
+        "pca": {
+            "title": "Seurat PCA",
+            "type": "object",
+            "required": [
+                "pcGenes ",
+                "pcsCompute",
+                "useImputed "
+            ],
+            "properties": {
+                "dims": {
+                    "type": "integer",
+                    "title": "Choose the number of dimensions"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Choose the number of centers"
+                }
+            }
+        },
+        "tnse": {
+            "title": "Seurat TSNE",
+            "type": "object",
+            "required": [
+                "reductionUse ",
+                "cellsUse",
+                "dimsUse",
+                "genesUse",
+                "doFast"
+            ],
+            "properties": {
+                "dims": {
+                    "type": "integer",
+                    "title": "Choose the number of dimensions"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Choose the number of centers"
                 }
             }
         }
     }
 }
-
 // form data
 {
-"cluster": {
-    "algorithm": "1, 2, 3, 4",
-    "resolution": "0.25, 0.5, 0.8"
-  }
+    "cluster": {
+        "algorithm": "1, 2, 3, 4",
+        "resolution": "0.25, 0.5, 0.8"
+    }
 }
