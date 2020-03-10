@@ -2,95 +2,580 @@
     "title": "Seurat Normalization",
     "type": "object",
     "required": [
-        "method"
+        "normalizationMethod",
+        "assay",
+        "scaleFactor",
+        "margin",
+        "verbose",
+        "assayType"
     ],
     "properties": {
-        "method": {
-            "type": "array",
+        "normalizationMethod": {
             "title": "Select a Normalization Method",
-            "minItems": 1,
-            "items": {
-                "type": "string",
-                "enum": [
-                    "LogNormalize",
-                    "CLR",
-                    "RC"
-                ],
-            },
-            "uniqueItems": true
+            "type": "string",
+            "enum": [
+                "LogNormalize",
+                "CLR",
+                "RC"
+            ],
+            "enumNames": [
+                "LogNormalize",
+                "CLR",
+                "RC"
+            ]
         },
-        "variable": {
+        "assay": {
+            "title": "Assay",
+            "type": "string"
+        },
+        "scaleFactor": {
+            "type": "integer",
+            "title": "Scale Factor"
+        },
+        "margin": {
+            "type": "integer",
+            "title": "Margin"
+        },
+        "verbose": {
+            "type": "boolean",
+            "title": "verbose"
+        },
+        "assayType": {
+            "type": "string",
+            "title": "Assay Type"
+        },
+        "findVariableFeatures": {
             "title": "Seurat Variables",
             "type": "object",
             "required": [
-                "method",
-                "nfeatures"
+                "selectionMethod",
+                "loessSpan",
+                "clipMax",
+                "meanFunction",
+                "dispersionFunction",
+                "numBin",
+                "binningMethod",
+                "verbose",
+                "nfeatures",
+                "flavor",
+                "minMean",
+                "maxMean",
+                "minDisp",
+                "maxDisp",
+                "nTopGenes"
             ],
             "properties": {
-                "reducmethodedims": {
-                    "type": "array",
+                "selectionMethod": {
                     "title": "Select a Method",
-                    "minItems": 1,
-                    "items": {
-                        "type": "string",
-                        "enum": [
-                            "vst",
-                            "mvp",
-                            "disp"
-                        ],
-                    },
-                    "uniqueItems": true
+                    "type": "string",
+                    "enum": [
+                        "vst",
+                        "mvp",
+                        "disp"
+                    ],
+                    "enumNames": [
+                        "vst",
+                        "mvp",
+                        "disp"
+                    ]
+                },
+                "loessSpan": {
+                    "type": "integer",
+                    "title": "Loess Span"
+                },
+                "clipMax": {
+                    "type": "string",
+                    "title": "Clip Max"
+                },
+                "meanFunction": {
+                    "type": "string",
+                    "title": "Mean Function"
+                },
+                "dispersionFunction": {
+                    "type": "string",
+                    "title": "Dispersion Function"
+                },
+                "numBin": {
+                    "type": "integer",
+                    "title": "Num Bin"
+                },
+                "binningMethod": {
+                    "type": "string",
+                    "title": "Binning Method"
+                },
+                "verbose": {
+                    "type": "boolean",
+                    "title": "Verbose"
                 },
                 "nfeatures": {
                     "type": "integer",
-                    "title": "Choose the number of features"
-                }
-            }
-        },
-        "neighbors": {
-            "title": "Seurat Neighbors",
-            "type": "object",
-            "required": [
-                "dims",
-                "centers"
-            ],
-            "properties": {
-                "dims": {
-                    "type": "integer",
-                    "title": "Choose the number of dimensions"
+                    "title": "Number of features"
                 },
-                "centers": {
+                "flavor": {
+                    "type": "string",
+                    "title": "Flavor"
+                },
+                "minMean": {
                     "type": "integer",
-                    "title": "Choose the number of centers"
+                    "title": "Min Mean"
+                },
+                "maxMean": {
+                    "type": "integer",
+                    "title": "Max Mean"
+                },
+                "minDisp": {
+                    "type": "integer",
+                    "title": "Min Disp"
+                },
+                "maxDisp": {
+                    "type": "string",
+                    "title": "Max Disp"
+                },
+                "nTopGenes": {
+                    "type": "string",
+                    "title": "number of top genes"
                 }
             }
         },
-        // should these be dropdowns? I added placeholders in case in form data
-        "cluster": {
+        "findClusters": {
             "title": "Seurat Neighbors",
             "type": "object",
             "required": [
+                "modularityFxn",
+                "initialMembership",
+                "weights",
+                "nodeSizes",
+                "resolution",
+                "method",
                 "algorithm",
-                "resolution"
+                "nStart",
+                "nIter",
+                "randomSeed",
+                "groupSingletons",
+                "tempFileLocation",
+                "edgeFileName",
+                "verbose",
+                "genesUse",
+                "reductionType",
+                "dimsUse",
+                "k_param",
+                "pruneSnn"
             ],
             "properties": {
-                "algorithm": {
+                "modularityFxn": {
                     "type": "integer",
-                    "title": "Choose an algorithm"
+                    "title": "Choose an modularityFxn"
+                },
+                "initialMembership": {
+                    "type": "string",
+                    "title": "Initial Membership"
+                },
+                "weights": {
+                    "type": "string",
+                    "title": "Weights"
+                },
+                "nodeSizes": {
+                    "type": "string",
+                    "title": "Node Sizes"
                 },
                 "resolution": {
                     "type": "integer",
-                    "title": "Choose a resoution"
+                    "title": "Resolution"
+                },
+                "method": {
+                    "type": "string",
+                    "title": "Method"
+                },
+                "algorithm": {
+                    "type": "integer",
+                    "title": "Algorithm"
+                },
+                "binningMethod": {
+                    "type": "integer",
+                    "title": "BinningMethod"
+                },
+                "nStart": {
+                    "type": "integer",
+                    "title": "Number Start"
+                },
+                "nIter": {
+                    "type": "integer",
+                    "title": "Number Iter"
+                },
+                "randomSeed": {
+                    "type": "integer",
+                    "title": "Random Seed"
+                },
+                "groupSingletons": {
+                    "type": "boolean",
+                    "title": "Group Singletons"
+                },
+                "tempFileLocation": {
+                    "type": "string",
+                    "title": "Temp File Location"
+                },
+                "edgeFileName": {
+                    "type": "string",
+                    "title": "Edge File Name"
+                },
+                "verbose": {
+                    "type": "boolean",
+                    "title": "Verbose"
+                },
+                "genesUse": {
+                    "type": "string",
+                    "title": "Genes Use"
+                },
+                "reductionType": {
+                    "type": "string",
+                    "title": "Reduction Type"
+                },
+                "dimsUse": {
+                    "type": "integer",
+                    "title": "Dims Use"
+                },
+                "k_param": {
+                    "type": "integer",
+                    "title": "K Param"
+                },
+                "pruneSnn": {
+                    "type": "integer",
+                    "title": "Prune SNN"
+                }
+            }
+        },
+        "findNeighbors": {
+            "title": "Seurat Neighbors",
+            "type": "object",
+            "required": [
+                "distanceMatrix",
+                "kParam",
+                "computeSNN",
+                "pruneSNN",
+                "nnMethod",
+                "annoyMetric",
+                "nnEps",
+                "verbose",
+                "forceRecalc",
+                "dims",
+                "subsetNames",
+                "lowThreshold",
+                "highThreshold",
+                "cellsUse",
+                "centers"
+            ],
+            "properties": {
+                "distanceMatrix": {
+                    "type": "boolean",
+                    "title": "Distance Matrix"
+                },
+                "kParam": {
+                    "type": "integer",
+                    "title": "k Param"
+                },
+                "computeSNN": {
+                    "type": "boolean",
+                    "title": "Compute SNN"
+                },
+                "pruneSNN": {
+                    "type": "integer",
+                    "title": "Prune SNN"
+                },
+                "nnMethod": {
+                    "type": "string",
+                    "title": "nn Method"
+                },
+                "annoyMetric": {
+                    "type": "string",
+                    "title": "Annoy Metric"
+                },
+                "nnEps": {
+                    "type": "integer",
+                    "title": "nn Eps"
+                },
+                "verbose": {
+                    "type": "boolean",
+                    "title": "verbose"
+                },
+                "forceRecalc": {
+                    "type": "boolean",
+                    "title": "Force Recalc"
+                },
+                "dims": {
+                    "type": "integer",
+                    "title": "Dims"
+                },
+                "subset_names": {
+                    "type": "string",
+                    "title": "Subset Names"
+                },
+                "lowThreshold": {
+                    "type": "integer",
+                    "title": "Low Threshold"
+                },
+                "highThreshold": {
+                    "type": "integer",
+                    "title": "High Threshold"
+                },
+                "cellsUse": {
+                    "type": "boolean",
+                    "title": "Cells Use"
+                },
+                "centers": {
+                    "type": "integer",
+                    "title": "Centers"
+                }
+            }
+        },
+        "variableGenes": {
+            "title": "Seurat Variable Genes",
+            "type": "object",
+            "required": [
+                "meanFunction",
+                "dispersionFunction",
+                "fvg_x_low_cutoff",
+                "fvg_y_low_cutoff",
+                "fvg_x_high_cutoff",
+                "fvg_y_high_cutoff"
+            ],
+            "properties": {
+                "meanFunction": {
+                    "type": "integer",
+                    "title": "Mean Function"
+                },
+                "dispersionFunction": {
+                    "type": "integer",
+                    "title": "Dispersion Function"
+                },
+                "fvg_x_low_cutoff": {
+                    "type": "integer",
+                    "title": "fvg_x_low_cutoff"
+                },
+                "fvg_y_low_cutoff": {
+                    "type": "integer",
+                    "title": "fvg_y_low_cutoff"
+                },
+                "fvg_x_high_cutoff": {
+                    "type": "integer",
+                    "title": "fvg_x_high_cutoff"
+                },
+                "fvg_y_high_cutoff": {
+                    "type": "string",
+                    "title": "fvg_y_high_cutoff"
+                }
+            }
+        },
+        "scale": {
+            "title": "Seurat Scale",
+            "type": "object",
+            "required": [
+                "genesUse",
+                "varsToRegress",
+                "useUmi",
+                "modelUse",
+                "doScale",
+                "doCenter",
+                "scaleMax",
+                "blockSize",
+                "minCellsToBlock",
+                "assayType",
+                "checkForNorm"
+            ],
+            "properties": {
+                "genesUse": {
+                    "type": "string",
+                    "title": "Genes Use"
+                },
+                "varsToRegress": {
+                    "type": "string",
+                    "title": "Vars To Regress"
+                },
+                "useUmi": {
+                    "type": "boolean",
+                    "title": "Use Umi"
+                },
+                "modelUse": {
+                    "type": "string",
+                    "title": "Model Use"
+                },
+                "doScale": {
+                    "type": "boolean",
+                    "title": "Do Scale"
+                },
+                "scaleMax": {
+                    "type": "boolean",
+                    "title": "Scale Max"
+                },
+                "blockSize": {
+                    "type": "integer",
+                    "title": "Block Size"
+                },
+                "minCellsToBlock": {
+                    "type": "integer",
+                    "title": "Min Cells To Block"
+                },
+                "assayType": {
+                    "type": "string",
+                    "title": "Assay Type"
+                },
+                "checkForNorm": {
+                    "type": "boolean",
+                    "title": "checkForNorm"
+                }
+            }
+        },
+        "pca": {
+            "title": "Seurat PCA",
+            "type": "object",
+            "required": [
+                "pcGenes",
+                "pcsCompute",
+                "useImputed"
+            ],
+            "properties": {
+                "dims": {
+                    "pcGenes": "sting",
+                    "title": "Choose the number of dimensions"
+                },
+                "pcsCompute": {
+                    "type": "integer",
+                    "title": "PCA Compute"
+                },
+                "useImputed": {
+                    "type": "boolean",
+                    "title": "Use Imputed"
+                }
+            }
+        },
+        "tnse": {
+            "title": "Seurat TSNE",
+            "type": "object",
+            "required": [
+                "reductionUse",
+                "cellsUse",
+                "dimsUse",
+                "genesUse",
+                "doFast"
+            ],
+            "properties": {
+                "reductionUse": {
+                    "type": "string",
+                    "title": "Reduction Use"
+                },
+                "cellsUse": {
+                    "type": "string",
+                    "title": "Cells Use"
+                },
+                "dimsUse": {
+                    "type": "integer",
+                    "title": "Dims Use"
+                },
+                "genesUse": {
+                    "type": "string",
+                    "title": "Genes Use"
+                },
+                "doFast": {
+                    "type": "boolean",
+                    "title": "Do Fast"
                 }
             }
         }
     }
 }
-
 // form data
 {
-"cluster": {
-    "algorithm": "1, 2, 3, 4",
-    "resolution": "0.25, 0.5, 0.8"
-  }
+    "normalizationMethod": "LogNormalize",
+    "assay": "NULL",
+    "scaleFactor": 10000,
+    "margin": 1,
+    "verbose": TRUE,
+    "assayType": "RNA",
+    "findVariableFeatures": {
+        "selectionMethod": "vst",
+        "loessSpan": 0.3,
+        "clipMax": "auto",
+        "meanFunction": "FastExpMean",
+        "dispersionFunction": "FastLogVMR",
+        "numBin": 20,
+        "binningMethod": "equal_width",
+        "verbose": TRUE,
+        "nfeatures": 1000,
+        "flavor": "seurat",
+        "minMean": 0.0125,
+        "maxMean": 3,
+        "minDisp": 0.5,
+        "maxDisp": "Inf",
+        "nTopGenes": "None"
+    },
+    "findClusters": {
+        "modularityFxn": 1,
+        "initialMembership": "NULL",
+        "weights": "NULL",
+        "nodeSizes": "NULL",
+        "resolution": 0.8,
+        "method": "matrix",
+        "algorithm": 1,
+        "nStart": 10,
+        "nIter": 10,
+        "randomSeed": 0,
+        "groupSingletons": TRUE,
+        "tempFileLocation": TRUE,
+        "edgeFileName": "NULL",
+        "verbose": "NULL",
+        "genesUse": TRUE,
+        "reductionType": "PCA",
+        "dimsUse": 3,
+        "k_param": 30,
+        "pruneSnn": 0.066
+    },
+    "findNeighbors": {
+        "distanceMatrix": FALSE,
+        "kParam": 20,
+        "computeSNN": TRUE,
+        "pruneSNN": 1/15,
+        "nnMethod": "rann",
+        "annoyMetric": "euclidean",
+        "nnEps": 0,
+        "verbose": TRUE,
+        "forceRecalc": FALSE,
+        "dims": 50,
+        "subsetNames": "nGene",
+        "lowThreshold": 1,
+        "highThreshold": 1000,
+        "cellsUse": TRUE,
+        "centers": 20
+    },
+    "variableGenes": {
+        "meanFunction": "ExpMean",
+        "dispersionFunction": "LogVMR",
+        "fvg_x_low_cutoff": 0.1,
+        "fvg_y_low_cutoff": 8,
+        "fvg_x_high_cutoff": 1,
+        "fvg_y_high_cutoff": "Inf"
+    },
+    "scale": {
+        "genesUse": "NULL" ,
+        "varsToRegress": "nUMI" ,
+        "useUmi": FALSE ,
+        "modelUse": "linear" ,
+        "doScale": TRUE ,
+        "doCenter": TRUE ,
+        "scaleMax": 10,
+        "blockSize": 1000,
+        "minCellsToBlock": 1000 ,
+        "assayType": "RNA" ,
+        "checkForNorm": TRUE
+    },
+    "pca": {
+        "pcGenes": "NULL",
+        "pcsCompute": 20,
+        "useImputed": FALSE
+    },
+    "tsne": {
+        "reductionUse": "PCA",
+        "cellsUse": "NULL",
+        "dimsUse": 3,
+        "genesUse": "NULL",
+        "doFast": TRUE
+    }
 }
