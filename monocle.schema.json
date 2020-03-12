@@ -4,10 +4,7 @@
     "required": [
         "reductionMethod",
         "numDim",
-        "normMethod",
-        "useGenes",
-        "residualModelFormulaStr",
-        "pseudoCount"
+        "normMethod"
     ],
     "properties": {
         "reductionMethod": {
@@ -30,24 +27,12 @@
                 "size_only"
             ]
         },
-        "useGenes": {
-            "type": "string",
-            "title": "Use Genes"
-        },
-        "residualModelFormulaStr": {
-            "type": "string",
-            "title": "residual model formula str"
-        },
-        "pseudoCount": {
-            "type": "integer",
-            "title": "Pseudo Count"
-        },
         "reducedims": {
             "title": "Monocle Reduce Dimensions",
             "type": "object",
             "required": [
                 "reduceMethod",
-                "maxComponents"
+                "preprocessMethod"
             ],
             "properties": {
                 "reduceMethod": {
@@ -64,9 +49,19 @@
                         "PCA"
                     ]
                 },
-                "maxComponents": {
-                    "type": "integer",
-                    "title": "Enter the Number of Max Components"
+                "preprocessMethod": {
+                    "title": "Select a Reduction Method",
+                    "type": "string",
+                    "enum": [
+                        "UMAP",
+                        "tSNE",
+                        "PCA"
+                    ],
+                    "enumNames": [
+                        "UMAP",
+                        "tSNE",
+                        "PCA"
+                    ]
                 }
             }
         },
@@ -75,11 +70,7 @@
             "type": "object",
             "required": [
                 "clusterMethod",
-                "resolution",
                 "k",
-                "louvainIter",
-                "partitionQval",
-                "weight",
                 "clusterNumber"
             ],
             "properties": {
@@ -95,206 +86,42 @@
                         "leiden"
                     ]
                 },
-                "resolution": {
-                    "type": "string",
-                    "title": "Enter Resolution"
-                },
                 "k": {
                     "type": "integer",
                     "title": "Enter K"
                 },
-                "louvainIter": {
-                    "type": "integer",
-                    "title": "louvain iter"
-                },
-                "partitionQval": {
-                    "type": "integer",
-                    "title": "partition qval"
-                },
-                "weight": {
-                    "type": "boolean",
-                    "title": "weight",
-                    "default": false
-                },
                 "clusterNumber": {
                     "type": "integer",
                     "title": "cluster number"
-                },
-            }
-        },
-        "partition": {
-            "title": "Monocle Partition",
-            "type": "object",
-            "required": [
-                "reductionMethod",
-                "weight",
-                "knn",
-                "louvainIter",
-                "resolution",
-                "partitionQval"
-            ],
-            "properties": {
-                // Are there more than UMAP?
-                "reduction_method": {
-                    "title": "Select a Reduction Method",
-                    "type": "string",
-                    "enum": [
-                        "UMAP"
-                    ],
-                    "enumNames": [
-                        "UMAP"
-                    ]
-                },
-                "weight": {
-                    "type": "string",
-                    "title": "Enter Weight"
-                },
-                "knn": {
-                    "type": "integer",
-                    "title": "Enter KNN"
-                },
-                "louvainIter": {
-                    "type": "integer",
-                    "title": "louvain iter"
-                },
-                "resolution": {
-                    "type": "string",
-                    "title": "resolution"
-                },
-                "partitionQval": {
-                    "type": "integer",
-                    "title": "partition Qval"
                 }
             }
         },
-        "learn_graph": {
-            "title": "Monocle Learn Graph",
-            "type": "object",
-            "required": [
-                "noPartition",
-                "noCloseLoop",
-                "euclideanDistanceRatio",
-                "geodesicDistanceRatio",
-                "noPruneGraph",
-                "orthogonalProjTip"
-            ],
-            "properties": {
-                "noPartition": {
-                    "type": "string",
-                    "title": "no_partition"
-                },
-                "noCloseLoop": {
-                    "type": "string",
-                    "title": "no_close_loop"
-                },
-                "euclideanDistanceRatio": {
-                    "type": "integer",
-                    "title": "euclidean_distance_ratio"
-                },
-                "geodesicDistanceRatio": {
-                    "type": "integer",
-                    "title": "geodesic_distance_ratio"
-                },
-                "noPruneGraph": {
-                    "type": "string",
-                    "title": "no_prune_graph"
-                },
-                "orthogonalProjTip": {
-                    "type": "integer",
-                    "title": "orthogonal_proj_tip"
-                }
-            }
-        },
-        "order_cells": {
-            "title": "Monocle Order Cells",
-            "type": "object",
-            "required": [
-                "reductionMethod",
-                "rootPrNodes",
-                "rootCells",
-                "rootType",
-                "cellPhenotype"
-            ],
-            "properties": {
-                // Is there more than UMAP?
-                "reductionMethod": {
-                    "title": "Select a Reduction Method",
-                    "type": "string",
-                    "enum": [
-                        "UMAP"
-                    ],
-                    "enumNames": [
-                        "UMAP"
-                    ]
-                },
-                "rootPrNodes": {
-                    "type": "string",
-                    "title": "root_pr_nodes"
-                },
-                "rootCells": {
-                    "type": "string",
-                    "title": "Root Cells"
-                },
-                "rootType": {
-                    "type": "string",
-                    "title": "Root Type"
-                },
-                "cellPhenotype": {
-                    "type": "string",
-                    "title": "Cell Phenotype"
-                }
-            }
-        },
-        "diff_exp": {
+        "alignCDS": {
             "title": "Monocle Diff Expression",
             "type": "object",
             "required": [
-                "neighborGraph",
-                "reductionMethod",
-                "knn",
-                "method ",
-                "alternative",
-                "expressionFamily"
+                "numDims",
+                "alignmentGroup",
+                "preprocessMethod"
             ],
             "properties": {
-                "neighborGraph": {
-                    "title": "Select a Neighbor Graph",
-                    "type": "string",
-                    "enum": [
-                        "Principal Graph",
-                        "KNN"
-                    ],
-                    "enumNames": [
-                        "Principal Graph",
-                        "KNN"
-                    ]
-                },
-                // Is there more than UMAP?
-                "reductionMethod": {
-                    "title": "Select a Reduction Method",
-                    "type": "string",
-                    "enum": [
-                        "UMAP"
-                    ],
-                    "enumNames": [
-                        "UMAP"
-                    ]
-                },
-                "knn": {
+                "numDims": {
                     "type": "integer",
-                    "title": "K Nearest Neighbor"
+                    "title": "Num Dims"
                 },
-                "method": {
+                "alignmentGroup": {
                     "type": "string",
-                    "title": "Method"
+                    "title": "Alignment Group (Varible indicating batch info in colData)"
                 },
-                "alternative": {
+                "preprocessMethod": {
+                    "title": "Select a Preprocess Method",
                     "type": "string",
-                    "title": "Alternative"
-                },
-                "expressionFamily": {
-                    "type": "string",
-                    "title": "Expression Family"
+                    "enum": [
+                        "PCA"
+                    ],
+                    "enumNames": [
+                        "PCA"
+                    ]
                 }
             }
         }
@@ -303,53 +130,21 @@
 // Form Data
 {
     "reductionMethod": "PCA",
-    "numDim": 5,
+    "numDim": 50,
     "normMethod": "log",
-    "useGenes": "NULL",
-    "residualModelFormulaStr": "NULL",
-    "pseudoCount": 1.0,
     "reducedims": {
-        "reduceMethod": "tSNE",
-        "maxComponents": 2
+        "reduceMethod": "UMAP",
+        "preprocessMethod": "PCA"
     },
     "clustercells": {
         "clusterMethod": "louvain",
-        "resolution": "NULL",
         "k": 20,
-        "louvainIter": 1,
-        "partitionQval": 0.05,
-        "clusterNumber": 10
+        "clusterNumber": 20
     },
-    "partition": {
-        "reductionMethod": "UMAP",
-        "weight": "NULL",
-        "knn": 20,
-        "louvainIter": 1,
-        "resolution": "NULL",
-        "partitionQval": 0.05
-    },
-    "learn_graph": {
-        "noPartition": "NULL",
-        "noCloseLoop": "NULL",
-        "euclideanDistanceRatio": 1,
-        "geodesicDistanceRatio": 0.333,
-        "noPruneGraph": "NULL",
-        "orthogonalProjTip": "NULL"
-    },
-    "order_cells": {
-        "reductionMethod": "UMAP",
-        "rootPrNodes": "NULL",
-        "rootCells": "NULL",
-        "rootType": "Germline",
-        "cellPhenotype": "cao_cell_type"
-    },
-    "diff_exp": {
-        "neighborGraph": "Principal Graph",
-        "reductionMethod": "UMAP",
-        "knn": 25,
-        "method ": "Moran_I",
-        "alternative": "greater",
-        "expressionFamily": "quasipoisson"
+    "alignCDS": {
+        "numDims": 50,
+        "alignmentGroup": "sample",
+        "preprocessMethod": "PCA"
     }
 }
 // UISchema, select dropdown not working?
@@ -363,4 +158,3 @@
     //     "ui:widget": "select"
     // }
 }
-
