@@ -127,34 +127,3 @@
         }
     }
 }
-// Form Data
-{
-    "reductionMethod": "PCA",
-    "numDim": 50,
-    "normMethod": "log",
-    "reducedims": {
-        "reduceMethod": "UMAP",
-        "preprocessMethod": "PCA"
-    },
-    "clustercells": {
-        "clusterMethod": "louvain",
-        "k": 20,
-        "clusterNumber": 20
-    },
-    "alignCDS": {
-        "numDims": 50,
-        "alignmentGroup": "sample",
-        "preprocessMethod": "PCA"
-    }
-}
-// UISchema, select dropdown not working?
-{
-    // "clustercells": {
-    //     "weight": {
-    //         "ui:widget": "select"
-    //     }
-    // },
-    // "weight": {
-    //     "ui:widget": "select"
-    // }
-}
