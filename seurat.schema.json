@@ -50,7 +50,6 @@
             "required": [
                 "selectionMethod",
                 "nfeatures"
-             
             ],
             "properties": {
                 "selectionMethod": {
@@ -85,7 +84,6 @@
                     "type": "integer",
                     "title": "Resolution"
                 },
-               
                 "algorithm": {
                     "type": "integer",
                     "title": "Algorithm"
@@ -95,7 +93,7 @@
         "findNeighbors": {
             "title": "Seurat Neighbors",
             "type": "object",
-            "required": [  
+            "required": [
                 "dims",
                 "centers"
             ],
@@ -138,33 +136,5 @@
                 }
             }
         }
-    }
-}
-// form data
-{
-    "normalizationMethod": "LogNormalize",
-    "assay": "NULL",
-    "scaleFactor": 10000,
-    "margin": 1,
-    "verbose": TRUE,
-    "assayType": "RNA",
-    "findVariableFeatures": {
-        "selectionMethod": "vst",
-        "nfeatures": 1000
-    },
-    "findClusters": {
-        "resolution": 0.8,
-        "algorithm": 1,
-    },
-    "findNeighbors": {
-        "dims": 50,
-        "centers": 20
-    },
-    "pca": {
-        "pcsCompute": 20,
-    },
-    "tsne": {
-        "dims": 50,
-
     }
 }
