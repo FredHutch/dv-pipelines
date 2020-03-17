@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-cds_path = Channel.fromPath(params.input.cds_path + "/*.rds")
+cds_path = Channel.fromPath(params.input.cds_path + "/*_seurat_cds.rds")
 sample_list = Channel.fromPath(params.input.sample_list)
 nmethods = Channel.from(params.seurat.normalize.method)
 smethods = Channel.from(params.seurat.variable.method)
@@ -15,6 +15,7 @@ process SEURAT_CLUSTER {
   scratch "/fh/scratch/delete30/warren_h/sravisha/"
   publishDir "$params.output.folder/Seurat/Cluster/CDS", mode: 'copy'
   module 'R/3.6.1-foss-2016b-fh2'
+  module 'Python/3.6.7-foss-2016b-fh2'
   label 'gizmo'
   input:
     each cds from cds_path
@@ -42,12 +43,6 @@ process SEURAT_CLUSTER {
     set.seed(12357)
 
     cds <- readRDS("${cds}")
-    counts <- assay(cds, "counts")
-    libsizes <- colSums(counts)
-    size.factors <- libsizes/mean(libsizes)
-    logcounts(cds) <- as.matrix(log2(t(t(counts)/size.factors) + 1))
-    colnames(cds) <- cds\$Barcode
-    cds <- as.Seurat(cds, counts = "counts", data = "logcounts")
     #Normalize the data
     cds <- NormalizeData(cds, normalization.method = "${nmethod}", scale.factor = 10000)
     #Find genes that are show highly variable expression and consider a subset of these for further analysis
@@ -65,9 +60,9 @@ process SEURAT_CLUSTER {
     run_condition <- tibble(uuid = "${uuid}", cds_file = paste(paste("Seurat", "${uuid}", sep="_"), "rds", sep="."), 
 			   normalize_nmethod = "${nmethod}", variable_exp_method = "${smethod}",
                             variable_exp_features = ${nfeature}, pca_dimensions = ${ndim}, 
-			k = ${ncenter}, resolution = ${resolution}, cluster_method = ${algorithm}, sample = "${sample}")
+			k = ${ncenter}, resolution = ${resolution}, cluster_method = ${algorithm}, sample = sample)
     cds_sce <- as.SingleCellExperiment(cds)
-    metadata(cds_sce) <- list(run_condition = run_condition)
+    metadata(cds_sce) <- list(seurat_run_condition = run_condition)
     saveRDS(cds_sce, paste(paste("Seurat", "${uuid}", sep="_"), "rds", sep="."))
     umap_fig <- DimPlot(cds, reduction = "umap")
     ggsave(paste(paste("Seurat", "${uuid}", "umap", sep="_"), "png", sep="."), umap_fig, units = "in", dpi = "retina")
@@ -99,7 +94,7 @@ process Seurat_GATHER_METADATA {
   cds_list <- c("${cds_list.join('\",\"')}")
   getClusterSummary <- function(cds_file) {
     cds <- readRDS(cds_file)
-    cluster_summary <- metadata(cds)\$run_condition
+    cluster_summary <- metadata(cds)\$seurat_run_condition
     return(cluster_summary)
   }
   cluster_summary <- cds_list %>% map(getClusterSummary) %>% reduce(rbind)

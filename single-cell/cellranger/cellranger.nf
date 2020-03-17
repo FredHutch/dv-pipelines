@@ -1,9 +1,11 @@
 #!/usr/bin/env nextflow
 
+//Input parameters
 metadata = Channel.fromPath(params.input.metadata)
 gex_reference = Channel.fromPath(params.input.gex_reference)
 vdj_reference = Channel.fromPath(params.input.vdj_reference)
-fastq_paths = Channel.from(params.input.fastq_paths)
+gex_fastq_paths = Channel.fromPath(params.input.gex_fastq_path)
+vdj_fastq_paths = Channel.fromPath(params.input.vdj_fastq_path)
 study_id = Channel.from(params.input.study_id)
 modes = Channel.from(params.aggr.modes)
 run_gex = Channel.from(params.input.gex)
@@ -11,94 +13,127 @@ run_vdj = Channel.from(params.input.vdj)
 fastq_type = Channel.from(params.count.fastq_type)
 
 
-run_gex.into{ count_gex ; aggr_gex ; mat_gex}
+//Split input channels as needed
+run_gex.into{map_gex ; count_gex ; aggr_gex ; mat_gex}
+metadata.into{gex_metadata ; vdj_metadata}
+run_vdj.into{map_vdj ; ana_vdj}
+study_id.into{gex_study_id; vdj_study_id}
 
-process TENX_PROCESS {
+
+process TENX_GEX_MAP {
   echo false
-  publishDir "$params.output.folder/Metadata"
+  publishDir "$params.output.folder/Metadata", mode : 'copy'
   module 'R/3.6.1-foss-2016b-fh2'
+  
   input:
-    file 'metadata.csv' from metadata
-    val fastq_path from fastq_paths
-    val study from study_id
+    path meta_file from gex_metadata
+    val fastq_path from gex_fastq_paths
+    val study from gex_study_id
+    val map from map_gex
 
   output:
-    path "${study}_GEX_h5_samplesheet.csv" into gex_h5sheet
-    path "${study}_GEX_samplesheet.csv" into gex_samplesheet
-    path "${study}_VDJ_samplesheet.csv" into vdj_samplesheet
-    path "${study}_VDJ_analysis_samplesheet.csv" into vdj_analysissheet
+    path "GEX_h5_samplesheet.csv" into gex_h5sheet
+    path "GEX_samplesheet.csv" into gex_samplesheet
+  
+  when:
+    map == true
         
   script:
-
-  if ("$params.count.fastq_type" == 'mkfastq')
     """
     #!/usr/bin/env Rscript
     library(tidyverse)
-    data <- read_csv('metadata.csv')
-    data <- data %>% filter(platform == '10XGenomics')
-    data <- data %>% mutate(library= str_extract(locus, "(GEX|VDJ)"))
-    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="_"))
-    data <- data %>% mutate(fastqFolder = "${fastq_path}")
-    data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/${study}/"))
+    # Metadata file provide should have the 12 mandatory fields mentioned in the README 
+    data <- read_csv("${meta_file}")
+    data <- data %>% filter(platform == '10XGenomics' & str_detect(locus, "GEX"))
+    data <- data %>% mutate(library= str_extract(locus, "GEX"))
+    data <- data %>% mutate(fastqType = "$params.count.fastq_type")
+    # Account for folder structure differences between mkfastq and demux
+    if ("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq") {
+      data <- data %>% mutate(fastqSample = sampleName)
+      data <- data %>% mutate(fastqPath = "${fastq_path}")
+    } else if ("$params.count.fastq_type" == "demux") {
+      data <- data %>% mutate(fastqSample = paste(sampleName, "demux_id", sep="/"))
+      data <- data %>% mutate(fastqFolder = "${fastq_path}")
+      data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/"))
+    }
     data <- data %>% mutate(indices = paste("SI-GA-", indices, sep=""))
-    data <- data %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", sampleName, "outs/molecule_info.h5", sep="/"))
-    data_gex <- data %>% filter(library == 'GEX')
-    data_vdj <- data %>% filter(library == 'VDJ')
-    data_gex_h5 <- data_gex %>% rename(library_id = sampleName)
+    # Split VDJ and GEX libraries if present
+    data_gex <- data %>% filter(library == "GEX")
+    data_gex <- data_gex %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", 
+                                    repoName, "outs/molecule_info.h5", sep="/"))
+    # Create samplesheet for mkfastq, and H5 and analysis sheets for VDJ analysis
+    data_gex_h5 <- data_gex %>% rename(library_id = repoName)
     data_gex_h5 <- data_gex_h5 %>% select(library_id, molecule_h5, everything())
-    data_gex_ss <- data_gex %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
+    data_gex_ss <- data_gex %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
     data_gex_ss <- data_gex_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    data_vdj_ss <- data_vdj %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
-    data_vdj_ss <- data_vdj_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    write_csv(data_gex_h5, paste("${study}", "GEX_h5_samplesheet.csv", sep="_"))
-    write_csv(data_gex_ss, paste("${study}", "GEX_samplesheet.csv", sep="_"))
-    write_csv(data_vdj_ss, paste("${study}", "VDJ_samplesheet.csv", sep="_"))
-    write_csv(data_vdj, paste("${study}", "VDJ_analysis_samplesheet.csv", sep="_"))
+    # Write metadata files
+    write_csv(data_gex_h5, "GEX_h5_samplesheet.csv")
+    write_csv(data_gex_ss, "GEX_samplesheet.csv")
     """
-  else if ("$params.count.fastq_type" == 'demux')
-    """
-    #!/usr/bin/env Rscript
-    library(tidyverse)
-    data <- read_csv('metadata.csv')
-    data <- data %>% filter(platform == '10XGenomics')
-    data <- data %>% mutate(library= str_extract(library, "(GEX|VDJ)"))
-    data <- data %>% mutate(fastqSample = paste(library, sampleName, sep="_"))
-    data <- data %>% mutate(fastqSample = paste(fastqSample, "demux_id", sep="/"))
-    data <- data %>% mutate(fastqFolder = "${fastq_path}")
-    data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/${study}/"))
-    data <- data %>% mutate(indices = paste("SI-GA-", indices, sep=""))
-    data <- data %>% mutate(molecule_h5 = paste("$params.output.folder", "Counts", sampleName, "outs/molecule_info.h5", sep="/"))
-    data_gex <- data %>% filter(library == 'GEX')
-    data_vdj <- data %>% filter(library == 'VDJ')
-    data_gex_h5 <- data_gex %>% rename(library_id = sampleName)
-    data_gex_h5 <- data_gex_h5 %>% select(library_id, molecule_h5, everything())
-    data_gex_ss <- data_gex %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
-    data_gex_ss <- data_gex_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    data_vdj_ss <- data_vdj %>% select(sampleName, indices) %>% rename(Sample = sampleName, Index = indices) 
-    data_vdj_ss <- data_vdj_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
-    write_csv(data_gex_h5, paste("${study}", "GEX_h5_samplesheet.csv", sep="_"))
-    write_csv(data_gex_ss, paste("${study}", "GEX_samplesheet.csv", sep="_"))
-    write_csv(data_vdj_ss, paste("${study}", "VDJ_samplesheet.csv", sep="_"))
-    write_csv(data_vdj, paste("${study}", "VDJ_analysis_samplesheet.csv", sep="_"))
-    """
-
 }
 
-//data_gex_h5 <- data_gex_h5 %>% select(library_id, molecule_h5, tissueType, HIVstatus)
-gex_h5sheet.into { count_gex_h5sheet; aggr_gex_h5sheet; vdj_h5sheet}
+process TENX_VDJ_MAP {
+  echo false
+  publishDir "$params.output.folder/Metadata", mode : 'copy'
+  module 'R/3.6.1-foss-2016b-fh2'
+  
+  input:
+    path meta_file from vdj_metadata
+    val fastq_path from vdj_fastq_paths
+    val study from vdj_study_id
+    val map from map_vdj
+
+  output:
+    path "VDJ_samplesheet.csv" into vdj_samplesheet
+    path "VDJ_analysis_samplesheet.csv" into vdj_analysissheet
+  
+  when:
+    map == true
+        
+  script:
+    """
+    #!/usr/bin/env Rscript
+    library(tidyverse)
+    # Metadata file provide should have the 12 mandatory fields mentioned in the README 
+    data <- read_csv('${meta_file}')
+    data <- data %>% filter(platform == '10XGenomics' & str_detect(locus, "VDJ"))
+    data <- data %>% mutate(library = str_extract(locus, "VDJ"))
+    data <- data %>% mutate(fastqType = "$params.count.fastq_type")
+    # Account for folder structure differences between mkfastq and demux
+    if ("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq") {
+      data <- data %>% mutate(fastqSample = sampleName)
+      data <- data %>% mutate(fastqPath = "${fastq_path}")
+    } else if ("$params.count.fastq_type" == "demux") {
+      data <- data %>% mutate(fastqSample = paste(sampleName, "demux_id", sep="/"))
+      data <- data %>% mutate(fastqFolder = "${fastq_path}")
+      data <- data %>% mutate(fastqPath =  paste(fastqFolder, fastqSample, sep="/"))
+    }
+    data <- data %>% mutate(indices = paste("SI-GA-", indices, sep=""))
+    # Split VDJ and GEX libraries if present
+    data_vdj <- data %>% filter(library == "VDJ")
+    data_vdj <- data_vdj %>% mutate(vdj_sequences = paste("$params.output.folder", "VDJ", 
+                                    repoName, "outs/all_contig_annotations.csv", sep="/"))
+    # Create samplesheet for mkfastq, and H5 and analysis sheets for VDJ analysis
+    data_vdj_ss <- data_vdj %>% select(repoName, indices) %>% rename(Sample = repoName, Index = indices) 
+    data_vdj_ss <- data_vdj_ss %>% add_column(Lane = '1-2') %>% select(Lane, Sample, Index)
+    # Write metadata files
+    write_csv(data_vdj_ss, "VDJ_samplesheet.csv")
+    write_csv(data_vdj, "VDJ_analysis_samplesheet.csv")
+    """
+}
+
+//Copy GEX output channels into channels for counting and aggreagtion
+gex_h5sheet.into {count_gex_h5sheet; aggr_gex_h5sheet}
+
 process TENX_COUNT {
   echo false 
-
-  publishDir "$params.output.folder/Counts"
-
-  label 'gizmo_largenode'
-  
+  publishDir "$params.output.folder/Counts" , mode : 'copy'
+  label 'gizmo_meganode'
   module 'cellranger'
-  
-  scratch "/fh/scratch/delete30/warren_h/sravisha/"
+  scratch "$task.scratch"
 
   input:
-    each sample from count_gex_h5sheet.splitCsv(header: true)
+    each sample from count_gex_h5sheet.splitCsv(header: true, quote: '\"')
     val run_count from count_gex
   
   output:
@@ -106,25 +141,30 @@ process TENX_COUNT {
     val task.exitStaus into count_status
 
   when:
-    run_count == 1
+    run_count == true
 
-  """
-  cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
-      --fastqs=$sample.fastqPath --expect-cells=$params.count.cellcount --chemistry=$params.count.chemistry
-  """
-    
+  script:
+    memory = "$task.memory" =~  /\d+/
+    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq")
+        """
+        cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
+          --fastqs=$sample.fastqPath --sample=$sample.fastqSample --expect-cells=$sample.expected_cells \
+          --chemistry=$sample.chemistry --localcores=$task.cpus --localmem=${memory[0]}
+        """
+    else if("$params.count.fastq_type" == "demux")
+        """
+        cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
+          --fastqs=$sample.fastqPath --expect-cells=$sample.expected_cells \
+          --chemistry=$sample.chemistry --localcores=$task.cpus --localmem=${memory[0]}
+        """
 }
 
 process TENX_AGGR {
   echo false
-
-  publishDir "$params.output.folder/Counts"
-
+  publishDir "$params.output.folder/Counts" , mode : 'copy'
   label 'gizmo_largenode'
-
   module 'cellranger'
-  
-  scratch "/fh/scratch/delete30/warren_h/sravisha/"
+  scratch "$task.scratch"
 
   input:
     path samplesheet from aggr_gex_h5sheet
@@ -136,23 +176,20 @@ process TENX_AGGR {
     path "Aggregate_${mode}_normalized" into aggr_path
 
   when:
-    run_aggr == 1
+    run_aggr == true
 
-  """
-  cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode}
-  """
+  script:
+    """
+    cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode} 
+    """
 }
 
 process TENX_MATRIX {
   echo false
-
-  publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix"
-
+  publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix" , mode : 'copy'
   module 'cellranger'
-
   label 'gizmo'
-
-  scratch "/fh/scratch/delete30/warren_h/sravisha/"
+  scratch "$task.scratch"
 
   input:
     path aggr_out from aggr_path
@@ -162,34 +199,41 @@ process TENX_MATRIX {
     path "Filtered_expression_matrix.csv" into mtx_path
 
   when:
-    run_matrix == 1
+    run_matrix == true
 
-  """
-  cellranger mat2csv ${aggr_out}/outs/filtered_feature_bc_matrix Filtered_expression_matrix.csv
-  """
+  script:
+    """
+    cellranger mat2csv ${aggr_out}/outs/filtered_feature_bc_matrix Filtered_expression_matrix.csv
+    """
 }
 
 process TENX_VDJ {
   echo false
-
-  publishDir "$params.output.folder/VDJ"
-
+  publishDir "$params.output.folder/VDJ" , mode : 'copy'
   module 'cellranger'
-  
-  label 'gizmo_largenode'
-
-  scratch "/fh/scratch/delete30/warren_h/sravisha/"
+  label 'gizmo_meganode'
+  scratch "$task.scratch"
 
   input:
-    val sample from vdj_analysissheet.splitCsv(header: true) 
-    val run_vd from run_vdj
+    each sample from vdj_analysissheet.splitCsv(header: true, quote: '\"') 
+    val analyze from ana_vdj
+
   output:
     path "${sample.sampleName}"
 
   when:
-    run_vd == 1
+    analyze == true
 
-  """
-  cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqFolder --sample=$sample.fastqSample
-  """
+  script:
+    memory = "$task.memory" =~  /\d+/
+    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq")
+      """
+      cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqPath \
+        --sample=$sample.fastqSample --localcores=$task.cpus --localmem=${memory[0]}
+      """
+    else if("$params.count.fastq_type" == "demux")
+      """
+      cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqPath \
+        --localcores=$task.cpus --localmem=${memory[0]}
+      """
 }
