@@ -2,6 +2,6 @@
 data
 # Files to ignore
 *.code-workspace
-./*/config/*.config
-!./*/config/ZhengSorted10X_params.config
-!./*/params.config
+./*/*/config/*.config
+!./*/*/config/ZhengSorted10X_params.config
+!./*/*/params.config
