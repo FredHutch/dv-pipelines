@@ -1,16 +1,21 @@
 #!/usr/bin/env nextflow
+import groovy.json.JsonSlurper
+def jsonSlurper = new JsonSlurper()
+
+String configJSON = new File("${params.wfconfig}").text
+def wfi = jsonSlurper.parseText(configJSON)
 
 //Input parameters
-metadata = Channel.fromPath(params.input.metadata)
-gex_reference = Channel.fromPath(params.input.gex_reference)
-vdj_reference = Channel.fromPath(params.input.vdj_reference)
-gex_fastq_paths = Channel.fromPath(params.input.gex_fastq_path)
-vdj_fastq_paths = Channel.fromPath(params.input.vdj_fastq_path)
-study_id = Channel.from(params.input.study_id)
-modes = Channel.from(params.aggr.modes)
-run_gex = Channel.from(params.input.gex)
-run_vdj = Channel.from(params.input.vdj)
-fastq_type = Channel.from(params.count.fastq_type)
+metadata = Channel.fromPath(wfi.params.input.metadata)
+gex_reference = Channel.fromPath(wfi.params.input.gex_reference)
+vdj_reference = Channel.fromPath(wfi.params.input.vdj_reference)
+gex_fastq_paths = Channel.fromPath(wfi.params.input.gex_fastq_path)
+vdj_fastq_paths = Channel.fromPath(wfi.params.input.vdj_fastq_path)
+study_id = Channel.from(wfi.params.input.study_id)
+modes = Channel.from(wfi.params.aggr.modes)
+run_gex = Channel.from(wfi.params.input.gex)
+run_vdj = Channel.from(wfi.params.input.vdj)
+fastq_type = Channel.from(wfi.params.count.fastq_type)
 
 
 //Split input channels as needed
