@@ -14,8 +14,10 @@ vdj_reference = Channel.fromPath(reference_path + wfi.parameters.input.vdj_refer
 
 /// Workflow data
 metadata = Channel.fromPath(source_path + wfi.parameters.input.metadata)
-gex_fastq_paths = Channel.fromPath(source_path + wfi.parameters.input.gex_fastq_path)
-vdj_fastq_paths = Channel.fromPath(source_path + wfi.parameters.input.vdj_fastq_path)
+gex_fastq_paths = Channel.of(source_path + wfi.parameters.input.gex_fastq_path)
+gex_fastq_files = Channel.fromPath(source_path + wfi.parameters.input.gex_fastq_path)
+vdj_fastq_paths = Channel.of(source_path + wfi.parameters.input.vdj_fastq_path)
+vdj_fastq_files = Channel.fromPath(source_path + wfi.parameters.input.vdj_fastq_path)
 study_id = Channel.from(wfi.parameters.input.study_id)
 modes = Channel.from(wfi.parameters.aggr.modes)
 run_gex = Channel.from(wfi.parameters.input.gex)
@@ -30,12 +32,13 @@ run_vdj.into{map_vdj ; ana_vdj}
 study_id.into{gex_study_id; vdj_study_id}
 
 
+
 process TENX_GEX_MAP {
-  echo false
+  echo true
   publishDir "$params.output.folder/Metadata", mode : 'copy'
   
   input:
-    path meta_file from gex_metadata
+    file meta_file from gex_metadata
     val fastq_path from gex_fastq_paths
     val study from gex_study_id
     val map from map_gex
@@ -45,7 +48,7 @@ process TENX_GEX_MAP {
     path "GEX_samplesheet.csv" into gex_samplesheet
   
   when:
-    map == true
+    map == 1
         
   script:
     """
@@ -82,7 +85,7 @@ process TENX_GEX_MAP {
 }
 
 process TENX_VDJ_MAP {
-  echo false
+  echo true
   publishDir "$params.output.folder/Metadata", mode : 'copy'
   
   input:
@@ -96,7 +99,7 @@ process TENX_VDJ_MAP {
     path "VDJ_analysis_samplesheet.csv" into vdj_analysissheet
   
   when:
-    map == true
+    map == 1
         
   script:
     """
@@ -134,11 +137,12 @@ process TENX_VDJ_MAP {
 gex_h5sheet.into {count_gex_h5sheet; aggr_gex_h5sheet}
 
 process TENX_COUNT {
-  echo false 
+  echo true 
   publishDir "$params.output.folder/Counts" , mode : 'copy'
 
   input:
     each sample from count_gex_h5sheet.splitCsv(header: true, quote: '\"')
+    file samples from gex_fastq_files.collect()
     val run_count from count_gex
   
   output:
@@ -146,26 +150,29 @@ process TENX_COUNT {
     val task.exitStaus into count_status
 
   when:
-    run_count == true
+    run_count == 1
 
   script:
-    memory = "$task.memory" =~  /\d+/
-    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq")
-        """
-        cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
-          --fastqs=$sample.fastqPath --sample=$sample.fastqSample --expect-cells=$sample.expected_cells \
-          --chemistry=$sample.chemistry --localcores=$task.cpus --localmem=${memory[0]}
-        """
-    else if("$params.count.fastq_type" == "demux")
-        """
-        cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference \
-          --fastqs=$sample.fastqPath --expect-cells=$sample.expected_cells \
-          --chemistry=$sample.chemistry --localcores=$task.cpus --localmem=${memory[0]}
-        """
+    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq") {
+      samplecmd = "--sample=$sample.fastqSample"
+    } else { samplecmd = "" }
+
+    """
+    mkdir fastq
+    mv $samples fastq
+
+    COMMAND="cellranger count --id=$sample.library_id --transcriptome=$params.input.gex_reference"
+    COMMAND="\$COMMAND --fastqs=fastq --expect-cells=$sample.expected_cells"
+    COMMAND="\$COMMAND --chemistry=$sample.chemistry"
+
+    echo "Command: \$COMMAND"
+    eval \$COMMAND
+    """
 }
 
+
 process TENX_AGGR {
-  echo false
+  echo true
   publishDir "$params.output.folder/Counts" , mode : 'copy'
 
   input:
@@ -178,7 +185,7 @@ process TENX_AGGR {
     path "Aggregate_${mode}_normalized" into aggr_path
 
   when:
-    run_aggr == true
+    run_aggr == 1
 
   script:
     """
@@ -187,9 +194,8 @@ process TENX_AGGR {
 }
 
 process TENX_MATRIX {
-  echo false
+  echo true
   publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix" , mode : 'copy'
-
 
   input:
     path aggr_out from aggr_path
@@ -199,7 +205,7 @@ process TENX_MATRIX {
     path "Filtered_expression_matrix.csv" into mtx_path
 
   when:
-    run_matrix == true
+    run_matrix == 1
 
   script:
     """
@@ -208,7 +214,7 @@ process TENX_MATRIX {
 }
 
 process TENX_VDJ {
-  echo false
+  echo true
   publishDir "$params.output.folder/VDJ" , mode : 'copy'
 
   input:
@@ -219,16 +225,21 @@ process TENX_VDJ {
     path "${sample.sampleName}"
 
   when:
-    analyze == true
+    analyze == 1
 
   script:
-    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq")
-      """
-      cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqPath \
-        --sample=$sample.fastqSample
-      """
-    else if("$params.count.fastq_type" == "demux")
-      """
-      cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference --fastqs=$sample.fastqPath
-      """
+    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq") {
+      samplecmd = "--sample=$sample.fastqSample"
+    } else { samplecmd = "" }
+
+    """
+    mkdir fastq
+    mv $samples fastq
+
+    COMMAND="cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference"
+    COMMAND="\$COMMAND --fastqs=$sample.fastqPath $samplecmd" 
+
+    echo "Command: \$COMMAND"
+    eval \$COMMAND
+    """
 }
