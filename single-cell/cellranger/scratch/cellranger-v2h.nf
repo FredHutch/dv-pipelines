@@ -191,3 +191,86 @@ process TENX_COUNT {
     eval \$COMMAND
     """
 }
+
+
+
+
+process TENX_AGGR {
+  echo true
+  scratch = '/opt/work'
+  publishDir "$target_path_dir/Counts" , mode : 'copy'
+
+  input:
+    path samplesheet from aggr_gex_h5sheet
+    each mode from modes
+    val status from count_status.collect()
+    val run_aggr from aggr_gex
+    val target_path_dir from target_path_val
+  
+  output:
+    path "Aggregate_${mode}_normalized" into aggr_path
+
+  when:
+    run_aggr == 1
+
+  script:
+    """
+    cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode} 
+    """
+}
+
+process TENX_MATRIX {
+  echo true
+  scratch = '/opt/work'
+  publishDir "$target_path_dir/Counts/${aggr_out}/out/filtered_feature_bc_matrix" , mode : 'copy'
+
+  input:
+    path aggr_out from aggr_path
+    val run_matrix from mat_gex
+    val target_path_dir from target_path_val
+
+  output:
+    path "Filtered_expression_matrix.csv" into mtx_path
+
+  when:
+    run_matrix == 1
+
+  script:
+    """
+    cellranger mat2csv ${aggr_out}/outs/filtered_feature_bc_matrix Filtered_expression_matrix.csv
+    """
+}
+
+process TENX_VDJ {
+  echo true
+  scratch = '/opt/work'
+  publishDir "$target_path_dir/VDJ" , mode : 'copy'
+
+  input:
+    each sample from vdj_analysissheet.splitCsv(header: true, quote: '\"') 
+    val analyze from ana_vdj
+    val target_path_dir from target_path_val
+    val vdf_ref from vdj_reference
+
+  output:
+    path "${sample.sampleName}"
+
+  when:
+    analyze == 1
+
+  script:
+    if("$fastq_type" == "mkfastq" | "$fastq_type" == "bcl2fastq") {
+      samplecmd = "--sample=$sample.fastqSample"
+    } else { samplecmd = "" }
+
+    """
+    mkdir fastq
+    mv $samples fastq
+
+    COMMAND="cellranger vdj --id=$sample.sampleName --reference=$vdf_ref"
+    COMMAND="\$COMMAND --fastqs=$sample.fastqPath $samplecmd" 
+
+    echo "Command: \$COMMAND"
+    eval \$COMMAND
+    """
+}

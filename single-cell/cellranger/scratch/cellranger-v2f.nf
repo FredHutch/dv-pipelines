@@ -6,7 +6,8 @@ String configJSON = new File("${params.wfconfig}").text
 def wfi = jsonSlurper.parseText(configJSON)
 target_path = "$params.s3bucket" + "/"
 target_path_val = Channel.value("$params.s3bucket" + "/")
-source_path = wfi.parents.s3path + "/"
+source_path = wfi.parents[0].s3path + "/"
+source_path_val = source_path
 
 
 //Input parameters
@@ -153,7 +154,8 @@ gex_h5sheet.into {count_gex_h5sheet; aggr_gex_h5sheet}
 
 
 process TENX_COUNT {
-  echo true 
+  echo true
+  scratch = '/opt/work'
   publishDir "$target_path_dir/Counts" , mode : 'copy'
 
   input:
