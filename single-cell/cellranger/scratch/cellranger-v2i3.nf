@@ -178,11 +178,11 @@ process TENX_COUNT {
     } else { samplecmd = "" }
 
     """
-    echo "Staging fastq files"
-    mkdir -p fastq
+    mkdir fastq
     mv $sample_file fastq
-    echo "Staging reference genome"
-    mkdir -p ref
+    du -sh fastq
+
+    mkdir ref
     tar -zxf $gex_ref -C ref
     REFPATH="\$(ls ref/)"
 

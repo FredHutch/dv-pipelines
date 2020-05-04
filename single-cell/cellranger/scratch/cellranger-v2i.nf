@@ -178,15 +178,12 @@ process TENX_COUNT {
     } else { samplecmd = "" }
 
     """
-    echo "Staging fastq files"
-    mkdir -p fastq
+    mkdir fastq
     mv $sample_file fastq
-    echo "Staging reference genome"
-    mkdir -p ref
-    tar -zxf $gex_ref -C ref
-    REFPATH="\$(ls ref/)"
+    du -sh fastq
 
-    COMMAND="cellranger count --id=$sample.library_id --transcriptome=ref/\$REFPATH"
+
+    COMMAND="cellranger count --id=$sample.library_id --transcriptome=$gex_ref"
     COMMAND="\$COMMAND --fastqs=fastq --expect-cells=$sample.expected_cells"
     COMMAND="\$COMMAND --chemistry=$sample.chemistry"
 
