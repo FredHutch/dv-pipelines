@@ -51,7 +51,6 @@ echo "##addendum: addition of custom TCRT gene 2020-04-29" >> ${REF_OUT}/custom.
 zcat $TCRT_GTF $REF_GTF | grep -v "\#" >> ${REF_OUT}/custom.gtf
 
 
-
 ## See https://github.com/nf-core/scrnaseq/blob/master/docs/usage.md
 
 
