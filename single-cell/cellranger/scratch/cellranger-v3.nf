@@ -9,7 +9,6 @@ target_path_val = Channel.value("$params.s3bucket" + "/")
 source_path = wfi.parents[0].s3path + "/"
 source_path_val = source_path
 
-
 //Input parameters
 /// Reference data
 reference_path = wfi.parameters.input.reference_path
@@ -60,7 +59,7 @@ process TENX_GEX_MAP {
     """
     #!/usr/bin/env Rscript
     library(tidyverse)
-    # Metadata file provide should have the 12 mandatory fields mentioned in the README
+    # Metadata file provide should have the 12 mandatory fields mentioned in the README 
     cat("Meta file: $meta_file ")
     cat("Fastq type $fastq_type ")
     cat("Fastq path: $fastq_path ")
@@ -152,8 +151,7 @@ process TENX_VDJ_MAP {
 gex_h5sheet.into {count_gex_h5sheet; aggr_gex_h5sheet}
 
 process TENX_COUNT {
-  echo true
-  scratch = '/opt/work'
+  echo true 
   publishDir "$target_path_dir/Counts" , mode : 'copy'
 
   input:
@@ -183,10 +181,88 @@ process TENX_COUNT {
     mkdir ref
     tar -zxf $gex_ref -C ref
     REFPATH="\$(ls ref/)"
-
     COMMAND="cellranger count --id=$sample.library_id --transcriptome=ref/\$REFPATH"
     COMMAND="\$COMMAND --fastqs=fastq --expect-cells=$sample.expected_cells"
     COMMAND="\$COMMAND --chemistry=$sample.chemistry"
+
+    echo "Command: \$COMMAND"
+    eval \$COMMAND
+    """
+}
+
+
+process TENX_AGGR {
+  echo true
+  publishDir "$target_path_dir/Counts" , mode : 'copy'
+
+  input:
+    path samplesheet from aggr_gex_h5sheet
+    each mode from modes
+    val status from count_status.collect()
+    val run_aggr from aggr_gex
+    val target_path_dir from target_path_val
+  
+  output:
+    path "Aggregate_${mode}_normalized" into aggr_path
+
+  when:
+    run_aggr == 1
+
+  script:
+    """
+    mkdir counts
+    mv $ counts
+
+    cd counts
+    cellranger aggr --id=Aggregate_${mode}_normalized --csv=${samplesheet} --normalize=${mode} 
+    """
+}
+
+process TENX_MATRIX {
+  echo true
+  publishDir "$params.output.folder/Counts/${aggr_out}/out/filtered_feature_bc_matrix" , mode : 'copy'
+
+  input:
+    path aggr_out from aggr_path
+    val run_matrix from mat_gex
+
+  output:
+    path "Filtered_expression_matrix.csv" into mtx_path
+
+  when:
+    run_matrix == 1
+
+  script:
+    """
+    cellranger mat2csv ${aggr_out}/outs/filtered_feature_bc_matrix Filtered_expression_matrix.csv
+    """
+}
+
+process TENX_VDJ {
+  echo true
+  publishDir "$params.output.folder/VDJ" , mode : 'copy'
+
+  input:
+    each sample from vdj_analysissheet.splitCsv(header: true, quote: '\"') 
+    val analyze from ana_vdj
+
+  output:
+    path "${sample.sampleName}"
+
+  when:
+    analyze == 1
+
+  script:
+    if("$params.count.fastq_type" == "mkfastq" | "$params.count.fastq_type" == "bcl2fastq") {
+      samplecmd = "--sample=$sample.fastqSample"
+    } else { samplecmd = "" }
+
+    """
+    mkdir fastq
+    mv $samples fastq
+
+    COMMAND="cellranger vdj --id=$sample.sampleName --reference=$params.input.vdj_reference"
+    COMMAND="\$COMMAND --fastqs=$sample.fastqPath $samplecmd" 
 
     echo "Command: \$COMMAND"
     eval \$COMMAND

@@ -1,6 +1,8 @@
 # STAR solo workflow
 
 
+Useful guide - https://github.com/alexdobin/STAR/blob/master/docs/STARsolo.md
+
 ### Scripts:
 
 * [run-starsolo.sh](run-starsolo.sh) - RobA's original script
