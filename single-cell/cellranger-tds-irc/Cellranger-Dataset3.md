@@ -98,33 +98,76 @@ Do cellranger agg if absolutely necessary, https://support.10xgenomics.com/singl
    Look over Rob's code. Do I have to do that? 
 
 
-Commandgen.sh:
+
+Setup for cellranger calls:
 
 ```
-ID="test1"
-GENOME="/scratch/data/genome"
-FAST_PATH="/scratch/data/patient10"
-
-cellranger count --id=$ID \
-  --transcriptome=$GENOME \
-  --fastqs=$FAST_PATH
-
-
-
-ID="test18"
-GENOME="/scratch/data/genome"
-FAST_PATH="/scratch/data/patient18"
-
-cellranger count --id=$ID \
-  --transcriptome=$GENOME \
-  --fastqs=$FAST_PATH
+mkdir -p /scratch/data/counts
+cd /scratch/data/counts
+mkdir -p data1
+mkdir -p data2
 
 ```
 
+Commandgen.sh for data 1:
+
+```
+ID="data1"
+GENOME="/scratch/data/genome/GRCh38_CAR"
+FAST_PATH="/scratch/data/data1/outs/fastq_path/CCG3JANXX"
+SAMPLE="/scratch/data/data1/outs/input_samplesheet.csv"
+
+cd /scratch/data/counts
+echo "cd /scratch/data/counts/data1
+" >> commandexec.sh
+while IFS=, read -r col1 col2 col3
+do
+   command="cellranger count --id=$ID_$col2 \
+   --transcriptome=$GENOME \
+   --sample=$col2 \
+   --fastqs=$FAST_PATH/$col2 \
+   "
+    echo "$command"
+    echo $command >> commandexec.sh
+done < <(tail -n +2 $SAMPLE)
+
+```
+
+
+Commandgen.sh for data 2
+
+```
+cd /scratch/data/counts
+echo "cd /scratch/data/counts/data2" >> commandexec.sh
+
+ID="SSC-PBMC-4-2016"
+GENOME="/scratch/data/genome/GRCh38_CAR"
+FAST_PATH="/scratch/data/data2"
+
+command="cellranger count --id=$ID \
+   --transcriptome=$GENOME \
+   --fastqs=$FAST_PATH \
+"
+echo "$command"
+echo $command >> commandexec.sh
 
 
 
+chmod +x commandexec.sh
+```
 
+
+## Run the cellranger count command
+
+```
+screen 
+
+export PATH=/scratch/cellranger-3.1.0:$PATH
+cd /scratch/data/counts
+. commandexec.sh
+
+
+```
 
 
 

@@ -113,7 +113,7 @@ cellranger count --id=$ID \
 
 
 
-ID="test18"
+ID="patient18"
 GENOME="/scratch/data/genome"
 FAST_PATH="/scratch/data/patient18"
 
@@ -132,13 +132,25 @@ cellranger count --id=$ID \
 
 ## Save off the results
 
+
+For patient 10, IN PROGRESS:
 ```
-cd /scratch
-aws s3 cp comparerun1/ s3://test-nextflow-data/40d55f14-5ae8-4e7a-af9b-85d1122a0aaa/alignment/cellranger/ --recursive --dryrun
+/scratch/data/genome/test1
+
+aws s3 cp . s3://test-nextflow-data/1c0f2946-df95-49df-ad20-b852ce1cd57a/patient10/counts/ --recursive
+
+
 ```
 
+For patient 18, TBD:
+
+```
+cd /scratch/data/patient18/patient18
+
+aws s3 cp . s3://test-nextflow-data/1c0f2946-df95-49df-ad20-b852ce1cd57a/patient18/counts/ --recursive
 
 
+```
 
 
 
