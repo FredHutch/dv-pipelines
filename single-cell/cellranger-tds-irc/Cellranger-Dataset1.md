@@ -201,6 +201,16 @@ cellranger count --id=GS_PBMC_8_2013_MCCB1050    --transcriptome=/scratch/data/g
 
 ```
 
+Save off these results as well:
+
+```
+cd /scratch/data/GS_PBMC_8_2013_MCCB1050
+
+aws s3 cp . s3://test-nextflow-data/70d766be-5da2-4cfc-9515-9bf416ce964b/patient1/counts/GS_PBMC_8_2013_MCCB1050/ --recursive
+
+```
+
+
 ## Restore the other results
 
 ```
