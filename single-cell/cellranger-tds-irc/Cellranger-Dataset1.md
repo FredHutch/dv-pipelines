@@ -270,45 +270,20 @@ cellranger aggr \
 ```
 
 
-```
-
-## Count Quantification ---------------------------------------------------------
-echo "Working on counts quantification..."
-
-# ## Count in each sample
-mkdir -p $BASE/data-raw/counts
-cd $BASE/data-raw/counts
-
-for I in $(seq 0 $((${#SAMPLE_LABELS[@]} - 1))); do
-    cellranger count \
-         --id=${SAMPLE_LABELS[$I]} \
-         --transcriptome=$REF_DENOVO \
-         --fastqs=$SAMPLE_DIR/${SAMPLE_LABELS[$I]} \
-         --force-cells=10000 \
-         --nosecondary
-done
-
-
-## Aggregation ----------------------------------------------------------------
-echo "Working on sample aggregation..."
-
-## requires a csv with header "library_id,molecule_h5", then each row having
-## sample name and location of "molecule_info.h5" file
-## careful: aggregate_*.csv are relative paths to molecule info h5
-mkdir -p $BASE/data-raw/aggregate
-cd $BASE/data-raw/aggregate
-
-# run only the -all 600 sample
-for I in $(ls $BASE/data-meta/aggregate/aggregate*all.csv); do 
-    echo "Aggregating on $I .."
-    cellranger aggr \
-     --id=$(basename $I .csv) \
-     --csv=$I
-done
+### Save the results
 
 
 ```
+cd /scratch/data/agg
 
+aws s3 cp . s3://test-nextflow-data/70d766be-5da2-4cfc-9515-9bf416ce964b/patient1/agg/ --exclude "*" --include "aggregate.csv" --recursive
+
+
+cd /scratch/data/agg/patient1run1
+
+aws s3 cp . s3://test-nextflow-data/70d766be-5da2-4cfc-9515-9bf416ce964b/patient1/agg/ --recursive
+
+```
 
 
 
