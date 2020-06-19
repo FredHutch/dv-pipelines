@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "count": {
+      "cellcount": 10000
+    },
+    "input": {
+      "fastq_path": "s3://test-nextflow-data/demo",
+      "samples": ["files1", "files2"]
+    }
+  }
+}
