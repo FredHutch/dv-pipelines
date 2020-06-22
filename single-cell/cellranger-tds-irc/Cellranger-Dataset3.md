@@ -172,10 +172,15 @@ cd /scratch/data/counts
 
 
 ## Save off the results
-
 ```
-cd /scratch
-aws s3 cp comparerun1/ s3://test-nextflow-data/40d55f14-5ae8-4e7a-af9b-85d1122a0aaa/alignment/cellranger/ --recursive --dryrun
+cd /scratch/data/counts
+aws s3 cp . s3://test-nextflow-data/fa820f31-c24d-4dd1-8a06-957abe9d84eb/data1/counts/ --recursive
+
+
+
+cd /scratch/data/counts2
+aws s3 cp . s3://test-nextflow-data/fa820f31-c24d-4dd1-8a06-957abe9d84eb/data2/counts/ --recursive
+
 ```
 
 

@@ -12,6 +12,7 @@ fastq_path = wfi.parameters.input.fastq_path
 
 target_path = "$params.source"
 source_path = "$params.target"
+scratch_path = '/opt/work'
 
 sample_list = Channel.fromList(wfi.parameters.input.samples)
 sample_list
@@ -22,8 +23,8 @@ sample_list
 process CELLRANGER_COUNT {
   echo true
   input: 
-    path sample from read_folder_ch
-    path genome from reference_genome_path
+    path sample, stageAs: 'sample/*' from read_folder_ch
+    path genome, stageAs: 'genome/*' from reference_genome_path
     val target_path
     val source_path
 
@@ -39,5 +40,6 @@ process CELLRANGER_COUNT {
     COMMAND="\$COMMAND --fastqs=$sample" 
 
     echo "Command: \$COMMAND"
+    eval \$COMMAND
     """
 }
