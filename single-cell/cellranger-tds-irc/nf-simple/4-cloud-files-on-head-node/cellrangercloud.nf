@@ -34,7 +34,7 @@ process CELLRANGER_COUNT {
     ls $genome
     echo "Sample folder contents"
     ls $sample
-    ID="$sample"
+    ID="placeholder"
     echo "ID is \$ID"
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
     COMMAND="\$COMMAND --fastqs=$sample" 
