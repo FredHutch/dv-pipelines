@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "count": {
+      "cellcount": 10000
+    },
+    "input": {
+      "fastq_path": "/Users/dnambi/Documents/GitHub/dv-pipelines/single-cell/cellranger-tds-irc/nf-files",
+      "samples": ["files1", "files2"]
+    }
+  }
+}

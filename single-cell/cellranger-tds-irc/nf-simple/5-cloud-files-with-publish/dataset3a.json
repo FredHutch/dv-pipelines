@@ -1,0 +1,12 @@
+{
+  "parameters": {
+    "count": {
+      "cellcount": 10000
+    },
+    "input": {
+      "genome_path": "s3://test-nextflow-data/ec8e5540-1132-4eba-900c-c546d8199aac/genome/GRCh38_CAR/",
+      "fastq_path": "s3://test-nextflow-data/ec8e5540-1132-4eba-900c-c546d8199aac/data1/outs/fastq_path/CCG3JANXX",
+      "samples": ["CLJ_x424_IP_sampleGEX", "CLJ_x424_d102_sampleGEX", "CLJ_x424_d12_sampleGEX", "CLJ_x424_d29_sampleGEX", "JAT_x483_IP_sampleGEX", "JAT_x483_d12_sampleGEX", "JAT_x483_d28_sampleGEX", "JAT_x483_d89_sampleGEX", "REB_x254_IP_sampleGEX", "REB_x254_d112_sampleGEX", "REB_x254_d21_sampleGEX", "REB_x254_d38_sampleGEX", "TAB_x311_IP_sampleGEX", "TAB_x311_d12_sampleGEX", "TAB_x311_d29_sampleGEX", "TAB_x311_d83_sampleGEX" ]
+    }
+  }
+}
