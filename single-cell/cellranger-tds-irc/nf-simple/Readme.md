@@ -25,6 +25,13 @@ nextflow run filelocal.nf --source "s3://test-nextflow-data/demo" --target "s3:/
 
 ```
 
+Tuple handling setup:
+```
+
+nextflow run tuple.nf --source "s3://test-nextflow-data/demo" --target "s3://test-nextflow-data/demo2" --wfconfig localfileconfig.json
+
+```
+
 S3 file setup:
 ```
 
