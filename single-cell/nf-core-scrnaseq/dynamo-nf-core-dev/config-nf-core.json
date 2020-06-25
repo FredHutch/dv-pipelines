@@ -1,0 +1,28 @@
+{
+  "analysis": "37d91e88-ff65-46d3-bf7c-07e5d17cf80d",
+  "desc": "Nf-core sample dataset config",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "b0080442-e7bf-4046-99f9-4e588091d93b",
+  "info": {
+    "date": 20200305,
+    "source": "fake.hutchbase.fredhutch.org"
+  },
+  "name": "Nf-core sample dataset v21",
+  "parameters": {
+    "input": {
+      "cpu": 16,
+      "mem-gb": 129
+    },
+    "aligner": "star",
+    "reads":"*_R{1,2}.fastq.gz",
+    "fasta":"s3://hutch.cloud.dev/reference-data/GENCODE/genomes/mouse/GRCm38.p6.genome.fa",
+    "gtf":"s3://hutch.cloud.dev/reference-data/GENCODE/genomes/mouse/gencode.vM25.chr_patch_hapl_scaff.annotation.gtf"
+  },
+  "type": "one-time"
+}
+

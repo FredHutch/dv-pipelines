@@ -1,0 +1,20 @@
+{
+  "configurationID": "3481a96a-7f8f-45f7-8ebd-2286dd4a654b",
+  "datasets": [
+  ],
+  "date": "2020-05-29T20:00:00.000Z",
+  "desc": "Parent of mouse cellranger dataset",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "f277b93c-9ac9-4039-b512-b2a3bdeda45c",
+  "info": {
+  },
+  "name": "Parent of mouse cellranger dataset",
+  "s3path": "s3://dvc-wf-data/f277b93c-9ac9-4039-b512-b2a3bdeda45c",
+  "status": "ignore"
+}

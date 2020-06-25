@@ -1,0 +1,22 @@
+{
+  "__typename": "Dataset",
+  "configurationID": "8596b04c-67cb-4152-b0e8-c9337fba27c5",
+  "createdAt": "2020-03-12T00:31:12.447Z",
+  "datasets": [
+    "597b6e22-4b39-4291-b543-2633a9fcb5d5"
+  ],
+  "date": "2020-03-05T23:56:49.847Z",
+  "desc": "Desc",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "495d238d-4f44-4ce0-b9fd-5e74115d8614",
+  "info": "{\"cell_count_estimate\":\"19.9k\",\"donar_count\":4,\"library_construction\":\"10Xv2sequencing\",\"model_organ\":\"brain\",\"paired_end\":true,\"sample_type\":\"organoids\",\"species\":\"Homosapiens\"}",
+  "name": "Name",
+  "s3path": "S3://dvc-portal-data/hca/597b6e22-4b39-4291-b543-2633a9fcb5d5/495d238d-4f44-4ce0-b9fd-5e74115d8614",
+  "status": "PENDING",
+  "updatedAt": "2020-03-12T00:31:12.447Z"
+}

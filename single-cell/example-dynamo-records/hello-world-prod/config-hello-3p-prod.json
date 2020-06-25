@@ -1,0 +1,21 @@
+{
+  "__typename": "Configuration",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysisID": "3eb6a1a0-bc91-4687-9299-30c09ae8d5a4",
+  "desc": "Parent of hutchbase sample dataset config",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "2ee0e920-371f-4464-8fe5-9554835f5c1c",
+  "info": {},
+  "name": "Parent config v1",
+  "parameters": {
+    "test": "param",
+    "test2": "param"
+  },
+  "type": "ignore"
+}

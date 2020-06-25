@@ -1,0 +1,20 @@
+{
+  "configuration": "1710a3f5-8656-4926-96b8-7e77fa49b1db",
+  "datasets": [],
+  "date": "2020-03-05T20:00:00.000Z",
+  "desc": "Parent dataset of cellranger-1, used for integ testing",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "e471e977-d775-4b4c-82a9-8416e87f9552",
+  "info": {
+
+  },
+  "name": "Parent dataset of cellranger-1",
+  "s3path": "s3://test-nextflow-data/cellranger-1p",
+  "status": "ignore"
+}

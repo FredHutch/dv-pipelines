@@ -1,0 +1,23 @@
+{
+  "__typename": "Dataset",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "configurationID": "2ee0e920-371f-4464-8fe5-9554835f5c1c",
+  "datasets": [
+  ],
+  "date": "2020-04-20T20:00:00.000Z",
+  "desc": "Parent of sample dataset",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "5831914c-bebe-4344-bf50-0ceddd8060be",
+  "info": {
+  },
+  "name": "Parent of test dataset",
+  "s3path": "s3://dvc-wf-data/datasets/48258812-4e09-4057-8a8b-89ff2265dd40",
+  "status": "unknown"
+}

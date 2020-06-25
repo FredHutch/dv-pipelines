@@ -1,0 +1,28 @@
+{
+  "__typename": "Configuration",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysisID": "3eb6a1a0-bc91-4687-9299-30c09ae8d5a4",
+  "desc": "Hutchbase sample dataset config",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "c9d0e4c1-5d73-4ef3-be2a-c2a753deb8d6",
+  "info": {
+    "date": 20200305,
+    "source": "fake.hutchbase.fredhutch.org"
+  },
+  "name": "Hutchbase sample dataset v13",
+  "parameters": {
+    "input": {
+      "cpu": 8,
+      "mem-gb": 15
+    },
+    "test": "param",
+    "test2": "param"
+  },
+  "type": "one-time"
+}
