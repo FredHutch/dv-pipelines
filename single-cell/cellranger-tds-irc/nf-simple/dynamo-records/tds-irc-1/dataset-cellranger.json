@@ -1,0 +1,20 @@
+{
+  "configurationID": "ec1f75e4-b815-444f-8490-4a2497e48cdd",
+  "datasets": [ "f277b93c-9ac9-4039-b512-b2a3bdeda45c" ],
+  "date": "2020-05-31T20:00:00.000Z",
+  "desc": "Mouse cellranger dataset, from RobA / Gottardo lab",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "c9e7b94a-95bb-4b6d-bc4f-f1a6ca1ec24d",
+  "info": {
+
+  },
+  "name": "Mouse cellranger dataset",
+  "s3path": "s3://test-nextflow-data/c9e7b94a-95bb-4b6d-bc4f-f1a6ca1ec24d",
+  "status": "uploaded"
+}

@@ -1,0 +1,57 @@
+{
+  "analysis": [
+
+  ],
+  "desc": "Cellranger processing of basic mouse dataset, from RobA, Gottardo lab",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "1e0926fe-7326-4e1e-945b-e9888ffc5dfb",
+  "info": {
+
+  },
+  "name": "Sample mouse analysis",
+  "runtime": "NEXTFLOW",
+  "schema": {
+    "form": {
+      "description": "Does nothing",
+      "properties": {
+        "n_comps": {
+          "title": "Number of Components",
+          "type": "integer"
+        },
+        "zero_center": {
+          "title": "Zero Center",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "n_comps",
+        "zero_center"
+      ],
+      "title": "Test Script",
+      "type": "object"
+    },
+    "ui": {
+      "n_comps": {
+        "ui:widget": "updown"
+      }
+    },
+    "values": {
+      "n_comps": 50,
+      "zero_center": false
+    }
+  },
+  "workflow": {
+    "type": "s3",
+    "executable": "s3://test-nextflow-data/project/cellranger-simple/cellrangerpublish.nf",
+    "config-bucket": "text-nexflow-metadata",
+    "config-key": "TBD/default-parameters.json"
+  }
+}
