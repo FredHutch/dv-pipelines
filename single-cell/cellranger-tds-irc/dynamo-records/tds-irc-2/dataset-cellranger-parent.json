@@ -15,6 +15,6 @@
   "info": {
   },
   "name": "Parent of mouse cellranger dataset",
-  "s3path": "s3://dvc-wf-data/f277b93c-9ac9-4039-b512-b2a3bdeda45c",
+  "s3path": "",
   "status": "ignore"
 }

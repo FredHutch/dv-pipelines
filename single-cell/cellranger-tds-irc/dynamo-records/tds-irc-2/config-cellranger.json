@@ -16,12 +16,11 @@
   "parameters": {
     "input": {
       "cpu": 16,
-      "mem-gb": 129
+      "mem": 129,
+      "genome_path": "s3://bucket/path/to/genome",
+      "fastq_path": "s3://bucket/path/to/fastqs",
+      "samples": ["sample1", "sample2", "sample3"]
     },
-    "aligner": "star",
-    "reads":"*_R{1,2}.fastq.gz",
-    "fasta":"s3://hutch.cloud.dev/reference-data/GENCODE/genomes/mouse/GRCm38.p6.genome.fa",
-    "gtf":"s3://hutch.cloud.dev/reference-data/GENCODE/genomes/mouse/gencode.vM25.chr_patch_hapl_scaff.annotation.gtf"
   },
   "type": "one-time"
 }
