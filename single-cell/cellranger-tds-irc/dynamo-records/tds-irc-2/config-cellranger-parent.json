@@ -1,21 +1,17 @@
 {
-  "analysis": "1e0926fe-7326-4e1e-945b-e9888ffc5dfb",
-  "desc": "Parent of sample mouse cellranger dataset",
+  "analysis": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
+  "desc": "Parent of TDS IRC #2",
   "groupsEdit": [
     "Admin"
   ],
   "groupsView": [
     "Admin"
   ],
-  "id": "3481a96a-7f8f-45f7-8ebd-2286dd4a654b",
+  "id": "e857393a-af0c-4eaa-960f-3c2515a1442e",
   "info": {},
-  "name": "Parent of mouse cellranger dataset",
+  "name": "Parent of TDS IRC #2",
   "parameters": {
-    "input": {
-      "genome_path": "s3://bucket/path/to/genome",
-      "fastq_path": "s3://bucket/path/to/fastqs",
-      "samples": ["sample1", "sample2", "sample3"]
-    }
+    "input": {    }
   },
   "type": "ignore"
 }

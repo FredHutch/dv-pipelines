@@ -2,7 +2,7 @@
   "analysis": [
 
   ],
-  "desc": "Cellranger processing of basic mouse dataset, from RobA, Gottardo lab",
+  "desc": "Cellranger processing of TDS IRC datasets",
   "files": [
 
   ],
@@ -12,7 +12,7 @@
   "groupsView": [
     "Admin"
   ],
-  "id": "1e0926fe-7326-4e1e-945b-e9888ffc5dfb",
+  "id": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
   "info": {
 
   },

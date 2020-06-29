@@ -1,9 +1,9 @@
 {
-  "configurationID": "3481a96a-7f8f-45f7-8ebd-2286dd4a654b",
+  "configurationID": "e857393a-af0c-4eaa-960f-3c2515a1442e",
   "datasets": [
   ],
-  "date": "2020-05-29T20:00:00.000Z",
-  "desc": "Parent of mouse cellranger dataset",
+  "date": "2020-06-28T20:00:00.000Z",
+  "desc": "Parent of TDS IRC dataset #2",
   "execution": {},
   "groupsEdit": [
     "Admin"
@@ -11,10 +11,10 @@
   "groupsView": [
     "Admin"
   ],
-  "id": "f277b93c-9ac9-4039-b512-b2a3bdeda45c",
+  "id": "88976dd4-d208-4949-a2d2-4574944e1a3b",
   "info": {
   },
-  "name": "Parent of mouse cellranger dataset",
+  "name": "Parent of TDS IRC dataset #2",
   "s3path": "",
   "status": "ignore"
 }

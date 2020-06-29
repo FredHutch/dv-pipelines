@@ -1,8 +1,8 @@
 {
-  "configurationID": "ec1f75e4-b815-444f-8490-4a2497e48cdd",
-  "datasets": [ "f277b93c-9ac9-4039-b512-b2a3bdeda45c" ],
-  "date": "2020-05-31T20:00:00.000Z",
-  "desc": "Mouse cellranger dataset, from RobA / Gottardo lab",
+  "configurationID": "000dae23-f7a1-413a-994d-59a5363c945c",
+  "datasets": [ "88976dd4-d208-4949-a2d2-4574944e1a3b" ],
+  "date": "2020-05-28T20:00:00.000Z",
+  "desc": "Dataset for TDS IRC #2",
   "execution": {},
   "groupsEdit": [
     "Admin"
@@ -10,11 +10,11 @@
   "groupsView": [
     "Admin"
   ],
-  "id": "c9e7b94a-95bb-4b6d-bc4f-f1a6ca1ec24d",
+  "id": "04d47264-1cb0-4426-a5f1-31fd44d6645e",
   "info": {
 
   },
-  "name": "Mouse cellranger dataset",
+  "name": "Dataset for TDS IRC #2",
   "s3path": "",
   "status": "uploaded"
 }

@@ -1,22 +1,22 @@
 {
-  "analysisID": "1e0926fe-7326-4e1e-945b-e9888ffc5dfb",
-  "desc": "Mouse cellranger dataset config",
+  "analysisID": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
+  "desc": "Config for TDS IRC #2",
   "groupsEdit": [
     "Admin"
   ],
   "groupsView": [
     "Admin"
   ],
-  "id": "ec1f75e4-b815-444f-8490-4a2497e48cdd",
+  "id": "000dae23-f7a1-413a-994d-59a5363c945c",
   "info": {
     "date": 20200305,
     "source": "fake.hutchbase.fredhutch.org"
   },
-  "name": "Mouse cellranger dataset v1",
+  "name": "Config for TDS IRC #2",
   "parameters": {
     "input": {
-      "cpu": 16,
-      "mem": 129,
+      "cpu": 8,
+      "mem": 32,
       "genome_path": "s3://bucket/path/to/genome",
       "fastq_path": "s3://bucket/path/to/fastqs",
       "samples": ["sample1", "sample2", "sample3"]
