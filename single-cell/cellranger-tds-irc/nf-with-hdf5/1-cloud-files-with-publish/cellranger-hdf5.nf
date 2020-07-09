@@ -17,7 +17,7 @@ target_path = "$params.s3target"
 target_path_count = target_path + 'count/'
 target_path_hdf5 = target_path + 'pubweb/'
 source_path = "$params.s3source"
-scratch_path = '/data/scratch'
+scratch_path = '/opt/work'
 
 sample_list = Channel.fromList(wfi.parameters.input.samples)
 sample_list
