@@ -1,0 +1,17 @@
+{
+  "analysis": "1e0926fe-7326-4e1e-945b-e9888ffc5dfb",
+  "desc": "Parent of sample mouse cellranger dataset",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "3481a96a-7f8f-45f7-8ebd-2286dd4a654b",
+  "info": {},
+  "name": "Parent of mouse cellranger dataset",
+  "parameters": {
+    "test": "param"
+  },
+  "type": "ignore"
+}

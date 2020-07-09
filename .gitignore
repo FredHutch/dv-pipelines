@@ -4,3 +4,5 @@ data
 *.code-workspace
 ./*/*/config/*_params.config
 !./*/*/config/ZhengSorted10X_params.config
+.DS_Store
+./**/.DS_Store

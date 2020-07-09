@@ -1,0 +1,18 @@
+{
+  "analysis": "37d91e88-ff65-46d3-bf7c-07e5d17cf80d",
+  "desc": "Parent of nf-core sample dataset config",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "e13dae77-edc0-4c72-a511-0f956527a521",
+  "info": {},
+  "name": "Nf-core parent config v1",
+  "parameters": {
+    "test": "param",
+    "test2": "param"
+  },
+  "type": "ignore"
+}

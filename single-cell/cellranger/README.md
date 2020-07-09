@@ -2,9 +2,16 @@
 
 This cellranger Nextflow workflow is part of the Single cell RNASeq workflow developed for the Warren Lab. The following document outlines the input and output specifications, data formatting requirements and runtime enviroment details for the workflow. 
 
+
+## Execution
+
+```
+nextflow run cellranger.nf --wfconfig 'config.json'
+```
+
 ## Inputs:
 
-All the inputs for the analysis are read out of a config file, the structure of the config file is listed below
+All the inputs for the analysis are read out of a config file, the structure of the config file is listed below.
 
 ```{nextflow}
 params {

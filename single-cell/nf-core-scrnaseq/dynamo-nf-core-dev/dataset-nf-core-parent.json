@@ -1,0 +1,20 @@
+{
+  "configuration": "e13dae77-edc0-4c72-a511-0f956527a521",
+  "datasets": [
+  ],
+  "date": "2020-05-29T20:00:00.000Z",
+  "desc": "Parent of nf-core dataset",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "bfa3d505-6794-4ee1-a051-1055cc25236b",
+  "info": {
+  },
+  "name": "Parent of nf-core dataset",
+  "s3path": "s3://test-nextflow-data/99c240b0-cc12-40f4-9f4c-3fa26d2db2e0",
+  "status": "unknown"
+}

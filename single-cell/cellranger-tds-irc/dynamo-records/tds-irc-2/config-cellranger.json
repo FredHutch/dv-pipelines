@@ -1,0 +1,27 @@
+{
+  "analysis": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
+  "desc": "Config for TDS IRC #2",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "000dae23-f7a1-413a-994d-59a5363c945c",
+  "info": {
+    "date": 20200305,
+    "source": "fake.hutchbase.fredhutch.org"
+  },
+  "name": "Config for TDS IRC #2",
+  "parameters": {
+    "input": {
+      "cpu": 8,
+      "mem": 32,
+      "genome_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1/genome",
+      "fastq_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1",
+      "samples": ["patient10", "patient18"]
+    }
+  },
+  "type": "one-time"
+}
+

@@ -1,0 +1,153 @@
+/*
+ * -------------------------------------------------
+ *  nf-core/scrnaseq Nextflow config file
+ * -------------------------------------------------
+ * Default config options for all environments.
+ */
+
+// Global default params, used in configs
+params {
+
+  aligner = 'alevin'
+  // 10x V3 chemistry is compatible with V2
+  barcode_whitelist = false
+  bustools_correct = true
+  chemistry = 'V3'
+  fasta = false
+  genome = false
+  gtf = false
+  kallisto_gene_map = false
+  kallisto_index = false
+  outdir = './results'
+  reads = "data/*{1,2}.fastq.gz"
+  readPaths = false // Used for test profiles
+  star_index = false
+  transcriptome_fasta = false
+  txp2gene_alevin = false
+  type = '10x'
+
+  //Genome Defaults
+  salmon_index = params.genome ? params.genomes[ params.genome ].salmon_index ?: false : false
+  fasta = params.genome ? params.genomes[ params.genome ].fasta ?: false : false
+  transcript_fasta = params.genome ? params.genomes[ params.genome ].transcript_fasta ?: false : false
+  gtf = params.genome ? params.genomes[ params.genome ].gtf ?: false : false
+  txp2gene = params.genome ? params.genomes[ params.genome ].txp2gene ?: false : false
+  readPaths = params.readPaths? params.readPaths: false
+
+  // Template Boilerplate options
+  name = false
+  multiqc_config = "$baseDir/assets/multiqc_config.yaml"
+  email = false
+  max_multiqc_email_size = 25.MB
+  plaintext_email = false
+  monochrome_logs = false
+  help = false
+  igenomes_base = "./iGenomes"
+  tracedir = "${params.outdir}/pipeline_info"
+  igenomes_ignore = false
+  custom_config_version = 'master'
+  custom_config_base = "https://raw.githubusercontent.com/nf-core/configs/${params.custom_config_version}"
+  hostnames = false
+  config_profile_description = false
+  config_profile_contact = false
+  config_profile_url = false
+
+  seq_center = false
+  save_reference = false
+  star_memory = false // Cluster specific param required for hebbe
+}
+
+// Container slug. Stable releases should specify release tag!
+// Developmental code should specify :dev
+process.container = 'nfcore/scrnaseq:1.0.0'
+
+// Load base.config by default for all pipelines
+includeConfig 'conf/base.config'
+
+// Load nf-core custom profiles from different Institutions
+try {
+  includeConfig "${params.custom_config_base}/nfcore_custom.config"
+} catch (Exception e) {
+  System.err.println("WARNING: Could not load nf-core/config profiles: ${params.custom_config_base}/nfcore_custom.config")
+}
+
+profiles {
+  conda { process.conda = "$baseDir/environment.yml" }
+  debug { process.beforeScript = 'echo $HOSTNAME' }
+  docker {
+    docker.enabled = true
+    fixOwnership = true
+    runOptions = "-u \$(id -u):\$(id -g)"
+  }
+  singularity { singularity.enabled = true }
+  test { includeConfig 'conf/test.config' }
+  test_kallisto { includeConfig 'conf/test_kallisto.config'}
+}
+
+// Load igenomes.config if required
+if(!params.igenomes_ignore){
+  includeConfig 'conf/igenomes.config'
+}
+
+// Capture exit codes from upstream processes when piping
+process.shell = ['/bin/bash', '-euo', 'pipefail']
+
+timeline {
+  enabled = true
+  file = "${params.tracedir}/execution_timeline.html"
+}
+report {
+  enabled = true
+  file = "${params.tracedir}/execution_report.html"
+}
+trace {
+  enabled = true
+  file = "${params.tracedir}/execution_trace.txt"
+}
+dag {
+  enabled = true
+  file = "${params.tracedir}/pipeline_dag.svg"
+}
+
+manifest {
+  name = 'nf-core/scrnaseq'
+  author = 'Peter J Bailey, Alexander Peltzer, Olga Botvinnik'
+  homePage = 'https://github.com/nf-core/scrnaseq'
+  description = 'Pipeline for processing of 10xGenomics single cell rnaseq data'
+  mainScript = 'main.nf'
+  nextflowVersion = '>=19.10.0'
+  version = '1.0.0'
+}
+
+// Function to ensure that resource requirements don't go beyond
+// a maximum limit
+def check_max(obj, type) {
+  if(type == 'memory'){
+    try {
+      if(obj.compareTo(params.max_memory as nextflow.util.MemoryUnit) == 1)
+        return params.max_memory as nextflow.util.MemoryUnit
+      else
+        return obj
+    } catch (all) {
+      println "   ### ERROR ###   Max memory '${params.max_memory}' is not valid! Using default value: $obj"
+      return obj
+    }
+  } else if(type == 'time'){
+    try {
+      if(obj.compareTo(params.max_time as nextflow.util.Duration) == 1)
+        return params.max_time as nextflow.util.Duration
+      else
+        return obj
+    } catch (all) {
+      println "   ### ERROR ###   Max time '${params.max_time}' is not valid! Using default value: $obj"
+      return obj
+    }
+  } else if(type == 'cpus'){
+    try {
+      return Math.min( obj, params.max_cpus as int )
+    } catch (all) {
+      println "   ### ERROR ###   Max cpus '${params.max_cpus}' is not valid! Using default value: $obj"
+      return obj
+    }
+  }
+}

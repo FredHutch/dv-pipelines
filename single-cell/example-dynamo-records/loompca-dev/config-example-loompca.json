@@ -1,0 +1,19 @@
+{
+  "__typename": "Configuration",
+  "analysisID": "9ccc42ac-e566-4f07-9ca2-135ac4ec2bb0",
+  "createdAt": "2020-03-12T00:31:12.463Z",
+  "date": "2020-03-12T00:31:12.313Z",
+  "desc": "Desc",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "8596b04c-67cb-4152-b0e8-c9337fba27c5",
+  "info": "{}",
+  "name": "Name",
+  "parameters": "{\"n_comps\":50,\"zero_center\":true}",
+  "type": "one-time",
+  "updatedAt": "2020-03-12T00:31:12.463Z"
+}

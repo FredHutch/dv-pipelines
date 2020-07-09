@@ -1,0 +1,20 @@
+{
+  "configuration": "c537d719-a147-4af3-9d77-6aa60e0fa6c7",
+  "datasets": [ "e471e977-d775-4b4c-82a9-8416e87f9552" ],
+  "date": "2020-03-05T20:00:00.000Z",
+  "desc": "Dataset for cellranger-1 workflow, used for integ testing",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "a85594dd-e666-47aa-a4fc-cd3b3990197a",
+  "info": {
+
+  },
+  "name": "Dataset for cellranger-1 workflow",
+  "s3path": "s3://test-nextflow-data/cellranger-1",
+  "status": "initial creation"
+}

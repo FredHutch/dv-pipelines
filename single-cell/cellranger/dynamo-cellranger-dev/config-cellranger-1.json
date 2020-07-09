@@ -1,0 +1,44 @@
+{
+  "analysis": "bfd075fe-ded3-4280-830c-52e4e4e537f6",
+  "desc": "Configuration for cellranger-1 workflow, used for integration testing",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "c537d719-a147-4af3-9d77-6aa60e0fa6c7",
+  "info": {
+    "date": 20200305,
+    "source": "fakecellranger.hutchbase.fredhutch.org"
+  },
+  "name": "Cellranger-1 config, v0",
+  "parameters": {
+    "input": {
+      "cpu": 8,
+      "mem-gb": 15,
+      "type": "RDS",
+      "exp": "s3://vis.fredhutch.singlecell.pipeline/data/exp.rds",
+      "col": "s3://vis.fredhutch.singlecell.pipeline/data/col.rds",
+      "row": "s3://vis.fredhutch.singlecell.pipeline/data/row.rds",
+      "metadata": "ZhengSorted_metadata.csv",
+      "gex_reference": "hg19-3.0.0/refdata-cellranger-hg19-3.0.0.tar.gz",
+      "vdj_reference": "GHCh38-3.0.0/refdata-cellranger-GRCh38-3.0.0.tar.gz",
+      "gex_fastq_path": "fastq",
+      "vdj_fastq_path": "fastq",
+      "study_id": "INTEGSTUDYID",
+      "gex": 1,
+      "vdj": 1,
+      "reference_path": "s3://hutch.cloud.dev/cellranger/reference-data/"
+    },
+    "count": {
+      "fastq_type": "mkfastq",
+      "cellcount": 10000,
+      "chemistry": "fiveprime"
+    },
+    "aggr": {
+      "modes": "mapped"
+    }
+  },
+  "type": "one-time"
+}

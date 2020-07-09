@@ -1,0 +1,12 @@
+{
+  "parameters": {
+    "count": {
+      "cellcount": 10000
+    },
+    "input": {
+      "genome_path": "s3://test-nextflow-data/reference/GHRc38/",
+      "fastq_path": "s3://test-nextflow-data/sourceguid/mkfastq/out",
+      "samples": ["sample1", "sampleb", "c"]
+    }
+  }
+}

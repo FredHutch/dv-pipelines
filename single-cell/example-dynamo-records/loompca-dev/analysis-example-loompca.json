@@ -1,0 +1,24 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-03-11T19:35:14.156Z",
+  "desc": "This analysis is simply for testing purposes.  It takes a Loom File and runs PCA on it and then saves a loom file back out.",
+  "executable": "https://github.com/FredHutch/dv-pipelines/example.nf",
+  "files": [
+    {
+      "desc": "Loom File With PCA",
+      "name": "data.loom"
+    }
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "9ccc42ac-e566-4f07-9ca2-135ac4ec2bb0",
+  "info": "{}",
+  "name": "Test Analysis",
+  "runtime": "NEXTFLOW",
+  "schema": "{\"form\":{\"description\":\"Submit parameters below\",\"properties\":{\"n_comps\":{\"title\":\"NumberofComponents\",\"type\":\"integer\"},\"zero_center\":{\"title\":\"ZeroCenter\",\"type\":\"boolean\"}},\"required\":[\"n_comps\",\"zero_center\"],\"title\":\"Run analysis\",\"type\":\"object\"},\"ui\":{\"n_comps\":{\"ui:widget\":\"updown\"}},\"values\":{\"n_comps\":50,\"zero_center\":false}}",
+  "updatedAt": "2020-03-11T19:35:14.156Z"
+}

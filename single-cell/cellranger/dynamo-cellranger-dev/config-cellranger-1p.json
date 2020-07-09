@@ -1,0 +1,19 @@
+{
+  "analysis": "bfd075fe-ded3-4280-830c-52e4e4e537f6",
+  "desc": "Parent config of cellranger-1",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "1710a3f5-8656-4926-96b8-7e77fa49b1db",
+  "info": {
+    "source": "fake.hutchbase.fredhutch.org"
+  },
+  "name": "Parent config for cellranger-1 wf",
+  "parameters": {
+    "input": {}
+  },
+  "type": "ignore"
+}
