@@ -13,11 +13,11 @@ fastq_path = wfi.parameters.input.fastq_path
 species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name //change this?
 
-target_path = "$params.target"
-target_path_count = target_path + '/count' //check it
-target_path_hdf5 = target_path + '/pubweb' //check it
-source_path = "$params.source"
-scratch_path = '/opt/work'
+target_path = "$params.s3target"
+target_path_count = target_path + 'count/'
+target_path_hdf5 = target_path + 'pubweb/'
+source_path = "$params.s3source"
+scratch_path = '/data/scratch'
 
 sample_list = Channel.fromList(wfi.parameters.input.samples)
 sample_list
@@ -46,7 +46,7 @@ process CELLRANGER_COUNT {
     ID="$x"
     echo "ID is \$ID"
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
-    COMMAND="\$COMMAND --fastqs=$sample" 
+    COMMAND="\$COMMAND --fastqs=sample" 
 
     echo "Command: \$COMMAND"
     eval \$COMMAND

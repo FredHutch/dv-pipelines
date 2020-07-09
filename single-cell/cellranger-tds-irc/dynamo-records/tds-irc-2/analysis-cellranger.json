@@ -14,44 +14,14 @@
   ],
   "id": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
   "info": {
-
   },
-  "name": "Sample mouse analysis",
+  "name": "Cellranger processing analysis for TDS IRC",
   "runtime": "NEXTFLOW",
-  "schema": {
-    "form": {
-      "description": "Does nothing",
-      "properties": {
-        "n_comps": {
-          "title": "Number of Components",
-          "type": "integer"
-        },
-        "zero_center": {
-          "title": "Zero Center",
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "n_comps",
-        "zero_center"
-      ],
-      "title": "Test Script",
-      "type": "object"
-    },
-    "ui": {
-      "n_comps": {
-        "ui:widget": "updown"
-      }
-    },
-    "values": {
-      "n_comps": 50,
-      "zero_center": false
-    }
-  },
+  "schema": {},
   "workflow": {
     "type": "s3",
-    "executable": "s3://test-nextflow-data/project/cellranger-simple/cellrangerpublish.nf",
-    "config-bucket": "text-nexflow-metadata",
-    "config-key": "TBD/default-parameters.json"
+    "executable": "s3://test-nextflow-data/workflows/cellranger/cellrangerpublish.nf",
+    "config-bucket": "test-nextflow-metadata",
+    "config-key": "workflows/cellranger/default-parameters.json"
   }
 }

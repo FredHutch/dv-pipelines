@@ -1,5 +1,5 @@
 {
-  "analysisID": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
+  "analysis": "69d70375-17c5-4a4c-a527-f72a4f2421ca",
   "desc": "Config for TDS IRC #2",
   "groupsEdit": [
     "Admin"
@@ -17,10 +17,10 @@
     "input": {
       "cpu": 8,
       "mem": 32,
-      "genome_path": "s3://bucket/path/to/genome",
-      "fastq_path": "s3://bucket/path/to/fastqs",
-      "samples": ["sample1", "sample2", "sample3"]
-    },
+      "genome_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1/genome",
+      "fastq_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1",
+      "samples": ["patient10", "patient18"]
+    }
   },
   "type": "one-time"
 }

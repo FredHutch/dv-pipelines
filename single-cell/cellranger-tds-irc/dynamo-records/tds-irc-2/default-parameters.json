@@ -1,2 +1,7 @@
 {
+  "params": {
+    "input": {
+      "cellranger": 1
+    }
+  }
 }
