@@ -22,7 +22,7 @@ scratch_path = '/opt/work'
 sample_list = Channel.fromList(wfi.parameters.input.samples)
 sample_list
   .map { [ it, file(fastq_path + '/' + it) ] }
-  .into {view_folder_ch; read_folder_ch}
+  .into {view_folder_ch; read_folder_ch }
 
 
 process CELLRANGER_COUNT {
@@ -36,6 +36,7 @@ process CELLRANGER_COUNT {
 
   output:
     file "${x}/*" into count_ch
+    file 'semaphore.txt' into count_hdf5_ch
 
   script:
     """
@@ -50,6 +51,8 @@ process CELLRANGER_COUNT {
 
     echo "Command: \$COMMAND"
     eval \$COMMAND
+
+    echo "$x" > semaphore.txt
     """
 }
 
@@ -59,7 +62,8 @@ process CELLRANGER_HDF5 {
   publishDir target_path_hdf5, mode: 'copy'
 
   input:
-    path counts, stageAs: 'input/*' from count_ch
+    path counts, stageAs: 'input/*' from target_path_count
+    path semaphore, stageAs: 'wait/*' from count_hdf5_ch
     val species
     val dataset_name
 
