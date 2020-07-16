@@ -362,11 +362,127 @@ screen
 ```
 
 
+## Run the pubweb code against the aggr results
+
+```bash
+
+ssh -i "dnambi-vm-key-sttr.pem" ubuntu@ec2-54-218-27-88.us-west-2.compute.amazonaws.com
+
+ssh -i "dnambi-vm-key-sttr.pem" ubuntu@ec2-34-222-188-113.us-west-2.compute.amazonaws.com
+
+ssh -i "dnambi-vm-key-sttr.pem" ubuntu@ec2-44-234-59-250.us-west-2.compute.amazonaws.com
 
 
 
 
+```
+
+**Setup**
+
+```bash
+# list the NVMe devices
+lspci
+
+# Show existing drives + partitions
+fdisk -l
+
+# make a file system
+mkfs -t ext4 /dev/nvme0n1
+
+mkdir /scratch
+mount /dev/nvme0n1 /scratch
+df -h
+
+```
+
+**Install the necessary packages & libraries**
+
+```bash
+add-apt-repository -y ppa:deadsnakes/ppa
+
+apt -y update
+apt-get -y install python3.8 awscli python3-pip csvkit unzip
+
+python3.8 --version
+
+update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+update-alternatives --config python
+update-alternatives --config python3
+
+cd /usr/lib/python3/dist-packages
+ln -s apt_pkg.cpython-{36m,38m}-x86_64-linux-gnu.so
+ln -s apt_pkg.cpython-36m-x86_64-linux-gnu.so apt_pkg.so
+ls | grep apt_pkg
+
+cd $HOME
+python -m pip install boto3 pandas scanpy tables h5py mygene shapely monet
+
+```
+
+Get the pubweb code
+
+```bash
+cd $HOME
+mkdir -p /opt/pubweb
+cd /opt/pubweb
+
+# copy in the code
+aws s3 cp s3://dv-code-dev/pubweb/ . --recursive
+
+nano #copy in invoke-cellranger.py
+
+# install the library
+python -m pip install .
 
 
+```
 
+Get the data
+
+```bash
+mkdir -p /scratch
+cd /scratch
+mkdir -p data
+cd data
+
+aws s3 ls s3://test-nextflow-data/fa820f31-c24d-4dd1-8a06-957abe9d84eb/agg/
+
+aws s3 cp s3://test-nextflow-data/fa820f31-c24d-4dd1-8a06-957abe9d84eb/agg/ . --exclude "SC_RNA_AGGREGATOR_CS*" --recursive
+
+# 354 MB
+```
+
+Call pubweb
+
+```bash
+mkdir -p /scratch/output
+
+python /opt/pubweb/invoke-cellranger.py \
+      --input '/scratch/data/outs' \
+      --output '/scratch/output' \
+      --name 'tds-3agg' \
+      --species 'human'
+
+```
+
+Error encountered:
+
+```python
+Traceback (most recent call last):
+  File "/opt/pubweb/invoke-cellranger.py", line 14, in <module>
+    CellRanger(
+  File "/opt/pubweb/pubweb/singlecell.py", line 49, in CellRanger
+    Hdf5.load(outputFile, "a") | \
+  File "/opt/pubweb/pubweb/commands/export/spatial.py", line 64, in __ror__
+    hull = ConvexHull(points)
+  File "qhull.pyx", line 2431, in scipy.spatial.qhull.ConvexHull.__init__
+  File "qhull.pyx", line 356, in scipy.spatial.qhull._Qhull.__init__
+scipy.spatial.qhull.QhullError: QH6214 qhull input error: not enough points(2) to construct initial simplex (need 3)
+
+While executing:  | qhull i Qt
+Options selected for Qhull 2019.1.r 2019/06/21:
+  run-id 2026654714  incidence  Qtriangulate  _pre-merge  _zero-centrum
+  _maxoutside  0
+```
 

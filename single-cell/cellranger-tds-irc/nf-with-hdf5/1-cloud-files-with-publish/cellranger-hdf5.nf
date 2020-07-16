@@ -35,17 +35,16 @@ process CELLRANGER_COUNT {
     val target_path
 
   output:
-    file "${x}/*" into count_ch
+    file "aligned/*" into count_ch
     file 'semaphore.txt' into count_hdf5_ch
 
   script:
     """
-    echo "Reference genome contents:"
-    ls $genome
     echo "Sample folder contents"
     ls sample
-    ID="$x"
-    echo "ID is \$ID"
+    IGNORE="$x"
+    ID="aligned"
+    echo "ID is \$ID"s
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
     COMMAND="\$COMMAND --fastqs=sample" 
 
@@ -74,10 +73,14 @@ process CELLRANGER_HDF5 {
     """
     mkdir -p output
     echo "Contents of local, \$(pwd)"
-    ls -lhR $counts
+    echo "counts is $counts"
+    echo "Finding the file location"
+    find . -name "filtered_feature_bc_matrix.h5"
+    echo "Finding the PCA location"
+    find . -type d -name "pca"
     
     python /opt/pubweb/invoke-cellranger.py \
-      --input '$counts' \
+      --input '$counts/aligned/outs' \
       --output 'output' \
       --name $dataset_name \
       --species $species
