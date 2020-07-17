@@ -389,6 +389,14 @@ python /opt/pubweb/invoke-cellranger.py \
 
 ```
 
+Save the results
 
+```bash
+
+cd /scratch/output
+aws s3 cp . s3://test-nextflow-data/1c0f2946-df95-49df-ad20-b852ce1cd57a/pubweb/  --recursive
+
+# 2.8GB
+```
 
 

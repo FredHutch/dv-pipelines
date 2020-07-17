@@ -35,8 +35,7 @@ process CELLRANGER_COUNT {
     val target_path
 
   output:
-    file "aligned/*" into count_ch
-    file 'semaphore.txt' into count_hdf5_ch
+    file "count.tar.gz" into count_ch
 
   script:
     """
@@ -51,7 +50,7 @@ process CELLRANGER_COUNT {
     echo "Command: \$COMMAND"
     eval \$COMMAND
 
-    echo "$x" > semaphore.txt
+    tar -czvf count.tar.gz aligned
     """
 }
 
@@ -61,8 +60,7 @@ process CELLRANGER_HDF5 {
   publishDir target_path_hdf5, mode: 'copy'
 
   input:
-    path counts, stageAs: 'input/*' from target_path_count
-    path semaphore, stageAs: 'wait/*' from count_hdf5_ch
+    path 'count.tar.gz' from count_ch
     val species
     val dataset_name
 
@@ -71,16 +69,18 @@ process CELLRANGER_HDF5 {
 
   script:
     """
-    mkdir -p output
+    mkdir -p input
+    tar -xzvf count.tar.gz -C input
     echo "Contents of local, \$(pwd)"
-    echo "counts is $counts"
     echo "Finding the file location"
     find . -name "filtered_feature_bc_matrix.h5"
     echo "Finding the PCA location"
     find . -type d -name "pca"
     
+    mkdir -p output
+    
     python /opt/pubweb/invoke-cellranger.py \
-      --input '$counts/aligned/outs' \
+      --input 'input/aligned/outs' \
       --output 'output' \
       --name $dataset_name \
       --species $species
