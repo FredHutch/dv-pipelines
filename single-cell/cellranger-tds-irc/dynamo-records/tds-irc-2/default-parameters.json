@@ -1,7 +1,5 @@
 {
-  "params": {
-    "input": {
-      "cellranger": 1
+  "input": {
+      "species": "human"
     }
-  }
 }

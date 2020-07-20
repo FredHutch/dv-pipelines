@@ -8,7 +8,9 @@
       "fastq_path": "s3://test-nextflow-data/ec8e5540-1132-4eba-900c-c546d8199aac",
       "species": "human",
       "name": "tds-3b",
-      "samples": ["data2", "data1"]
+      "samples": ["data2", "data1/outs/fastq_path/CCG3JANXX/CLJ_x424_IP_sampleGEX"]
     }
   }
 }
+
+

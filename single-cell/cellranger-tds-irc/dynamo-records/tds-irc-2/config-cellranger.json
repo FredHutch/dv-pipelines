@@ -12,16 +12,19 @@
     "date": 20200305,
     "source": "fake.hutchbase.fredhutch.org"
   },
-  "name": "Config for TDS IRC #2",
+  "name": "Config for TDS IRC #2 v9",
   "parameters": {
     "input": {
       "cpu": 8,
       "mem": 32,
-      "genome_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1/genome",
       "fastq_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1",
-      "samples": ["patient10", "patient18"]
+      "genome_path": "s3://test-nextflow-data/ade9b62f-ae3f-4817-81b4-ff53e1d73de1/genome/",
+      "name": "tds-2",
+      "samples": [
+        "patient10",
+        "patient18"
+      ]
     }
   },
   "type": "one-time"
 }
-
