@@ -78,8 +78,16 @@ process CELLRANGER_HDF5 {
     find . -type d -name "pca"
     
     mkdir -p $x
+
+    # reinstall the library
+    export LIBRARYDIR=/opt/pubweb
+    OLDDIR=\$PWD
+    rm -rf /opt/pubweb
+    mkdir -p \$LIBRARYDIR
+    aws s3 cp s3://dv-code-dev/pubweb/ \$LIBRARYDIR --recursive
+    python -m pip install /opt/pubweb
     
-    python /opt/pubweb/invoke-cellranger.py \
+    python /opt/pubweb/pubweb/invoke-cellranger.py \
       --input 'input/aligned/outs' \
       --output '$x' \
       --name $dataset_name \
