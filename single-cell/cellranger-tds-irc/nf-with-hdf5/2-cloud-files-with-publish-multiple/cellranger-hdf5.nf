@@ -70,7 +70,7 @@ process CELLRANGER_HDF5 {
   script:
     """
     mkdir -p input
-    tar -xzvf count.tar.gz -C input
+    tar -xzf count.tar.gz -C input
     echo "Contents of local, \$(pwd)"
     echo "Finding the file location"
     find . -name "filtered_feature_bc_matrix.h5"
