@@ -1,6 +1,9 @@
+#!/usr/bin/env nextflow
+import groovy.json.JsonSlurper
 def jsonSlurper = new JsonSlurper()
 
 String configJSON = new File("${params.wfconfig}").text
+def wfi = jsonSlurper.parseText(configJSON)
 
 //Input parameters
 /// Reference data
