@@ -18,13 +18,18 @@ target_path_agg = target_path + 'agg/'
 target_path_hdf5 = target_path + 'pubweb/'
 source_path = "$params.s3source"
 scratch_path = '/opt/work'
+agg_path = 'input/count'
 
-sample_list = Channel.fromList(wfi.parameters.input.samples)
-sample_list.into { read_list, agg_list }
 
-read_list
+Channel.fromList(wfi.parameters.input.samples)
+   .into { sample_list; sample_list_2}
+
+// generate the mapping for cellranger counts
+sample_list
   .map { [ it, file(fastq_path + '/' + it) ] }
-  .into { read_folder_ch }
+  .set { read_folder_ch }
+
+
 
 
 process CELLRANGER_COUNT {
@@ -37,56 +42,43 @@ process CELLRANGER_COUNT {
     val target_path
 
   output:
-    tuple val(x), path("count.tar.gz") into count_ch
+    path("*.tar.gz") into count_ch
 
   script:
     """
     echo "Sample folder contents"
     ls sample
-    IGNORE="$x"
-    ID="aligned"
-    echo "ID is \$ID"s
+    ID="$x"
+    mkdir -p $x
+    mv sample/* $x
+    echo "ID is \$ID"
+
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
     COMMAND="\$COMMAND --fastqs=sample" 
 
     echo "Command: \$COMMAND"
     eval \$COMMAND
 
-    tar -czvf count.tar.gz aligned
+    cd $x
+
+    tar -czf "\$ID.tar.gz" *
+    mv *.tar.gz ../
     """
 }
 
 
 
-// use the sample sheet and the output of the count process to make
-// a new sample sheet for the aggregate process
-molecule_info.join(sampleSheetRows).map {
-    it[2].remove('library_id')
-    values = it[2].values().join(',')
-    return [it[0], it[1], values].join(',')
+
+// generate the agg csv for cellranger aggr
+sample_list_2.map {
+  "${it},PLACEHOLDERDIR/$it/molecule_info.h5"
 }.collectFile(
     name: 'molecule_info.csv',
     newLine: true,
-    seed: "library_id,molecule_h5," + keys.drop(1).join(',')
+    seed: "library_id,molecule_h5"
 ).set { agg_info_csv }
 
 
-
-process MAKE_AGG_CSV {
-  echo true
-  input: 
-    val(x) from agg_list
-
-  output:
-    file agg.csv into aggcsv_ch
-    tuple val(x), path("count.tar.gz") into 
-
-  // make the CSV file
-  script:
-    """
-    
-    """
-}
 
 
 process CELLRANGER_AGG {
@@ -94,23 +86,30 @@ process CELLRANGER_AGG {
   publishDir target_path_agg, mode: 'copy'
 
   input: 
-    path sample, stageAs: 'sample/*' from count_ch
-    path "molecule_info.csv" from agg_info_csv
+    path('*.tar.gz') from count_ch.collect()
+    path "sourcemap.csv" from agg_info_csv
 
   output:
-    tuple val(x), path("agg.tar.gz") into agg_ch
+    path("agg.tar.gz") into agg_ch
 
   script:
     """
+    ls *.tar.gz | xargs -I % sh -c 'tar -xzf %'
+    rm *.tar.gz
+    
+    echo "Changing the CSV mapping"
+    sed 's@PLACEHOLDERDIR@'"\$PWD"'@' sourcemap.csv > mapping.csv
+
     ID="aggregated"
-    COMMAND="cellranger aggr --id=\$ID --csv=molecule_info.csv" 
+    COMMAND="cellranger aggr --id=\$ID --csv=mapping.csv" 
 
     echo "Command: \$COMMAND"
     eval $COMMAND
 
-    tar -czvf agg.tar.gz aggregated
+    tar -czf agg.tar.gz aggregated
     """
 }
+
 
 
 
@@ -119,12 +118,12 @@ process CELLRANGER_HDF5 {
   publishDir target_path_hdf5, mode: 'copy'
 
   input:
-    tuple val(x), path('agg.tar.gz') from agg_ch
+    path('agg.tar.gz') from agg_ch
     val species
     val dataset_name
 
   output:
-    file "${x}/*" into pub_ch
+    file "output/*" into pub_ch
 
   script:
     """
@@ -132,11 +131,11 @@ process CELLRANGER_HDF5 {
     tar -xzf agg.tar.gz -C input
     echo "Contents of local, \$(pwd)"
     echo "Finding the file location"
-    find . -name "filtered_feature_bc_matrix.h5"
+    find -L . -name "filtered_feature_bc_matrix.h5"
     echo "Finding the PCA location"
-    find . -type d -name "pca"
+    find -L . -type d -name "pca"
     
-    mkdir -p $x
+    mkdir -p output
 
     # reinstall the library
     export LIBRARYDIR=/opt/pubweb
@@ -148,7 +147,7 @@ process CELLRANGER_HDF5 {
     
     python /opt/pubweb/pubweb/invoke-cellranger.py \
       --input 'input/aligned/outs' \
-      --output '$x' \
+      --output 'output' \
       --name $dataset_name \
       --species $species
     """

@@ -1,0 +1,14 @@
+{
+  "parameters": {
+    "count": {
+      "cellcount": 10000
+    },
+    "input": {
+      "fastq_path": "/Users/dnambi/Documents/scratch/cellranger-data/fastq",
+      "genome_path": "/Users/dnambi/Documents/scratch/cellranger-data/genome",
+      "samples": ["files1", "files2"],
+      "species": "human",
+      "name": "tds-3b"
+    }
+  }
+}
