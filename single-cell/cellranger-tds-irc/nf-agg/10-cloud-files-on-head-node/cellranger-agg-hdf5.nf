@@ -44,14 +44,15 @@ process CELLRANGER_COUNT {
   output:
     path("*.tar.gz") into count_ch
 
+  // 'sample' has the input fastq files
+  // $x (a.k.a $ID) is where the outputs go
   script:
     """
-    echo "Sample folder contents"
-    ls sample
     ID="$x"
     mkdir -p $x
-    mv sample/* $x
     echo "ID is \$ID"
+    echo "Sample folder contents"
+    ls sample/*
 
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
     COMMAND="\$COMMAND --fastqs=sample" 
@@ -101,12 +102,15 @@ process CELLRANGER_AGG {
     sed 's@PLACEHOLDERDIR@'"\$PWD"'@' sourcemap.csv > mapping.csv
 
     ID="aggregated"
+    mkdir -p \$ID
     COMMAND="cellranger aggr --id=\$ID --csv=mapping.csv" 
 
     echo "Command: \$COMMAND"
     eval $COMMAND
 
-    tar -czf agg.tar.gz aggregated
+    cd \$ID
+    tar -czf agg.tar.gz *
+    mv agg.tar.gz ../
     """
 }
 
