@@ -50,7 +50,7 @@ process CELLRANGER_COUNT {
     echo "Command: \$COMMAND"
     eval \$COMMAND
 
-    tar -czvf count.tar.gz aligned
+    tar -czf count.tar.gz aligned
     """
 }
 

@@ -55,7 +55,7 @@ process CELLRANGER_COUNT {
     ls sample/*
 
     COMMAND="cellranger count --id=\$ID --transcriptome=$genome"
-    COMMAND="\$COMMAND --fastqs=sample" 
+    COMMAND="\$COMMAND --fastqs=sample"
 
     echo "Command: \$COMMAND"
     eval \$COMMAND
@@ -95,22 +95,31 @@ process CELLRANGER_AGG {
 
   script:
     """
+    echo "List of tarballs"
+    ls *
     ls *.tar.gz | xargs -I % sh -c 'tar -xzf %'
     rm *.tar.gz
+
+    echo "List of un-tar'd folders"
+    ls -d *
     
-    echo "Changing the CSV mapping"
+    echo "CSV mapping:"
     sed 's@PLACEHOLDERDIR@'"\$PWD"'@' sourcemap.csv > mapping.csv
+    cat mapping.csv
 
     ID="aggregated"
     mkdir -p \$ID
+    echo "Cellranger agg output" > aggregated/semaphore
     COMMAND="cellranger aggr --id=\$ID --csv=mapping.csv" 
 
     echo "Command: \$COMMAND"
-    eval $COMMAND
+    # eval \$COMMAND
+    echo "Finding the molecule_info file"
+    find -L . -name "molecule_info.h5"
 
     cd \$ID
-    tar -czf agg.tar.gz *
-    mv agg.tar.gz ../
+    # tar -czf agg.tar.gz *
+    # mv agg.tar.gz ../
     """
 }
 
