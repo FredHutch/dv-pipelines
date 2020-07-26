@@ -60,10 +60,7 @@ process CELLRANGER_COUNT {
     echo "Command: \$COMMAND"
     eval \$COMMAND
 
-    cd $x
-
-    tar -czf "\$ID.tar.gz" *
-    mv *.tar.gz ../
+    tar -czf "\$ID.tar.gz" \$ID/*
     """
 }
 
@@ -72,7 +69,7 @@ process CELLRANGER_COUNT {
 
 // generate the agg csv for cellranger aggr
 sample_list_2.map {
-  "${it},PLACEHOLDERDIR/$it/molecule_info.h5"
+  "${it},PLACEHOLDERDIR/$it/outs/molecule_info.h5"
 }.collectFile(
     name: 'molecule_info.csv',
     newLine: true,
@@ -87,7 +84,7 @@ process CELLRANGER_AGG {
   publishDir target_path_agg, mode: 'copy'
 
   input: 
-    path('*.tar.gz') from count_ch.collect()
+    path tarball from count_ch.collect()
     path "sourcemap.csv" from agg_info_csv
 
   output:
@@ -97,6 +94,8 @@ process CELLRANGER_AGG {
     """
     echo "List of tarballs"
     ls *
+    echo "List of tarball contents"
+    # ls *.tar.gz | xargs -I % sh -c 'tar -tzf %'
     ls *.tar.gz | xargs -I % sh -c 'tar -xzf %'
     rm *.tar.gz
 
@@ -108,18 +107,15 @@ process CELLRANGER_AGG {
     cat mapping.csv
 
     ID="aggregated"
-    mkdir -p \$ID
-    echo "Cellranger agg output" > aggregated/semaphore
-    COMMAND="cellranger aggr --id=\$ID --csv=mapping.csv" 
+    COMMAND="cellranger aggr --id=\$ID --csv=mapping.csv"
 
     echo "Command: \$COMMAND"
-    # eval \$COMMAND
-    echo "Finding the molecule_info file"
-    find -L . -name "molecule_info.h5"
-
+    eval \$COMMAND
+    
+    echo "Cellranger agg output" > aggregated/semaphore
     cd \$ID
-    # tar -czf agg.tar.gz *
-    # mv agg.tar.gz ../
+    tar -czf agg.tar.gz *
+    mv agg.tar.gz ../
     """
 }
 
@@ -159,7 +155,7 @@ process CELLRANGER_HDF5 {
     python -m pip install /opt/pubweb
     
     python /opt/pubweb/pubweb/invoke-cellranger.py \
-      --input 'input/aligned/outs' \
+      --input 'input/outs' \
       --output 'output' \
       --name $dataset_name \
       --species $species
