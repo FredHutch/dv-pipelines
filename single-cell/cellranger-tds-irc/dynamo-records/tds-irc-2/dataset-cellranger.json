@@ -17,6 +17,6 @@
 
   },
   "name": "Dataset for TDS IRC #2",
-  "s3path": "s3://test-nextflow-data/320f4d86-7274-4107-8c59-75fb16783410",
+  "s3path": "s3://test-nextflow-data/c466674f-c750-4f88-87c0-2f65f44dd81e",
   "status": "uploaded"
 }

@@ -1,0 +1,17 @@
+{
+  "analysis": "3f8468b5-7bc7-40b5-9394-2161954b0c2c",
+  "desc": "Parent of TDS IRC #3",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "bc90d0bf-4e9f-4ed5-acb1-2313eef16ff9",
+  "info": {},
+  "name": "Parent of TDS IRC #3",
+  "parameters": {
+    "input": {    }
+  },
+  "type": "ignore"
+}

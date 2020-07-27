@@ -1,0 +1,20 @@
+{
+  "configuration": "bc90d0bf-4e9f-4ed5-acb1-2313eef16ff9",
+  "datasets": [
+  ],
+  "date": "2020-07-27T20:00:00.000Z",
+  "desc": "Parent of TDS IRC dataset #3",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "dd45cc7b-a277-4df2-b534-34aafbd50c4e",
+  "info": {
+  },
+  "name": "Parent of TDS IRC dataset #3",
+  "s3path": "s3://test-nextflow-data/ec8e5540-1132-4eba-900c-c546d8199aac",
+  "status": "ignore"
+}
