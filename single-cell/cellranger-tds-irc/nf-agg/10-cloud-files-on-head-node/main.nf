@@ -132,7 +132,7 @@ process CELLRANGER_HDF5 {
     val dataset_name
 
   output:
-    file "output/*" into pub_ch
+    file "*" into pub_ch
 
   script:
     """
@@ -159,5 +159,10 @@ process CELLRANGER_HDF5 {
       --output 'output' \
       --name $dataset_name \
       --species $species
+
+    echo "List of folders"
+    ls -d .
+    echo "Listing output"
+    ls output/*
     """
 }
