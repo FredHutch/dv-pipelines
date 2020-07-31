@@ -1,0 +1,23 @@
+{
+  "__typename": "Dataset",
+  "createdAt": "2020-03-12T00:31:12.447Z",
+  "updatedAt": "2020-03-12T00:31:12.447Z",
+  "configurationID": "9fbb02f8-2cb5-4fe5-91e6-22c4d38754b1",
+  "datasets": [
+    "e12807f7-259c-4f8d-a453-28b3c844e110"
+  ],
+  "date": "2020-05-28T20:00:00.000Z",
+  "desc": "Dataset for TDS IRC #2",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "582cf388-0854-4474-97c9-32a2de25f064",
+  "info": {},
+  "name": "Dataset for TDS IRC #2",
+  "s3path": "s3://dvc-wf-data/datasets/582cf388-0854-4474-97c9-32a2de25f064",
+  "status": "uploaded"
+}

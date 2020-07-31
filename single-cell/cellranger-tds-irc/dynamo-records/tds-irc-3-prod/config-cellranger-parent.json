@@ -1,0 +1,20 @@
+{
+  "__typename": "Configuration",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysisID": "33438da5-7253-46db-a584-a877f3e8f398",
+  "desc": "Parent of TDS IRC #3",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "aa1ffbcb-ac67-4670-9ba5-87b6ebbb1c5f",
+  "info": {},
+  "name": "Parent of TDS IRC #3",
+  "parameters": {
+    "input": {    }
+  },
+  "type": "ignore"
+}

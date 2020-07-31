@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Cellranger processing of TDS IRC datasets",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "084c2987-a8c1-4157-9a5f-0ba72e7ec320",
+  "info": {
+
+  },
+  "name": "Cellranger processing analysis for TDS IRC",
+  "runtime": "NEXTFLOW",
+  "schema": {
+
+  },
+  "workflow": {
+    "config-bucket": "dvc-wf-metadata",
+    "config-key": "workflows/cellranger-agg-hdf5/default-parameters.json",
+    "executable": "s3://dvc-wf-metadata/workflows/cellranger-agg-hdf5",
+    "type": "s3"
+  }
+}

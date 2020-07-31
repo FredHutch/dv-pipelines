@@ -1,0 +1,23 @@
+{
+  "__typename": "Dataset",
+  "createdAt": "2020-03-12T00:31:12.447Z",
+  "updatedAt": "2020-03-12T00:31:12.447Z",
+  "configurationID": "aa1ffbcb-ac67-4670-9ba5-87b6ebbb1c5f",
+  "datasets": [
+  ],
+  "date": "2020-07-27T20:00:00.000Z",
+  "desc": "Parent of TDS IRC dataset #3",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "0c07a484-ea57-4528-ba04-acf2058bacb1",
+  "info": {
+  },
+  "name": "Parent of TDS IRC dataset #3",
+  "s3path": "s3://dvc-wf-data/datasets/bd3716af-d721-4b4e-8f11-0a15cc31b2e5",
+  "status": "ignore"
+}

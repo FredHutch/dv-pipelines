@@ -1,0 +1,31 @@
+{
+  "__typename": "Configuration",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysisID": "33438da5-7253-46db-a584-a877f3e8f398",
+  "desc": "Config for TDS IRC #3",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "6b9fdc5c-24a1-41a0-a007-49e7c6a810f4",
+  "info": {
+    "date": 20200305,
+    "source": "fake.hutchbase.fredhutch.org"
+  },
+  "name": "Config for TDS IRC #3 v1",
+  "parameters": {
+    "input": {
+      "cpu": 8,
+      "mem": 32,
+      "genome_path": "s3://dvc-wf-data/datasets/bd3716af-d721-4b4e-8f11-0a15cc31b2e5/genome/GRCh38_CAR/",
+      "fastq_path": "s3://dvc-wf-data/datasets/bd3716af-d721-4b4e-8f11-0a15cc31b2e5",
+      "species": "human",
+      "name": "tds-3",
+      "samples": ["data2", "data1v2"]
+    }
+  },
+  "type": "one-time"
+}
