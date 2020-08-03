@@ -15,16 +15,16 @@
     "date": 20200305,
     "source": "fake.hutchbase.fredhutch.org"
   },
-  "name": "Config for TDS IRC #3 v1",
+  "name": "Config for TDS IRC #3 v2",
   "parameters": {
     "input": {
       "cpu": 8,
-      "mem": 32,
+      "mem": 64,
       "genome_path": "s3://dvc-wf-data/datasets/bd3716af-d721-4b4e-8f11-0a15cc31b2e5/genome/GRCh38_CAR/",
       "fastq_path": "s3://dvc-wf-data/datasets/bd3716af-d721-4b4e-8f11-0a15cc31b2e5",
       "species": "human",
       "name": "tds-3",
-      "samples": ["data2", "data1v2"]
+      "samples": ["data2", "data1_CLJ_x424_IP_sampleGEX", "data1_CLJ_x424_d102_sampleGEX", "data1_CLJ_x424_d12_sampleGEX", "data1_CLJ_x424_d29_sampleGEX", "data1_JAT_x483_IP_sampleGEX", "data1_JAT_x483_d12_sampleGEX", "data1_JAT_x483_d28_sampleGEX", "data1_JAT_x483_d89_sampleGEX", "data1_REB_x254_IP_sampleGEX", "data1_REB_x254_d112_sampleGEX", "data1_REB_x254_d21_sampleGEX", "data1_REB_x254_d38_sampleGEX", "data1_TAB_x311_IP_sampleGEX", "data1_TAB_x311_d12_sampleGEX", "data1_TAB_x311_d29_sampleGEX", "data1_TAB_x311_d83_sampleGEX"]
     }
   },
   "type": "one-time"
