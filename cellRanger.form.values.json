@@ -1,0 +1,15 @@
+{
+    "cpu": 8,
+    "mem": 64,
+    "fastq_path": "s3://dvc-wf-data/datasets/0376d70f-65b5-4666-b14c-723b7b567802/patient1/outs/fastq_path/HKMNCBCXY",
+    "genome_path": "s3://dvc-wf-data/datasets/0376d70f-65b5-4666-b14c-723b7b567802/genome/hg38_merkerCellPolyomavirus_CellRanger_v2",
+    "species": "human",
+    "sample": [
+        "GS_PBMC_10_2016_GRN0760",
+        "GS_PBMC_2_2015_GRN0304",
+        "GS_PBMC_2_2016_GRN0535",
+        "GS_PBMC_8_2013_MCCB1050",
+        "GS_Tumor_10_2016_6525",
+        "GS_Tumor_9_2013_2559"
+    ]
+  }

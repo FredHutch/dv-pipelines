@@ -1,0 +1,67 @@
+{
+    "desc": "Config for TDS IRC #1 v1",
+    "executable": "",
+    "files": [
+      ""
+    ],
+    "groupsEdit": [
+      "Admin"
+    ],
+    "groupsView": [
+      "Admin"
+    ],
+    "id": "",
+    "info": {},
+    "name": "Config for TDS IRC #1 v1",
+    "runtime": "",
+    "schema": {
+      "form": {
+        "description": "Config for TDS IRC #1 v1",
+        "properties": {
+            "cpu": {
+                "type": "integer",
+                "title": "required cpu"
+            },
+            "mem": {
+                "type": "integer",
+                "title": "required memory"
+            },
+            "fastq_path": {
+              "type": "string",
+              "title": "S3 location of fastq file"
+            },
+            "genome_path": {
+              "type": "string",
+              "title": "S3 location of reference genome"
+            },
+            "species": {
+                "type": "string",
+                "title": "Species of reference genome"
+            },
+            "samples": {
+                "type": "string",
+                "title": "Select samples to run"
+              }
+          },
+        "required": [
+            "cpu",
+            "mem",
+            "fastq_path",
+            "genome_path",
+            "species",
+            "samples"
+        ],
+        "title": "Test Script",
+        "type": "object"
+      },
+      "ui": {
+        "n_comps": {
+          "ui:widget": "updown"
+        }
+      },
+      "values": {
+        "cpu": 8,
+        "mem": 64
+      }
+    }
+  }

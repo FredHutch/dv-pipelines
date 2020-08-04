@@ -1,0 +1,51 @@
+{
+    "title": "Config for TDS IRC #1 v1",
+    "description": "Config for TDS IRC #1 v1",
+    "type": "object",
+    "required": [
+        "cpu",
+        "mem",
+        "fastq_path",
+        "genome_path",
+        "species",
+        "samples"
+    ],
+    "properties": {
+        "cpu": {
+            "type": "integer",
+            "title": "required cpu"
+        },
+        "mem": {    
+            "type": "integer",
+            "title": "required memory"
+        },
+        "fastq_path": {
+            "type": "string",
+            "title": "S3 location of fastq file"
+        },
+        "genome_path": {
+            "type": "string",
+            "title": "S3 location of reference genome"
+        },
+        "species": {
+            "type": "string",
+            "title": "Species of reference genome"
+        },
+        "samples": {
+            "type": "array",
+            "title": "A multiple choices list",
+            "items": {
+              "type": "string",
+              "enum": [
+                "sample1",
+                "sample2",
+                "sample3",
+                "sample4",
+                "sample5",
+                "sample6"
+              ]
+            },
+            "uniqueItems": true
+          }
+    }
+}
