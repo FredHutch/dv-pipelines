@@ -1,5 +1,20 @@
 {
-  "n_comps": {
-    "ui:widget": "updown"
+  "cpu": {
+    "ui:emptyValue": ""
+  },
+  "mem": {
+    "ui:emptyValue": ""
+  },
+  "fastq_path": {
+    "ui:emptyValue": ""
+  },
+  "genome_path": {
+    "ui:emptyValue": ""
+  },
+  "species": {
+    "ui:widget": "select"
+  },
+  "samples": {
+    "ui:widget": "checkboxes"
   }
 }
