@@ -1,51 +1,23 @@
 {
-    "title": "Config for TDS IRC #1 v1",
-    "description": "Config for TDS IRC #1 v1",
-    "type": "object",
-    "required": [
-        "cpu",
-        "mem",
-        "fastq_path",
-        "genome_path",
-        "species",
-        "samples"
-    ],
-    "properties": {
-        "cpu": {
-            "type": "integer",
-            "title": "required cpu"
-        },
-        "mem": {    
-            "type": "integer",
-            "title": "required memory"
-        },
-        "fastq_path": {
-            "type": "string",
-            "title": "S3 location of fastq file"
-        },
-        "genome_path": {
-            "type": "string",
-            "title": "S3 location of reference genome"
-        },
-        "species": {
-            "type": "string",
-            "title": "Species of reference genome"
-        },
-        "samples": {
-            "type": "array",
-            "title": "A multiple choices list",
-            "items": {
-              "type": "string",
-              "enum": [
-                "sample1",
-                "sample2",
-                "sample3",
-                "sample4",
-                "sample5",
-                "sample6"
-              ]
-            },
-            "uniqueItems": true
-          }
+  "title": "Cell Ranger",
+  "description": "This Does something pick a genome.",
+  "type": "object",
+  "required": [
+    "genomeAssembly"
+  ],
+  "properties": {
+    "genomeAssembly": {
+      "type": "string",
+      "title": "Genome Assembly",
+      "default": "s3://hg39path",
+       "enum": [
+        "s3://hg38path",
+        "s3://hg39path"
+      ],
+      "enumNames": [
+        "HG38",
+        "HG39"
+      ]
     }
+  }
 }
