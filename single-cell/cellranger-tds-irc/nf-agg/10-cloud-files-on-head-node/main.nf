@@ -151,7 +151,7 @@ process CELLRANGER_HDF5 {
     OLDDIR=\$PWD
     rm -rf /opt/pubweb
     mkdir -p \$LIBRARYDIR
-    aws s3 cp s3://dv-code-dev/pubweb/ \$LIBRARYDIR --recursive
+    aws s3 cp s3://dvc-wf-metadata/code/pubweb/ \$LIBRARYDIR --recursive
     python -m pip install /opt/pubweb
     
     python /opt/pubweb/pubweb/invoke-cellranger.py \
