@@ -9,7 +9,7 @@
       "genomeAssembly":{
          "type":"string",
          "title":"Genome Assembly",
-         "default":"s3://dvc-wf-data/reference-data",
+         "default":"s3://dvc-wf-data/reference-data/GRCh38-3.0.0",
          "enum":[
             "s3://dvc-wf-data/reference-data/GRCh38-3.0.0",
             "s3://dvc-wf-data/reference-data/hg19-3.0.0",
