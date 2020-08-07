@@ -1,23 +1,28 @@
 {
-  "title": "Cell Ranger",
-  "description": "This Does something pick a genome.",
-  "type": "object",
-  "required": [
-    "genomeAssembly"
-  ],
-  "properties": {
-    "genomeAssembly": {
-      "type": "string",
-      "title": "Genome Assembly",
-      "default": "s3://hg39path",
-       "enum": [
-        "s3://hg38path",
-        "s3://hg39path"
-      ],
-      "enumNames": [
-        "HG38",
-        "HG39"
-      ]
-    }
-  }
+   "title":"Cell Ranger",
+   "description":"Select a reference genome for your dataset.",
+   "type":"object",
+   "required":[
+      "genomeAssembly"
+   ],
+   "properties":{
+      "genomeAssembly":{
+         "type":"string",
+         "title":"Genome Assembly",
+         "default":"s3://dvc-wf-data/reference-data",
+         "enum":[
+            "s3://dvc-wf-data/reference-data/GRCh38-3.0.0",
+            "s3://dvc-wf-data/reference-data/hg19-3.0.0",
+            "s3://dvc-wf-data/reference-data/GRCh38-3.1.0-2020-A",
+            "s3://dvc-wf-data/reference-data/mm10-3.1.0-2020-A"
+         ],
+         "enumNames":[
+            "Human: GRCh38-3.0.0",
+            "Human: hg19-3.0.0",
+            "Human: GRCh38-3.1.0-2020A",
+            "Mouse: mm10-3.1.0-2020A"
+         ]
+      }
+   }
 }
+
