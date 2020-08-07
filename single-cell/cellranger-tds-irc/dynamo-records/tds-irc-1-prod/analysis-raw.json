@@ -1,0 +1,29 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-05-13T00:00:00.000Z",
+  "updatedAt": "2020-05-13T00:00:00.000Z",
+  "analysis": [
+    "084c2987-a8c1-4157-9a5f-0ba72e7ec320"
+  ],
+  "desc": "Raw Fastq files",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "3630d7bd-130d-4e55-9e24-87f3bd5198ca",
+  "info": {
+
+  },
+  "name": "Raw Fastq files",
+  "runtime": "Nothing",
+  "schema": {
+
+  },
+  "workflow": {
+  }
+}
