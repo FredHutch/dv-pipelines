@@ -18,7 +18,6 @@ df_cell = pd.read_csv(os.path.join(working_dir, 'cell_annotate.csv'), delimiter=
 df_gene = pd.read_csv(os.path.join(working_dir, 'gene_annotate.csv'), delimiter="\t")
 df_cell.index = df_cell["sample"]
 df_gene.index = df_gene["gene_id"]
-adata.obs = df_cell
-adata.var = df_gene
+
 # save the loom file
 adata.write_loom("output.loom")

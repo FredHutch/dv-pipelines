@@ -1,5 +1,61 @@
 # Pulling the Datasets
 
+
+## Repro on a Laptop
+
+1. Create a new env for python 3.8 in conda/virtualenv
+
+```bash
+conda create -n converttoloom38 python=3.8 anaconda 
+```
+
+2. Install the the required packages using pip
+```bash
+conda activate converttoloom38
+python --version
+
+python -m pip install scanpy pandas
+
+python -m pip install cd /Users/dnambi/Documents/GitHub/data-vizualization-center/hdf5/pubweb
+
+jupyter notebook
+
+conda converttoloom38
+
+```
+
+
+What's going on with the array?
+adata.X is an numpy.ndarray
+
+cell_annotate.sample = `sci3-me-001.GTCGGAGTTTGAGGTAGAA`
+gene_annotate.gene_id = `ENSMUSG00000051951.5`
+
+Use awk to figure out which column maps to which. Whaaat? 
+
+```python
+adata.obs = df_cell
+adata.var = df_gene
+```
+
+[Anndata](https://anndata.readthedocs.io/en/latest/concatenation.html#annotating-data-source-label-keys-and-index-unique) and 
+
+
+
+
+
+Set up an Anaconda environment
+
+```bash
+
+conda activate 
+
+
+
+```
+
+
+
 ## Copy in the Code
 
 ```bash
