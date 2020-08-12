@@ -12,6 +12,7 @@ conda create -n converttoloom38 python=3.8 anaconda
 2. Install the the required packages using pip
 ```bash
 conda activate converttoloom38
+
 python --version
 
 python -m pip install scanpy pandas
@@ -20,7 +21,7 @@ python -m pip install cd /Users/dnambi/Documents/GitHub/data-vizualization-cente
 
 jupyter notebook
 
-conda converttoloom38
+conda deactivate
 
 ```
 
@@ -40,19 +41,92 @@ adata.var = df_gene
 
 [Anndata](https://anndata.readthedocs.io/en/latest/concatenation.html#annotating-data-source-label-keys-and-index-unique) and 
 
+Use the read_mtx. 
+
+gene_count.txt:
+
+%%MatrixMarket matrix coordinate integer general
+26183 2058652 1251379868
 
 
 
+**Resources**
 
-Set up an Anaconda environment
+* [Introducing Anndata](http://falexwolf.de/blog/171223_AnnData_indexing_views_HDF5-backing/)
+* [ScanPy - Usage Principles](https://scanpy.readthedocs.io/en/latest/usage-principles.html#workflow)
+* [MatrixMarket file format](https://math.nist.gov/MatrixMarket/formats.html)
+
+
+
+## Make an updated script for Rhino
+
+
+On Rhino
 
 ```bash
+cd /fh/fast/_SR/dataviz/anndata/cao1025
 
-conda activate 
+nano #replace the convert-to-loom file
 
-
+# ask for lots of CPU as a proxy for a lot of memory
+sbatch -c 8 -J convert-to-loom wrapper.sh
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -103,6 +177,8 @@ scp -r dnambi@rhino:/fh/fast/_SR/dataviz/anndata/cao1025/gene_count_head.txt /Us
 ```
 
 Gene count has 1,251,379,870 rows. Let's try with 1 million rows.
+
+1251379868 <- number of value entries
 
 ```bash
 head -n 1000000 gene_count.txt > gene_count_head.txt
