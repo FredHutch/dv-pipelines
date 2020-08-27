@@ -1,0 +1,9 @@
+{
+  "parameters": {
+    "input": {
+      "species": "human",
+      "name": "test",
+      "type": "cellranger"
+    }
+  }
+}

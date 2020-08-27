@@ -52,13 +52,5 @@ process PROCESS_PUBWEB {
     mkdir -p \$LIBRARYDIR
     aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
     python -m pip install \$LIBRARYDIR
-
-    echo "Now calling pubweb"
-    python /opt/pubweb/pubweb/invoke-pubweb.py \
-        --input 'input/outs' \
-        --output 'output' \
-        --name $dataset_name \
-        --species $species \
-        --type $dataset_type
     """
 }
