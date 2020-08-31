@@ -14,11 +14,12 @@ species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
 target_path = "$params.s3target" + '/pubweb/'
-source_path = "$params.s3source"
+source_path = "$params.s3source" + '/*.tar.gz'
 scratch_path = '/opt/work'
-s3_pubweb_source = 's3://dvc-wf-metadata/code/pubweb/'
+s3_pubweb_source = 's3://dv-code-dev/pubweb/'
 
 
+input_files = Channel.fromPath( source_path )
 
 
 process PROCESS_PUBWEB {
@@ -26,7 +27,7 @@ process PROCESS_PUBWEB {
   publishDir target_path, mode: 'copy'
 
   input:
-    path('*.tar.gz') from source_path
+    path x from input_files
     val species
     val dataset_name
     val dataset_type
@@ -39,11 +40,10 @@ process PROCESS_PUBWEB {
     """
     mkdir -p input
     mkdir -p output
-    echo "List of local files"
-    ls *
-    echo "Starting un-tar"
     INPUTAR="\$(ls | grep .tar.gz)"
     tar -xzf \$INPUTAR -C input
+    echo "List of untar'd files"
+    ls input/*
 
     # reinstall the library
     export LIBRARYDIR=/opt/pubweb
@@ -53,16 +53,11 @@ process PROCESS_PUBWEB {
     aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
     python -m pip install \$LIBRARYDIR
 
-    python /opt/pubweb/pubweb/invoke-pubweb.py \
-        --input 'input/outs' \
-        --output 'output' \
-        --name $dataset_name \
-        --species $species \
-        --type $dataset_type
-
-    echo "List of folders"
-    ls -d .
-    echo "Listing output"
-    ls output/*
+    python \$LIBRARYDIR/invoke-pubweb.py \
+      --input 'input' \
+      --output 'output' \
+      --name $dataset_name \
+      --type $dataset_type \
+      --species $species
     """
 }
