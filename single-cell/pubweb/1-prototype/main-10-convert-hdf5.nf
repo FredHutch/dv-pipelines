@@ -32,10 +32,9 @@ process CONVERT_HDF5 {
     val species
     val dataset_name
     val dataset_type
-    val s3_pubweb_source
 
   output:
-    file "*" into pub_ch
+    file "output/*.tar.gz" into hdf5_ch
 
   script:
     """
@@ -49,20 +48,21 @@ process PROCESS_PUBWEB {
   publishDir pubweb_path, mode: 'copy'
 
   input:
-    path x from input_files
+    path x from hdf5_ch
     val species
     val dataset_name
     val dataset_type
     val s3_pubweb_source
 
   output:
-    file "*" into pub_ch
+    file "output/*" into pub_ch
 
   script:
     """
     mkdir -p input
     mkdir -p output
     INPUTAR="\$(ls | grep .tar.gz)"
+    echo "Now untar'ing \$INPUTAR"
     tar -xzf \$INPUTAR -C input
     echo "List of untar'd files"
     ls input/*
@@ -74,5 +74,12 @@ process PROCESS_PUBWEB {
     mkdir -p \$LIBRARYDIR
     aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
     python -m pip install \$LIBRARYDIR
+
+    python \$LIBRARYDIR/pubweb/invoke-pubweb.py \
+      --input 'input' \
+      --output 'output' \
+      --name $dataset_name \
+      --type $dataset_type \
+      --species $species
     """
 }

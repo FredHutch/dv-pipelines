@@ -3,7 +3,7 @@
     "input": {
       "species": "human",
       "name": "test",
-      "type": "cellranger"
+      "type": "anndata"
     }
   }
 }

@@ -4,5 +4,8 @@ data
 *.code-workspace
 ./*/*/config/*_params.config
 !./*/*/config/ZhengSorted10X_params.config
-.DS_Store
+*.DS_Store
 ./**/.DS_Store
+single-cell/cellranger-tds-irc/nf-files/.DS_Store
+.DS_Store
+.DS_Store
