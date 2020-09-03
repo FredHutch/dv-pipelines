@@ -1,0 +1,26 @@
+{
+  "parameters": {
+    "input": {
+      "species": "human",
+      "name": "test",
+      "type": "anndata",
+      "anndata-spec": {
+         "var": {
+            "delimiter": ",",
+            "index_col": "gene_id"
+         },
+         "obs": {
+            "delimiter": ",",
+            "index_col": "sample"
+         },
+         "obsm": { 
+            "Tsne_main_cluster": ["Main_cluster_tsne_1", "Main_cluster_tsne_2"],
+            "Tsne_sub_cluster": ["Sub_cluster_tsne_1", "Sub_cluster_tsne_2"],
+            "Umap_main_trajectory": ["Main_trajectory_umap_1", "Main_trajectory_umap_2", "Main_trajectory_umap_3"],
+            "Umap_main_trajectory_refined": ["Main_trajectory_refined_umap_1", "Main_trajectory_refined_umap_2", "Main_trajectory_refined_umap_3"],
+            "Umap_sub_trajectory": ["Sub_trajectory_umap_1", "Sub_trajectory_umap_2"]
+         }
+      }
+    }
+  }
+}
