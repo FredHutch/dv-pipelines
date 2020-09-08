@@ -26,30 +26,34 @@ input_json_loc = Channel.fromPath ("${params.wfconfig}")
 
 process GET_DATA {
   echo true
-  publishDir hdf5_path, mode: 'copy'
+  publishDir src_path, mode: 'copy'
 
   input:
-    path x from input_files
     val species
     val dataset_name
     val dataset_type
     path input_json from input_json_loc
 
+  output:
+    path "input.tar.gz" into pub_ch
+
   script:
     """
     mkdir -p output
-    mkdir -p input
     echo "input_json is $input_json . Contents:"
-    cat $input_json
-    INPUTAR="\$(ls | grep .tar.gz)"
-    echo "Now untar'ing \$INPUTAR"
-    tar -xzf \$INPUTAR -C input
-    echo "List of untar'd files"
-    ls input/*
-
-    python /data/wf/convert-to-hdf5.py --params $input_json \
-      --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
-      --output 'output/output.hdf5'
+    cat $input_json \
+      | jq -r '.parameters.input.source | map( [.name, .file] | join(", ")) | join("\n")' > input.csv
+    # now get the data
+    while IFS="," read -r name url
+    do
+      echo "Now getting \$name from \$url"
+      curl \$url -o \$name
+    done < input.csv
+    rm input.csv
+    # tar the results
+    find . -type f -print | tar -czf output/input.tar.gz --files-from -
+    # move the tarball to the publish location
+    mv output/input.tar.gz .
     """
 }
 
