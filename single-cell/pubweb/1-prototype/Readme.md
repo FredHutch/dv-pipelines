@@ -1,5 +1,4 @@
-# Pubweb + NF
-
+# Pubweb + NF - Convert to Pubweb
 
 Copy the code up to S3 in development, to the ```dv-code-dev``` bucket:
 
@@ -19,6 +18,11 @@ Start up a VM. I've been using Ubuntu 18.04 as the OS since it's stable. Any mac
 ```bash
 
 ssh -i "dnambi-vm-key-sttr.pem" ubuntu@ec2-44-233-150-38.us-west-2.compute.amazonaws.com
+
+ssh -i "dnambi-vm-key-sttr.pem" ubuntu@ec2-44-234-48-16.us-west-2.compute.amazonaws.com
+
+
+
 
 ```
 
@@ -56,43 +60,69 @@ docker run hdf5
 screen -a+D
 
 docker exec -ti  0fbcd69b9b1b /bin/bash
+docker exec -ti e4488894b161 /bin/bash
+
 ```
 
-Create the source data
+Make the necessary folders
 
 ```bash
-cd $HOME
-mkdir -p source
-cd source
+mkdir -p /data/input
+mkdir -p /data/output
+mkdir -p /data/scratch
+mkdir -p /data/work
+mkdir -p /data/wf
+
+```
 
 
-echo '1' > 1.txt
-echo '2' > 2.txt
-echo 'foo' > foo.bar
-
-cd $HOME
-cd source
-tar -czvf ../input.tar.gz .
-
-# test the decompress
-cd $HOME
-tar -xzf input.tar.gz -C source2
 
 
-# copy the results
-aws s3 cp input.tar.gz s3://test-nextflow-data/e202b949-283e-435e-a14c-35293517760b/20200827/input/  --dryrun
+Copy down the source data for the PUBWEB NF step:
+
+
+```bash
+cd /data/input
+
+
+aws s3 cp s3://test-nextflow-data/e7f584cc-8105-43eb-a22e-836aa026e505/20200820/output.hdf5 . 
+
+tar -czvf input.tar.gz output.hdf5
+
+rm output.hdf5
+
 ```
 
 Copy in the nextflow script
 
 ```bash
-cd $HOME
-mkdir -p wf
-cd wf
+mkdir -p /data/wf
+cd /data/wf
 nano #main.nf
 nano #pubwebconf.json
 
 ```
+
+Save this as ```/data/wf/rerun.sh```
+
+```bash
+
+TARGET_DIR=/data/output
+SOURCE_DIR=/data/input
+NEXTFLOW_PARAMS="--s3target $TARGET_DIR --s3source $SOURCE_DIR"
+echo "Nextflow params are $NEXTFLOW_PARAMS"
+
+nextflow run main.nf $NEXTFLOW_PARAMS --wfconfig pubwebfiles.json --C local.config
+
+```
+
+
+
+### Run it on AWS Batch
+
+
+
+
 
 Save this as ```cd $HOME/wf/rerun.sh```
 

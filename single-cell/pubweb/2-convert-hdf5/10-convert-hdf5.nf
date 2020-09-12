@@ -35,6 +35,9 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
     val dataset_type
     path input_json from input_json_loc
 
+  output:
+    file "output/*" into pub_ch
+
   script:
     """
     mkdir -p output
@@ -47,7 +50,15 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
     echo "List of untar'd files"
     ls input/*
 
-    python /data/wf/convert-to-hdf5.py --params $input_json \
+    # reinstall the library
+    export LIBRARYDIR=/opt/pubweb
+    OLDDIR=\$PWD
+    rm -rf \$LIBRARYDIR
+    mkdir -p \$LIBRARYDIR
+    aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
+    python -m pip install \$LIBRARYDIR
+
+    python \$LIBRARYDIR/pubweb/convert-to-hdf5.py --params $input_json \
       --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
       --output 'output/output.hdf5'
 

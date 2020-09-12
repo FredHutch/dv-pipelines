@@ -35,7 +35,7 @@ process GET_DATA {
     path input_json from input_json_loc
 
   output:
-    path "input.tar.gz" into pub_ch
+    path "input.tar.gz" into raw_ch
 
   script:
     """
@@ -57,6 +57,51 @@ process GET_DATA {
     find . -type f -print | tar -czf output/input.tar.gz --files-from -
     # move the tarball to the publish location
     mv output/input.tar.gz .
+    """
+}
+
+
+
+process CONVERT_MATRIXMARKET_TO_HDF5 {
+  echo true
+  publishDir hdf5_path, mode: 'copy'
+
+  input:
+    path x from raw_ch
+    val species
+    val dataset_name
+    val dataset_type
+    path input_json from input_json_loc
+
+  output:
+    file "output/*" into pub_ch
+
+  script:
+    """
+    mkdir -p output
+    mkdir -p input
+    echo "input_json is $input_json . Contents:"
+    cat $input_json
+    INPUTAR="\$(ls | grep .tar.gz)"
+    echo "Now untar'ing \$INPUTAR"
+    tar -xzf \$INPUTAR -C input
+    echo "List of untar'd files"
+    ls input/*
+
+    # reinstall the library
+    export LIBRARYDIR=/opt/pubweb
+    OLDDIR=\$PWD
+    rm -rf \$LIBRARYDIR
+    mkdir -p \$LIBRARYDIR
+    aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
+    python -m pip install \$LIBRARYDIR
+
+    python \$LIBRARYDIR/pubweb/convert-to-hdf5.py --params $input_json \
+      --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
+      --output 'output/output.hdf5'
+
+    echo "List of output files"
+    ls output/*
     """
 }
 

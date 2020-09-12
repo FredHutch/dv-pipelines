@@ -4,9 +4,9 @@
       "species": "human",
       "name": "test",
       "type": "anndata",
-      "source": [{"name": "gene_count.txt", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/gene_count.txt"},
-                 {"name": "cell_annotate.csv", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/cell_annotate_20200119.csv"},
-                 {"name": "gene_annotate.csv", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/gene_annotate.csv"}],
+      "source": [{"name": "matrix", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/gene_count.txt"},
+                 {"name": "obs", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/cell_annotate_20200119.csv"},
+                 {"name": "var", "file": "https://shendure-web.gs.washington.edu/content/members/cao1025/public/mouse_embryo_atlas/gene_annotate.csv"}],
       "anndata-spec": {
          "var": {
             "delimiter": ",",

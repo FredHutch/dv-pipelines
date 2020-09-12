@@ -10,7 +10,11 @@ def wfi = jsonSlurper.parseText(configJSON)
 species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
-target_path = "$params.s3target" + '/pubweb/'
+target_path = "$params.s3target"
+pubweb_path = target_path + '/pubweb/'
+hdf5_path = target_path + '/hdf5/'
+src_path = target_path + '/src/'
+
 source_path = "$params.s3source" + '/*.tar.gz'
 scratch_path = '/opt/work'
 s3_pubweb_source = 's3://dv-code-dev/pubweb/'
