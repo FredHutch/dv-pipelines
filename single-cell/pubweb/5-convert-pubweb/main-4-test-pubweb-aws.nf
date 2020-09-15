@@ -7,44 +7,37 @@ def wfi = jsonSlurper.parseText(configJSON)
 
 //Input parameters
 /// Reference data
-
 species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
 target_path = "$params.s3target"
-pubweb_path = target_path + '/pubweb/'
-hdf5_path = target_path + '/hdf5/'
-src_path = target_path + '/src/*.tar.gz'
-
+source_path = "$params.s3source" + '/*.tar.gz'
 scratch_path = '/opt/work'
 s3_pubweb_source = 's3://dv-code-dev/pubweb/'
 
 
-input_files = Channel.fromPath( src_path )
-input_json_loc = Channel.fromPath ("${params.wfconfig}")
+input_files = Channel.fromPath( source_path )
 
-process CONVERT_MATRIXMARKET_TO_HDF5 {
+
+process PROCESS_PUBWEB {
   echo true
-  publishDir hdf5_path, mode: 'copy'
+  publishDir target_path, mode: 'copy'
 
   input:
     path x from input_files
     val species
     val dataset_name
     val dataset_type
-    path input_json from input_json_loc
+    val s3_pubweb_source
 
   output:
-    file "output/*" into pub_ch
+    path "pubweb/*" into pub_ch
 
   script:
     """
-    mkdir -p output
     mkdir -p input
-    echo "input_json is $input_json"
+    mkdir -p pubweb
     INPUTAR="\$(ls | grep .tar.gz)"
-    echo "Local files are:"
-    ls *
     echo "Now untar'ing \$INPUTAR"
     tar -xzf \$INPUTAR -C input
     echo "List of untar'd files"
@@ -58,12 +51,11 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
     aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
     python -m pip install \$LIBRARYDIR
 
-    python \$LIBRARYDIR/pubweb/convert-to-hdf5.py --params $input_json \
-      --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
-      --output 'output/output.hdf5'
-
-    echo "List of output files"
-    ls output/*
+    python \$LIBRARYDIR/pubweb/invoke-pubweb.py \
+      --input 'input' \
+      --output 'pubweb' \
+      --name $dataset_name \
+      --type $dataset_type \
+      --species $species
     """
 }
-
