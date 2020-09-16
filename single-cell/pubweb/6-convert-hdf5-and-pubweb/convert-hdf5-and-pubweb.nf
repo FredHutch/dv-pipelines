@@ -12,7 +12,7 @@ species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
 target_path = "$params.s3target"
-pubweb_path = target_path + '/pubweb/'
+pubweb_path = target_path
 hdf5_path = target_path
 src_path = target_path + '/src/*.tar.gz'
 
@@ -67,3 +67,40 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
     """
 }
 
+
+process PROCESS_PUBWEB {
+  echo true
+  publishDir pubweb_path, mode: 'copy'
+
+  input:
+    path x from pub_ch
+    val species
+    val dataset_name
+    val dataset_type
+    val s3_pubweb_source
+
+  output:
+    path "pubweb/*" into hdf5_ch
+
+  script:
+    """
+    echo "List of input files"
+    ls *
+    mkdir -p pubweb
+
+    # reinstall the library
+    export LIBRARYDIR=/opt/pubweb
+    OLDDIR=\$PWD
+    rm -rf \$LIBRARYDIR
+    mkdir -p \$LIBRARYDIR
+    aws s3 cp $s3_pubweb_source \$LIBRARYDIR --recursive
+    python -m pip install \$LIBRARYDIR
+
+    python \$LIBRARYDIR/pubweb/invoke-pubweb.py \
+      --input '$x' \
+      --output 'pubweb' \
+      --name $dataset_name \
+      --type $dataset_type \
+      --species $species
+    """
+}

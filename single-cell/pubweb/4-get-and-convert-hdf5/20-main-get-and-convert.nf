@@ -13,15 +13,13 @@ dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
 target_path = "$params.s3target"
 pubweb_path = target_path + '/pubweb/'
-hdf5_path = target_path + '/hdf5/'
+hdf5_path = target_path
 src_path = target_path + '/src/'
 
-source_path = "$params.s3source" + '/*.tar.gz'
-scratch_path = '/opt/work'
+//scratch_path = '/opt/work'
 s3_pubweb_source = 's3://dv-code-dev/pubweb/'
 
 
-input_files = Channel.fromPath( source_path )
 input_json_loc = Channel.fromPath ("${params.wfconfig}")
 
 process GET_DATA {
@@ -35,7 +33,7 @@ process GET_DATA {
     path input_json from input_json_loc
 
   output:
-    path "input.tar.gz" into raw_ch
+    path "input.tar.gz" into pub_ch
 
   script:
     """
@@ -61,28 +59,29 @@ process GET_DATA {
 }
 
 
-
 process CONVERT_MATRIXMARKET_TO_HDF5 {
   echo true
   publishDir hdf5_path, mode: 'copy'
 
   input:
-    path x from raw_ch
+    path x from pub_ch
     val species
     val dataset_name
     val dataset_type
+    val s3_pubweb_source
     path input_json from input_json_loc
 
   output:
-    file "output/*" into pub_ch
+    file "hdf5/*" into pub_ch
 
   script:
     """
-    mkdir -p output
+    mkdir -p hdf5
     mkdir -p input
-    echo "input_json is $input_json . Contents:"
-    cat $input_json
+    echo "input_json is $input_json"
     INPUTAR="\$(ls | grep .tar.gz)"
+    echo "Local files are:"
+    ls *
     echo "Now untar'ing \$INPUTAR"
     tar -xzf \$INPUTAR -C input
     echo "List of untar'd files"
@@ -98,10 +97,10 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
 
     python \$LIBRARYDIR/pubweb/convert-to-hdf5.py --params $input_json \
       --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
-      --output 'output/output.hdf5'
+      --output 'hdf5/output.hdf5'
 
     echo "List of output files"
-    ls output/*
+    ls hdf5/*
     """
 }
 
