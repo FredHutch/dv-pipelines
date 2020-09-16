@@ -13,7 +13,7 @@ dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
 target_path = "$params.s3target"
 pubweb_path = target_path + '/pubweb/'
-hdf5_path = target_path + '/hdf5/'
+hdf5_path = target_path
 src_path = target_path + '/src/*.tar.gz'
 
 scratch_path = '/opt/work'
@@ -35,11 +35,11 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
     path input_json from input_json_loc
 
   output:
-    file "output/*" into pub_ch
+    file "hdf5/*" into pub_ch
 
   script:
     """
-    mkdir -p output
+    mkdir -p hdf5
     mkdir -p input
     echo "input_json is $input_json"
     INPUTAR="\$(ls | grep .tar.gz)"
@@ -60,10 +60,10 @@ process CONVERT_MATRIXMARKET_TO_HDF5 {
 
     python \$LIBRARYDIR/pubweb/convert-to-hdf5.py --params $input_json \
       --matrix 'input/matrix' --var 'input/var' --obs 'input/obs' \
-      --output 'output/output.hdf5'
+      --output 'hdf5/output.hdf5'
 
     echo "List of output files"
-    ls output/*
+    ls hdf5/*
     """
 }
 
