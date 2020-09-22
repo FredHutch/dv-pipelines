@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Simple validation workflow. Downloads data from the source location, lists the files, and saves the list to the target",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "11111111-1111-1111-1111-111111111111",
+  "info": {
+
+  },
+  "name": "File List placeholder workflow",
+  "runtime": "NEXTFLOW",
+  "schema": {
+
+  },
+  "workflow": {
+    "config-bucket": "workflow-metadata-dev",
+    "config-key": "workflows/file-list/default-parameters.json",
+    "executable": "s3://workflow-metadata-dev/workflows/file-list",
+    "type": "s3"
+  }
+}

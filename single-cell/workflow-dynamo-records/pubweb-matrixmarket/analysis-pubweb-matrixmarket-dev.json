@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Downloads a specified list of files via curl, converts them to h5ad format using metadata, then runs the AnnDataSparse() pubweb conversion pipeline.",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "11111111-4444-1111-1111-111111111111",
+  "info": {
+
+  },
+  "name": "Downloads data in matrix market format, converts to h5ad, then runs pubweb conversion",
+  "runtime": "NEXTFLOW",
+  "schema": {
+
+  },
+  "workflow": {
+    "config-bucket": "workflow-metadata-dev",
+    "config-key": "workflows/matrixmarket-pubweb/default-parameters.json",
+    "executable": "s3://workflow-metadata-dev/workflows/matrixmarket-pubweb",
+    "type": "s3"
+  }
+}

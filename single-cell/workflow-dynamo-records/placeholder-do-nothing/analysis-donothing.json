@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "This analysis record is a placeholder, it does nothing",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "00000000-0000-0000-0000-000000000000",
+  "info": {
+
+  },
+  "name": "Placeholder, does nothing",
+  "runtime": "NEXTFLOW",
+  "schema": {
+    "empty":""
+  },
+  "workflow": {
+    "config-bucket": "",
+    "config-key": "",
+    "executable": "",
+    "type": "s3"
+  }
+}

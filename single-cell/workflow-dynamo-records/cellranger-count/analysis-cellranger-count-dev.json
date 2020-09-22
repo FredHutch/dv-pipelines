@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Runs cellranger count on input fastq files. A reference genome must be supplied",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "11111111-2222-1111-1111-111111111111",
+  "info": {
+
+  },
+  "name": "Runs cellranger count",
+  "runtime": "NEXTFLOW",
+  "schema": {
+
+  },
+  "workflow": {
+    "config-bucket": "workflow-metadata-dev",
+    "config-key": "workflows/cellranger-count/default-parameters.json",
+    "executable": "s3://workflow-metadata-dev/workflows/cellranger-count",
+    "type": "s3"
+  }
+}

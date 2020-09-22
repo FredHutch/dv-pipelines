@@ -1,0 +1,32 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Runs the nf-core/scrnaseq workflow",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "11111111-3333-1111-1111-111111111111",
+  "info": {
+
+  },
+  "name": "Runs the nf-core/scrnaseq workflow",
+  "runtime": "NEXTFLOW",
+  "schema": {
+  },
+  "workflow": {
+    "type": "nf-core",
+    "executable": "nf-core/scrnaseq",
+    "config-bucket": "workflow-metadata-dev",
+    "config-key": "workflows/nf-core-scrnaseq/default-parameters.json"
+  }
+}
