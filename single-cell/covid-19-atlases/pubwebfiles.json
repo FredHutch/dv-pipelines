@@ -1,0 +1,10 @@
+{
+  "parameters": {
+    "input": {
+      "species": "human",
+      "name": "lung-and-upper-airway-parenchyma",
+      "type": "anndata",
+      "url": "https://covid19.cog.sanger.ac.uk/vieira19_Alveoli_and_parenchyma_anonymised.processed.h5ad"
+    }
+  }
+}

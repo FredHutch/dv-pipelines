@@ -1,0 +1,33 @@
+FROM ubuntu:18.04
+
+RUN apt update
+RUN apt install -y bzip2 wget openjdk-8-jdk nano less jq curl
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
+WORKDIR /opt/inst
+RUN wget -qO- https://get.nextflow.io | bash
+RUN mv nextflow /usr/local/bin
+
+RUN cd /root
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b -f -p /root/miniconda
+RUN rm Miniconda3-latest-Linux-x86_64.sh
+RUN /root/miniconda/bin/conda install -c conda-forge -y awscli
+RUN /root/miniconda/bin/conda install -c bioconda star
+ENV PATH="/root/miniconda/bin:${PATH}"
+
+RUN python -m pip install pandas numpy scanpy matplotlib pillow colorama
+
+RUN python -m pip install boto3 scanpy pandas tables h5py mygene shapely monet
+
+RUN mkdir -p /opt/pubweb
+WORKDIR /opt/pubweb
+RUN aws s3 cp s3://dvc-wf-metadata/code/pubweb/ . --recursive
+RUN python -m pip install .
+
+COPY startwhile.sh /opt/bin/startwhile.sh
+RUN chmod +x /opt/bin/startwhile.sh
+
+WORKDIR /opt/pubweb
+ENTRYPOINT ["/opt/bin/startwhile.sh"]
