@@ -29,7 +29,7 @@ process GET_DATA_AND_PUBWEB {
     val source_url
 
   output:
-    path "pubweb/*" into pub_ch
+    path "*" into pub_ch
 
   script:
     """
@@ -63,6 +63,10 @@ process GET_DATA_AND_PUBWEB {
       --name $dataset_name \
       --type $dataset_type \
       --species $species
+
+    rm input.h5ad convert.hdf5
+    mv pubweb/* .
+    rm -rf pubweb/*
     """
 }
 

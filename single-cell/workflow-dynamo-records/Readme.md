@@ -32,4 +32,5 @@ This is a list of uuids manually created
 
 ```
 11111111-4444-1111-1111-111111111111 - matrix market to pubweb
+11111111-4444-2222-1111-111111111111 - covid-19 atlases to pubweb
 ```

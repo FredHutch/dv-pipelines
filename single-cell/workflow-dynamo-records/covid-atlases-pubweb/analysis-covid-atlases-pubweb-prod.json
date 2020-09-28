@@ -1,0 +1,33 @@
+{
+  "__typename": "Analysis",
+  "createdAt": "2020-09-24T00:00:00.000Z",
+  "updatedAt": "2020-09-24T00:00:00.000Z",
+  "analysis": [
+
+  ],
+  "desc": "Gets a covid atlases h5ad file and converts to pubweb",
+  "files": [
+
+  ],
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "11111111-4444-2222-1111-111111111111",
+  "info": {
+
+  },
+  "name": "Gets a covid atlases h5ad file and converts to pubweb",
+  "runtime": "NEXTFLOW",
+  "schema": {
+
+  },
+  "workflow": {
+    "config-bucket": "dvc-wf-metadata",
+    "config-key": "workflows/covid-atlases/default-parameters.json",
+    "executable": "s3://dvc-wf-metadata/workflows/covid-atlases",
+    "type": "s3"
+  }
+}
