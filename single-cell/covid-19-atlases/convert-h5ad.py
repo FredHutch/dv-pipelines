@@ -23,3 +23,6 @@ with h5py.File(args.output, "r+") as data:
     if 'index' in data['obs'].keys():
         print('Moving /obs/index group')
         data.move('obs/index', 'obs/_index')
+    if 'shape' not in data['X'].attrs.keys():
+        print("Adding shape to data['X'] b/c it's missing")
+        data['X'].attrs['shape'] = [data['X'].shape[0], data['X'].shape[1]]
