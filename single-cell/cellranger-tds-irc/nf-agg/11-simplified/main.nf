@@ -57,6 +57,7 @@ sample_list
 process CELLRANGER_COUNT {
   echo true
   publishDir target_path_count, mode: 'copy'
+  errorStrategy 'finish'
 
   input: 
     tuple val(x), file('sample/*') from read_folder_ch
@@ -65,6 +66,7 @@ process CELLRANGER_COUNT {
 
   output:
     path("*.tar.gz") into count_ch
+    path("${x}/*") into debugging_ch
 
   // 'sample' has the input fastq files
   // $x (a.k.a $ID) is where the outputs go
@@ -80,12 +82,11 @@ process CELLRANGER_COUNT {
     COMMAND="\$COMMAND --fastqs=sample"
 
     echo "Command: \$COMMAND"
-    eval \$COMMAND
+    eval \$COMMAND || true
 
     tar -czf "\$ID.tar.gz" \$ID/*
     """
 }
-
 
 
 
@@ -175,7 +176,7 @@ process CELLRANGER_HDF5 {
     OLDDIR=\$PWD
     rm -rf /opt/pubweb
     mkdir -p \$LIBRARYDIR
-    aws s3 cp s3://dv-code-dev/pubweb/ \$LIBRARYDIR --recursive
+    aws s3 cp s3://dvc-wf-metadata/code/pubweb/ \$LIBRARYDIR --recursive
     python -m pip install /opt/pubweb
     
     python /opt/pubweb/pubweb/invoke-cellranger.py \

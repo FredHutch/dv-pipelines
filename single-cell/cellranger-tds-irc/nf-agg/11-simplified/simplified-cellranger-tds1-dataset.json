@@ -1,0 +1,22 @@
+{
+  "configuration": "8be287a8-cf13-4318-a660-562ed9ec75d8",
+  "datasets": [
+    "856cb7f8-1278-438a-9abe-345954aca7ce"
+  ],
+  "date": "2020-07-26T20:00:00.000Z",
+  "desc": "Simplified dataset for TDS IRC #1",
+  "execution": {},
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "3bbbe5db-4ced-4b5a-b3de-8f619496cb4d",
+  "info": {
+
+  },
+  "name": "Simplified dataset for TDS IRC #1",
+  "s3path": "s3://test-nextflow-data/3bbbe5db-4ced-4b5a-b3de-8f619496cb4d",
+  "status": "uploaded"
+}

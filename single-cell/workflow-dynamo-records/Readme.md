@@ -20,6 +20,7 @@ This is a list of uuids manually created
 11111111-2222-1111-1111-111111111111 - Cellranger count
 11111111-2222-2222-1111-111111111111 - Cellranger count pubweb
 11111111-2222-3333-1111-111111111111 - Cellranger agg pubweb
+11111111-2222-3333-1112-111111111111 - Cellranger agg pubweb v2
 ```
 
 **nf-core workflows**

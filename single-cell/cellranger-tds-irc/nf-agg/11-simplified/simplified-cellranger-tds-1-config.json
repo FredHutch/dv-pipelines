@@ -1,0 +1,25 @@
+{
+  "analysis": "edb555bc-a602-426b-a016-38ba72060625",
+  "desc": "Simplified config for TDS IRC #1",
+  "groupsEdit": [
+    "Admin"
+  ],
+  "groupsView": [
+    "Admin"
+  ],
+  "id": "8be287a8-cf13-4318-a660-562ed9ec75d8",
+  "info": {
+    "date": 20200305,
+    "source": "atlas.fredhutch.org/fake/tds1"
+  },
+  "name": "Simplified config for TDS IRC #1 v5",
+  "parameters": {
+    "input": {
+      "cpu": 8,
+      "mem": 64,
+      "genome_path": "s3://test-nextflow-data/3a27dce3-08b5-4957-a9ef-4b273a43dc2f/genome/hg38_merkerCellPolyomavirus_CellRanger_v2",
+      "name": "tds-1"
+    }
+  },
+  "type": "one-time"
+}
