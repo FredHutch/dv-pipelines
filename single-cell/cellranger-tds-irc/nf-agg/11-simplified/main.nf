@@ -94,7 +94,7 @@ process CELLRANGER_COUNT {
 sample_list_2
   .flatMap()
   .map {
-  "${it.text},PLACEHOLDERDIR/$it/outs/molecule_info.h5"
+  "${it.text},PLACEHOLDERDIR/${it.text}/outs/molecule_info.h5"
 }.collectFile(
     name: 'molecule_info.csv',
     newLine: true,

@@ -2,6 +2,6 @@
   "input": {
       "species": "human",
       "cpu": 8,
-      "mem": 64
+      "mem": 63
     }
 }
