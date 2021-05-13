@@ -57,7 +57,7 @@ sample_list
 process CELLRANGER_COUNT {
   echo true
   publishDir target_path_count, mode: 'copy'
-  errorStrategy 'finish'
+  //errorStrategy 'finish'
 
   input: 
     tuple val(x), file('sample/*') from read_folder_ch
@@ -66,7 +66,7 @@ process CELLRANGER_COUNT {
 
   output:
     path("*.tar.gz") into count_ch
-    path("${x}/*") into debugging_ch
+    //path("${x}/*") into debugging_ch
 
   // 'sample' has the input fastq files
   // $x (a.k.a $ID) is where the outputs go
@@ -182,7 +182,7 @@ process CELLRANGER_HDF5 {
     python /opt/pubweb/pubweb/invoke-cellranger.py \
       --input 'input/outs' \
       --output 'output' \
-      --name $dataset_name \
+      --name '$dataset_name' \
       --species $species
 
     echo "List of folders"

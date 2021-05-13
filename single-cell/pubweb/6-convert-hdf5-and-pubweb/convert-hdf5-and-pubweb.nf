@@ -3,7 +3,7 @@ import groovy.json.JsonSlurper
 def jsonSlurper = new JsonSlurper()
 
 String configJSON = new File("${params.wfconfig}").text
-def wfi = jsonSlurper.parseText(configJSON)
+def wf = jsonSlurper.parseText(configJSON)
 
 //Input parameters
 /// Reference data
@@ -11,6 +11,7 @@ def wfi = jsonSlurper.parseText(configJSON)
 species = wfi.parameters.input.species
 dataset_name = wfi.parameters.input.name
 dataset_type = wfi.parameters.input.type //new
+
 target_path = "$params.s3target"
 pubweb_path = target_path
 hdf5_path = target_path
